@@ -18,7 +18,7 @@
       perSystem = {pkgs, ...}: let
         bazel = pkgs.bazel_8.overrideAttrs (
           oldAttrs: let
-            inherit (builtins) filter listToAttrs replaceStrings;
+            inherit (builtins) filter listToAttrs replaceStrings throw;
             inherit (pkgs) replaceVars;
             inherit (pkgs.lib) getExe getExe' hasInfix;
 
@@ -61,7 +61,10 @@
             }
             // (listToAttrs (map (name: {
                 inherit name;
-                value = replaceStrings [prev] [version] oldAttrs.${name};
+                value =
+                  if hasInfix prev oldAttrs.${name}
+                  then replaceStrings [prev] [version] oldAttrs.${name}
+                  else throw "bazel override: ${name} no longer contains ${prev}; drop manual version rewrite";
               }) [
                 "buildPhase"
                 "installPhase"
