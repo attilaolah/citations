@@ -23,6 +23,9 @@
             hash = "sha256-tdrSgtIXi8Xd03BgxLRWhw1bB1Zhuo0E2pWMCskBDG8=";
             stripRoot = false;
           };
+          buildPhase = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.buildPhase;
+          installPhase = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.installPhase;
+          postFixup = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.postFixup;
           patches =
             builtins.filter (
               p: let
