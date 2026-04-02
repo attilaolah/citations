@@ -60,16 +60,12 @@
                 ];
             }
             // (listToAttrs (map (name: {
-                inherit name;
-                value =
-                  if hasInfix prev oldAttrs.${name}
-                  then replaceStrings [prev] [version] oldAttrs.${name}
-                  else throw "bazel override: ${name} no longer contains ${prev}; drop manual version rewrite";
-              }) [
-                "buildPhase"
-                "installPhase"
-                "postFixup"
-              ]))
+              inherit name;
+              value =
+                if hasInfix prev oldAttrs.${name}
+                then replaceStrings [prev] [version] oldAttrs.${name}
+                else throw "bazel override: ${name} no longer contains ${prev}; drop manual version rewrite";
+            }) ["buildPhase" "installPhase" "postFixup"]))
         );
       in {
         formatter = pkgs.alejandra;
