@@ -16,46 +16,58 @@
       systems = import systems;
 
       perSystem = {pkgs, ...}: let
-        bazel = pkgs.bazel_8.overrideAttrs (oldAttrs: {
-          version = "9.0.1";
-          src = pkgs.fetchzip {
-            url = "https://github.com/bazelbuild/bazel/releases/download/9.0.1/bazel-9.0.1-dist.zip";
+        bazel = pkgs.bazel_8.overrideAttrs (
+          oldAttrs: let
+            inherit (builtins) filter listToAttrs replaceStrings;
+            inherit (pkgs) replaceVars;
+            inherit (pkgs.lib) getExe getExe' hasInfix;
+
+            version = "9.0.1";
             hash = "sha256-tdrSgtIXi8Xd03BgxLRWhw1bB1Zhuo0E2pWMCskBDG8=";
-            stripRoot = false;
-          };
-          buildPhase = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.buildPhase;
-          installPhase = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.installPhase;
-          postFixup = builtins.replaceStrings ["8.6.0"] ["9.0.1"] oldAttrs.postFixup;
-          patches =
-            builtins.filter (
-              p: let
-                s = toString p;
-              in
-                !(
-                  pkgs.lib.hasInfix "deps_patches.patch" s
-                  || pkgs.lib.hasInfix "add_file.patch" s
-                  || pkgs.lib.hasInfix "env_bash.patch" s
-                  || pkgs.lib.hasInfix "gen_completion.patch" s
-                  || pkgs.lib.hasInfix "md5sum.patch" s
+            prev = "8.6.0";
+          in
+            {
+              inherit version;
+              src = pkgs.fetchzip {
+                inherit hash;
+                url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
+                stripRoot = false;
+              };
+              patches =
+                filter (
+                  p: let
+                    s = toString p;
+                  in
+                    !(
+                      hasInfix "deps_patches.patch" s
+                      || hasInfix "add_file.patch" s
+                      || hasInfix "env_bash.patch" s
+                      || hasInfix "gen_completion.patch" s
+                      || hasInfix "md5sum.patch" s
+                    )
                 )
-            )
-            oldAttrs.patches
-            ++ [
-              (pkgs.replaceVars ./patches/rules_python.add_file.patch {
-                usrBinEnv = "${pkgs.coreutils}/bin/env";
-              })
-              (pkgs.replaceVars ./patches/rules_java.add_file.patch {
-                defaultBash = "${pkgs.bash}/bin/bash";
-              })
-              (pkgs.replaceVars ./patches/jvm_module_options_bash.patch {
-                defaultBash = "${pkgs.bash}/bin/bash";
-              })
-              (pkgs.replaceVars ./patches/md5_shebang.patch {
-                usrBinEnv = "${pkgs.coreutils}/bin/env";
-              })
-              ./patches/bazel-9-deps_patches.patch
-            ];
-        });
+                oldAttrs.patches
+                ++ map (p: replaceVars p {env = getExe' pkgs.coreutils "env";}) [
+                  ./patches/rules_python.add_file.patch
+                  ./patches/md5_shebang.patch
+                ]
+                ++ map (p: replaceVars p {bash = getExe pkgs.bash;}) [
+                  ./patches/rules_java.add_file.patch
+                  ./patches/jvm_module_options_bash.patch
+                ]
+                ++ [
+                  ./patches/bazel-9-deps_patches.patch
+                ];
+            }
+            // (listToAttrs (map (name: {
+                inherit name;
+                value = replaceStrings [prev] [version] oldAttrs.${name};
+              }) [
+                "buildPhase"
+                "installPhase"
+                "postFixup"
+              ]))
+        );
       in {
         formatter = pkgs.alejandra;
 

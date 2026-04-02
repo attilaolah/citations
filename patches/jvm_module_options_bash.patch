@@ -3,7 +3,7 @@ diff --git a/src/main/cpp/generate_jvm_module_options.sh b/src/main/cpp/generate
 +++ b/src/main/cpp/generate_jvm_module_options.sh
 @@ -1,4 +1,4 @@
 -#!/bin/bash
-+#!@defaultBash@
++#!@bash@
  #
  # Copyright 2025 The Bazel Authors. All rights reserved.
  #

@@ -3,7 +3,7 @@ diff --git a/src/md5_default.sh b/src/md5_default.sh
 +++ b/src/md5_default.sh
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env bash
-+#!@usrBinEnv@ bash
++#!@env@ bash
  #
  # Copyright 2022 The Bazel Authors. All rights reserved.
  #
@@ -12,7 +12,7 @@ diff --git a/src/md5_darwin_freebsd.sh b/src/md5_darwin_freebsd.sh
 +++ b/src/md5_darwin_freebsd.sh
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env bash
-+#!@usrBinEnv@ bash
++#!@env@ bash
  #
  # Copyright 2022 The Bazel Authors. All rights reserved.
  #
@@ -21,7 +21,7 @@ diff --git a/src/md5_openbsd.sh b/src/md5_openbsd.sh
 +++ b/src/md5_openbsd.sh
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env bash
-+#!@usrBinEnv@ bash
++#!@env@ bash
  #
  # Copyright 2022 The Bazel Authors. All rights reserved.
  #

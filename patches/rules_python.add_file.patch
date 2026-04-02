@@ -10,7 +10,7 @@
 +         interpreter = "//python/private:runtime_env_toolchain_interpreter.sh",
 +         python_version = "PY3",
 +-        stub_shebang = "#!/usr/bin/env python3",
-++        stub_shebang = "#!@usrBinEnv@ python3",
+++        stub_shebang = "#!@env@ python3",
 +         visibility = ["//visibility:private"],
 +         tags = ["manual"],
 +         supports_build_time_venv = supports_build_time_venv,
