@@ -18,7 +18,7 @@
       perSystem = {pkgs, ...}: let
         bazel = pkgs.bazel_8.overrideAttrs (
           oldAttrs: let
-            inherit (builtins) filter listToAttrs replaceStrings throw;
+            inherit (builtins) any filter listToAttrs replaceStrings throw;
             inherit (pkgs) replaceVars;
             inherit (pkgs.lib) getExe getExe' hasInfix;
 
@@ -34,18 +34,14 @@
                 stripRoot = false;
               };
               patches =
-                filter (
-                  p: let
-                    s = toString p;
-                  in
-                    !(
-                      hasInfix "deps_patches.patch" s
-                      || hasInfix "add_file.patch" s
-                      || hasInfix "env_bash.patch" s
-                      || hasInfix "gen_completion.patch" s
-                      || hasInfix "md5sum.patch" s
-                    )
-                )
+                filter (p:
+                  !(any (needle: hasInfix needle (toString p)) (map (n: "${n}.patch") [
+                    "add_file"
+                    "deps_patches"
+                    "env_bash"
+                    "gen_completion"
+                    "md5sum"
+                  ])))
                 oldAttrs.patches
                 ++ map (p: replaceVars p {env = getExe' pkgs.coreutils "env";}) [
                   ./patches/rules_python.add_file.patch
