@@ -1,0 +1,18 @@
+--- /dev/null
++++ b/third_party/rules_python.patch
+@@ -0,0 +1,15 @@
++diff --git python/private/runtime_env_toolchain.bzl python/private/runtime_env_toolchain.bzl
++--- python/private/runtime_env_toolchain.bzl
+++++ python/private/runtime_env_toolchain.bzl
++@@ -47,7 +47,7 @@ def _define_runtime_env_toolchain(name):
++     py_runtime(
++         name = "_runtime_env_py3_runtime",
++         interpreter = "//python/private:runtime_env_toolchain_interpreter.sh",
++         python_version = "PY3",
++-        stub_shebang = "#!/usr/bin/env python3",
+++        stub_shebang = "#!@usrBinEnv@ python3",
++         visibility = ["//visibility:private"],
++         tags = ["manual"],
++         supports_build_time_venv = supports_build_time_venv,
++     )
++
