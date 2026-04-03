@@ -19,7 +19,7 @@ in {
           };
         });
 
-        "docling-parse" = pyPrev."docling-parse".overridePythonAttrs (old: let
+        docling-parse = pyPrev.docling-parse.overridePythonAttrs (old: let
           version = "5.7.0";
           hash = "sha256-x3IJwuCTyl+CZpUr0TuVrvCd+jjmmV7PhVlxgZeGyT0=";
         in {
