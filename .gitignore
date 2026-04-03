@@ -1,3 +1,4 @@
-/.aider.*
-/.claude
-/.codex
+/result
+.aider.*
+.claude
+.codex
