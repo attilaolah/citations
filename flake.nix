@@ -24,9 +24,13 @@
         };
       in {
         formatter = pkgs.alejandra;
+        packages = {
+          inherit (pkgs.python314Packages) docling docling-parse;
+          bazel = pkgs.bazel_9;
+        };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            bazel
+            bazel_9
             (python314.withPackages (ps:
               with ps; [
                 docling

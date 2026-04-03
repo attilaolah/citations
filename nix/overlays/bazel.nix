@@ -1,5 +1,5 @@
 final: prev: {
-  bazel = prev.bazel_8.overrideAttrs (
+  bazel_9 = prev.bazel_8.overrideAttrs (
     old: let
       inherit (builtins) any filter listToAttrs replaceStrings throw;
       inherit (prev) replaceVars;
