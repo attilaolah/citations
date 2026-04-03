@@ -73,6 +73,7 @@
             alejandra
             bazel
             buildifier
+            prettier
           ];
         };
       };
