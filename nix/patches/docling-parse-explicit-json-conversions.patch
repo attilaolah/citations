@@ -1,8 +1,6 @@
-diff --git a/src/parse/config.h b/src/parse/config.h
-index 9cc27f8..15c1fb7 100644
---- a/src/parse/config.h
-+++ b/src/parse/config.h
-@@ -55,29 +55,29 @@ namespace pdflib
+--- a/src/parse/config.h	2026-04-01 10:07:09.000000000 +0200
++++ b/src/parse/config.h	2026-04-03 15:56:44.266578136 +0200
+@@ -55,64 +55,64 @@
    {
      nlohmann::json j;
  
@@ -52,7 +50,6 @@ index 9cc27f8..15c1fb7 100644
  
      return j;
    }
-@@ -87,29 +87,29 @@ namespace pdflib
  
    void decode_config::from_json(const nlohmann::json& j)
    {
