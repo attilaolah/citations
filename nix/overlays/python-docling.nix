@@ -10,23 +10,27 @@ in {
       // {
         docling = pyPrev.docling.overridePythonAttrs (_old: let
           version = "2.84.0";
-          hash = "sha256-AHsLrTwOxF3JGvYIPL4fCpPd7xaGME9GbooWih+x3Ms=";
+          hash = "sha256-rjRGBZDWqao32AGM4WTFubZ50cNqRWxKAOLojgR7uBk=";
         in {
           inherit version;
-          src = final.fetchPypi {
+          src = final.fetchFromGitHub {
             inherit hash version;
-            pname = "docling";
+            owner = "docling-project";
+            repo = "docling";
+            rev = "v${version}";
           };
         });
 
         docling-parse = pyPrev.docling-parse.overridePythonAttrs (old: let
           version = "5.7.0";
-          hash = "sha256-x3IJwuCTyl+CZpUr0TuVrvCd+jjmmV7PhVlxgZeGyT0=";
+          hash = "sha256-HKhS6sIhUAr+VFo4jikQ1MMQpcLY6sS7RZaqcjaKvQc=";
         in {
           inherit version;
-          src = final.fetchPypi {
+          src = final.fetchFromGitHub {
             inherit hash version;
-            pname = "docling_parse";
+            owner = "docling-project";
+            repo = "docling-parse";
+            rev = "v${version}";
           };
           buildInputs = old.buildInputs ++ [final.blend2d];
           patches =
