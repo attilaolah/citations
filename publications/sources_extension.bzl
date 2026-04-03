@@ -6,10 +6,8 @@ _IPFS_GATEWAYS = [
     "dweb.link",
 ]
 
-
 def _ipfs_mirror_urls(ipfs_cid):
     return ["https://%s/ipfs/%s" % (gateway, ipfs_cid) for gateway in _IPFS_GATEWAYS]
-
 
 def _sources_impl(module_ctx):
     for module in module_ctx.modules:
@@ -20,13 +18,12 @@ def _sources_impl(module_ctx):
                 sha256 = publication.sha256,
             )
 
-
 _publication_tag = tag_class(
     attrs = {
-        "name": attr.string(mandatory = True),
-        "url": attr.string(mandatory = True),
         "ipfs_cid": attr.string(mandatory = True),
+        "name": attr.string(mandatory = True),
         "sha256": attr.string(mandatory = True),
+        "url": attr.string(mandatory = True),
     },
 )
 

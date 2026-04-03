@@ -72,6 +72,7 @@
           packages = with pkgs; [
             alejandra
             bazel
+            buildifier
           ];
         };
       };
