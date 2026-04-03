@@ -2,132 +2,45 @@ sources = use_extension("//publications:sources_extension.bzl", "sources")
 
 BASE_URL = "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/"
 
-PUBLICATIONS = {
-    "alkalmazott_novenytan_10_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 10 2019.ppt",
-        "ipfs_cid": "QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt",
-        "sha256": "994846be6b8161339267734992175ae11899708533c61ca8a77d9c1398f4f001",
-    },
-    "alkalmazott_novenytan_11_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 11 2019.ppt",
-        "ipfs_cid": "QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB",
-        "sha256": "793765c2c2764bdba8cec999ba8be3987d73352c2f7e59b8cca9cffa42219083",
-    },
-    "alkalmazott_novenytan_12_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 12 2019.ppt",
-        "ipfs_cid": "QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q",
-        "sha256": "87f4e2d5396777507271852bb4b9db690e0fe175cb19e0b23ef05ef124cb839c",
-    },
-    "alkalmazott_novenytan_1_2020_pdf": {
-        "file_name": "Alkalmazott növénytan 1 2020.pdf",
-        "ipfs_cid": "QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ",
-        "sha256": "ecce58e638482b660a18a797a43b65cdaf7822f3c1eb79d077d0aca1258a22ad",
-    },
-    "alkalmazott_novenytan_2_2020_pdf": {
-        "file_name": "Alkalmazott növénytan 2 2020.pdf",
-        "ipfs_cid": "QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5",
-        "sha256": "193a705f108eb30b92d7adc92d6fb4eb583c7759f489920f63802547b918b4cd",
-    },
-    "alkalmazott_novenytan_3_2020_pdf": {
-        "file_name": "Alkalmazott növénytan 3 2020.pdf",
-        "ipfs_cid": "QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U",
-        "sha256": "b8611f06ca7d4c9b39a362507f8bdf03e1cf1a83d74feb0465ae30bce793ec8a",
-    },
-    "alkalmazott_novenytan_4_2020_pdf": {
-        "file_name": "Alkalmazott növénytan 4 2020.pdf",
-        "ipfs_cid": "QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
-        "sha256": "d51f15238ce3471c0be5e9574990f9b7ea3b7a570eef03527d192c1249895114",
-    },
-    "alkalmazott_novenytan_5_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 5 2019.ppt",
-        "ipfs_cid": "QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx",
-        "sha256": "107766c9ed49cb744bb89e6c103ad67c214d3cb9bb6002cb771ae6c5fdbff8eb",
-    },
-    "alkalmazott_novenytan_6_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 6 2019.ppt",
-        "ipfs_cid": "QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7",
-        "sha256": "23067b8650d926948437367d664d1c9c9f3d806394fea6359bfbfbb9fec24a14",
-    },
-    "alkalmazott_novenytan_7_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 7 2019.ppt",
-        "ipfs_cid": "QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi",
-        "sha256": "6a129cebec8fea86b1d0d08a488186878f44c0e53f17c6f20ee5c206fc7c1735",
-    },
-    "alkalmazott_novenytan_8_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 8 2019.ppt",
-        "ipfs_cid": "QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV",
-        "sha256": "f88ae55dd2872409526f2866f6c10bed8e10e048c57822db51f205a1e9833916",
-    },
-    "alkalmazott_novenytan_9_2019_ppt": {
-        "file_name": "Alkalmazott növénytan 9 2019.ppt",
-        "ipfs_cid": "QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a",
-        "sha256": "4be0353ecd44a9abfdd18339b7155c2aaad9843ec92e24200a4a8feb7bfc3d59",
-    },
-    "rendszertan10v_2017_ppt": {
-        "file_name": "rendszertan10v_2017.ppt",
-        "ipfs_cid": "QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o",
-        "sha256": "adf28c278c82a35db93dbc6254d607dacf166675f5a62cb6e8413c54b62ae954",
-    },
-    "rendszertan11v_2017_ppt": {
-        "file_name": "rendszertan11v_2017.ppt",
-        "ipfs_cid": "QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA",
-        "sha256": "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054",
-    },
-    "rendszertan1v_2021_ppt": {
-        "file_name": "rendszertan1v_2021.ppt",
-        "ipfs_cid": "QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR",
-        "sha256": "a55eff66263685626335cc2255faeb6067026446fc9f3a7aa16386c0d9a67df6",
-    },
-    "rendszertan2v_ppt": {
-        "file_name": "rendszertan2v.ppt",
-        "ipfs_cid": "QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy",
-        "sha256": "807d227f3896edaf27c8e5dd578e394fbe8295741edbe97a6b735bed8e129bb2",
-    },
-    "rendszertan3v_ppt": {
-        "file_name": "rendszertan3v.ppt",
-        "ipfs_cid": "QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b",
-        "sha256": "aa66985e1470cc955d0c95445546eb1bc747baabc39fd0a946a1a0673412ee85",
-    },
-    "rendszertan4v_ppt": {
-        "file_name": "rendszertan4v.ppt",
-        "ipfs_cid": "QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25",
-        "sha256": "efb918966eb85df0a080059dae7eeefa8482f0b5d943170a409371c5b7106305",
-    },
-    "rendszertan5v_ppt": {
-        "file_name": "rendszertan5v.ppt",
-        "ipfs_cid": "QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM",
-        "sha256": "322ecb246c9bca394e763263d9a2cfc700e2da8c71c205307fe6639615d4f4fe",
-    },
-    "rendszertan6v_ppt": {
-        "file_name": "rendszertan6v.ppt",
-        "ipfs_cid": "QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf",
-        "sha256": "77d208db1117a7ea0634a55d8729e2382368111881f276e74a911fdd26e29cdf",
-    },
-    "rendszertan7v_ppt": {
-        "file_name": "rendszertan7v.ppt",
-        "ipfs_cid": "QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn",
-        "sha256": "e07f5256ae4ea6bd95b676d896627c16e7b3b93ac2882592943a0c6e2cf21e00",
-    },
-    "rendszertan8v_ppt": {
-        "file_name": "rendszertan8v.ppt",
-        "ipfs_cid": "QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn",
-        "sha256": "dea666e44dd12e4eceabbf905e892ee0702f601e9abcbdefe9ec938bf2f7ad6b",
-    },
-    "rendszertan9v_2017_ppt": {
-        "file_name": "rendszertan9v_2017.ppt",
-        "ipfs_cid": "QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD",
-        "sha256": "bc761c1825bf70ed168bd22fb4d7195ed1fbb7bae8c55ee9ba86fed8356df31f",
-    },
+PUBLICATIONS = [
+    ("QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ", "ecce58e638482b660a18a797a43b65cdaf7822f3c1eb79d077d0aca1258a22ad", "Alkalmazott növénytan 1 2020.pdf"),
+    ("QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5", "193a705f108eb30b92d7adc92d6fb4eb583c7759f489920f63802547b918b4cd", "Alkalmazott növénytan 2 2020.pdf"),
+    ("QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U", "b8611f06ca7d4c9b39a362507f8bdf03e1cf1a83d74feb0465ae30bce793ec8a", "Alkalmazott növénytan 3 2020.pdf"),
+    ("QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw", "d51f15238ce3471c0be5e9574990f9b7ea3b7a570eef03527d192c1249895114", "Alkalmazott növénytan 4 2020.pdf"),
+    ("QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx", "107766c9ed49cb744bb89e6c103ad67c214d3cb9bb6002cb771ae6c5fdbff8eb", "Alkalmazott növénytan 5 2019.ppt"),
+    ("QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7", "23067b8650d926948437367d664d1c9c9f3d806394fea6359bfbfbb9fec24a14", "Alkalmazott növénytan 6 2019.ppt"),
+    ("QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi", "6a129cebec8fea86b1d0d08a488186878f44c0e53f17c6f20ee5c206fc7c1735", "Alkalmazott növénytan 7 2019.ppt"),
+    ("QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV", "f88ae55dd2872409526f2866f6c10bed8e10e048c57822db51f205a1e9833916", "Alkalmazott növénytan 8 2019.ppt"),
+    ("QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a", "4be0353ecd44a9abfdd18339b7155c2aaad9843ec92e24200a4a8feb7bfc3d59", "Alkalmazott növénytan 9 2019.ppt"),
+    ("QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt", "994846be6b8161339267734992175ae11899708533c61ca8a77d9c1398f4f001", "Alkalmazott növénytan 10 2019.ppt"),
+    ("QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB", "793765c2c2764bdba8cec999ba8be3987d73352c2f7e59b8cca9cffa42219083", "Alkalmazott növénytan 11 2019.ppt"),
+    ("QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q", "87f4e2d5396777507271852bb4b9db690e0fe175cb19e0b23ef05ef124cb839c", "Alkalmazott növénytan 12 2019.ppt"),
+    ("QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR", "a55eff66263685626335cc2255faeb6067026446fc9f3a7aa16386c0d9a67df6", "rendszertan1v_2021.ppt"),
+    ("QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy", "807d227f3896edaf27c8e5dd578e394fbe8295741edbe97a6b735bed8e129bb2", "rendszertan2v.ppt"),
+    ("QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b", "aa66985e1470cc955d0c95445546eb1bc747baabc39fd0a946a1a0673412ee85", "rendszertan3v.ppt"),
+    ("QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25", "efb918966eb85df0a080059dae7eeefa8482f0b5d943170a409371c5b7106305", "rendszertan4v.ppt"),
+    ("QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM", "322ecb246c9bca394e763263d9a2cfc700e2da8c71c205307fe6639615d4f4fe", "rendszertan5v.ppt"),
+    ("QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf", "77d208db1117a7ea0634a55d8729e2382368111881f276e74a911fdd26e29cdf", "rendszertan6v.ppt"),
+    ("QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn", "e07f5256ae4ea6bd95b676d896627c16e7b3b93ac2882592943a0c6e2cf21e00", "rendszertan7v.ppt"),
+    ("QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn", "dea666e44dd12e4eceabbf905e892ee0702f601e9abcbdefe9ec938bf2f7ad6b", "rendszertan8v.ppt"),
+    ("QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD", "bc761c1825bf70ed168bd22fb4d7195ed1fbb7bae8c55ee9ba86fed8356df31f", "rendszertan9v_2017.ppt"),
+    ("QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o", "adf28c278c82a35db93dbc6254d607dacf166675f5a62cb6e8413c54b62ae954", "rendszertan10v_2017.ppt"),
+    ("QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA", "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054", "rendszertan11v_2017.ppt"),
+]
+
+PUBLICATION_NAMES = {
+    cid: file_name.lower().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ö", "o").replace("ő", "o").replace("ú", "u").replace("ü", "u").replace("ű", "u").replace(" ", "_").replace(".", "_").replace("-", "_")
+    for cid, _, file_name in PUBLICATIONS
 }
 
 [
     sources.publication(
-        name = name,
-        ipfs_cid = publication["ipfs_cid"],
-        sha256 = publication["sha256"],
-        url = BASE_URL + publication["file_name"],
+        name = PUBLICATION_NAMES[cid],
+        ipfs_cid = cid,
+        sha256 = sha256,
+        url = BASE_URL + file_name,
     )
-    for name, publication in PUBLICATIONS.items()
+    for cid, sha256, file_name in PUBLICATIONS
 ]
 
-[use_repo(sources, name) for name in PUBLICATIONS.keys()]
+[use_repo(sources, PUBLICATION_NAMES[cid]) for cid, _, _ in PUBLICATIONS]
