@@ -32,7 +32,7 @@ in {
           patches =
             (old.patches or [])
             ++ [
-              ../patches/docling-parse-explicit-json-conversions.patch
+              ../patches/docling-parse/explicit-json-conversions.patch
             ];
           meta = old.meta // {broken = false;};
         });

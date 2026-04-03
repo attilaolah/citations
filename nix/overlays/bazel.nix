@@ -29,15 +29,15 @@ final: prev: {
             ])))
           old.patches
           ++ map (p: replaceVars p {env = getExe' prev.coreutils "env";}) [
-            ../patches/rules_python.add_file.patch
-            ../patches/md5_shebang.patch
+            ../patches/bazel/rules_python.add_file.patch
+            ../patches/bazel/md5_shebang.patch
           ]
           ++ map (p: replaceVars p {bash = getExe prev.bash;}) [
-            ../patches/rules_java.add_file.patch
-            ../patches/jvm_module_options_bash.patch
+            ../patches/bazel/rules_java.add_file.patch
+            ../patches/bazel/jvm_module_options_bash.patch
           ]
           ++ [
-            ../patches/bazel-9-deps_patches.patch
+            ../patches/bazel/deps_patches.patch
           ];
       }
       // (listToAttrs (map (name: {
