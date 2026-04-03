@@ -1,1 +1,4 @@
-exports_files(["alkalmazott_novenytan.MODULE.bazel"])
+exports_files([
+    "alkalmazott_novenytan.MODULE.bazel",
+    "sources_extension.bzl",
+])
