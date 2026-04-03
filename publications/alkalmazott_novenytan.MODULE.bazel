@@ -1,11 +1,154 @@
 sources = use_extension("//publications:sources_extension.bzl", "sources")
 
-publication_name = "alkalmazott_novenytan_4_2020_pdf"
+PUBLICATIONS = [
+    {
+        "ipfs_cid": "QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ",
+        "name": "alkalmazott_novenytan_1_2020_pdf",
+        "sha256": "ecce58e638482b660a18a797a43b65cdaf7822f3c1eb79d077d0aca1258a22ad",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 1 2020.pdf",
+    },
+    {
+        "ipfs_cid": "QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5",
+        "name": "alkalmazott_novenytan_2_2020_pdf",
+        "sha256": "193a705f108eb30b92d7adc92d6fb4eb583c7759f489920f63802547b918b4cd",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 2 2020.pdf",
+    },
+    {
+        "ipfs_cid": "QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U",
+        "name": "alkalmazott_novenytan_3_2020_pdf",
+        "sha256": "b8611f06ca7d4c9b39a362507f8bdf03e1cf1a83d74feb0465ae30bce793ec8a",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 3 2020.pdf",
+    },
+    {
+        "ipfs_cid": "QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+        "name": "alkalmazott_novenytan_4_2020_pdf",
+        "sha256": "d51f15238ce3471c0be5e9574990f9b7ea3b7a570eef03527d192c1249895114",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 4 2020.pdf",
+    },
+    {
+        "ipfs_cid": "QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx",
+        "name": "alkalmazott_novenytan_5_2019_ppt",
+        "sha256": "107766c9ed49cb744bb89e6c103ad67c214d3cb9bb6002cb771ae6c5fdbff8eb",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 5 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7",
+        "name": "alkalmazott_novenytan_6_2019_ppt",
+        "sha256": "23067b8650d926948437367d664d1c9c9f3d806394fea6359bfbfbb9fec24a14",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 6 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi",
+        "name": "alkalmazott_novenytan_7_2019_ppt",
+        "sha256": "6a129cebec8fea86b1d0d08a488186878f44c0e53f17c6f20ee5c206fc7c1735",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 7 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV",
+        "name": "alkalmazott_novenytan_8_2019_ppt",
+        "sha256": "f88ae55dd2872409526f2866f6c10bed8e10e048c57822db51f205a1e9833916",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 8 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a",
+        "name": "alkalmazott_novenytan_9_2019_ppt",
+        "sha256": "4be0353ecd44a9abfdd18339b7155c2aaad9843ec92e24200a4a8feb7bfc3d59",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 9 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt",
+        "name": "alkalmazott_novenytan_10_2019_ppt",
+        "sha256": "994846be6b8161339267734992175ae11899708533c61ca8a77d9c1398f4f001",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 10 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB",
+        "name": "alkalmazott_novenytan_11_2019_ppt",
+        "sha256": "793765c2c2764bdba8cec999ba8be3987d73352c2f7e59b8cca9cffa42219083",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 11 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q",
+        "name": "alkalmazott_novenytan_12_2019_ppt",
+        "sha256": "87f4e2d5396777507271852bb4b9db690e0fe175cb19e0b23ef05ef124cb839c",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 12 2019.ppt",
+    },
+    {
+        "ipfs_cid": "QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR",
+        "name": "rendszertan1v_2021_ppt",
+        "sha256": "a55eff66263685626335cc2255faeb6067026446fc9f3a7aa16386c0d9a67df6",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan1v_2021.ppt",
+    },
+    {
+        "ipfs_cid": "QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy",
+        "name": "rendszertan2v_ppt",
+        "sha256": "807d227f3896edaf27c8e5dd578e394fbe8295741edbe97a6b735bed8e129bb2",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan2v.ppt",
+    },
+    {
+        "ipfs_cid": "QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b",
+        "name": "rendszertan3v_ppt",
+        "sha256": "aa66985e1470cc955d0c95445546eb1bc747baabc39fd0a946a1a0673412ee85",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan3v.ppt",
+    },
+    {
+        "ipfs_cid": "QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25",
+        "name": "rendszertan4v_ppt",
+        "sha256": "efb918966eb85df0a080059dae7eeefa8482f0b5d943170a409371c5b7106305",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan4v.ppt",
+    },
+    {
+        "ipfs_cid": "QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM",
+        "name": "rendszertan5v_ppt",
+        "sha256": "322ecb246c9bca394e763263d9a2cfc700e2da8c71c205307fe6639615d4f4fe",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan5v.ppt",
+    },
+    {
+        "ipfs_cid": "QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf",
+        "name": "rendszertan6v_ppt",
+        "sha256": "77d208db1117a7ea0634a55d8729e2382368111881f276e74a911fdd26e29cdf",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan6v.ppt",
+    },
+    {
+        "ipfs_cid": "QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn",
+        "name": "rendszertan7v_ppt",
+        "sha256": "e07f5256ae4ea6bd95b676d896627c16e7b3b93ac2882592943a0c6e2cf21e00",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan7v.ppt",
+    },
+    {
+        "ipfs_cid": "QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn",
+        "name": "rendszertan8v_ppt",
+        "sha256": "dea666e44dd12e4eceabbf905e892ee0702f601e9abcbdefe9ec938bf2f7ad6b",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan8v.ppt",
+    },
+    {
+        "ipfs_cid": "QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD",
+        "name": "rendszertan9v_2017_ppt",
+        "sha256": "bc761c1825bf70ed168bd22fb4d7195ed1fbb7bae8c55ee9ba86fed8356df31f",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan9v_2017.ppt",
+    },
+    {
+        "ipfs_cid": "QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o",
+        "name": "rendszertan10v_2017_ppt",
+        "sha256": "adf28c278c82a35db93dbc6254d607dacf166675f5a62cb6e8413c54b62ae954",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan10v_2017.ppt",
+    },
+    {
+        "ipfs_cid": "QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA",
+        "name": "rendszertan11v_2017_ppt",
+        "sha256": "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054",
+        "url": "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan11v_2017.ppt",
+    },
+]
 
-sources.publication(
-    name = publication_name,
-    ipfs_cid = "QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
-    sha256 = "d51f15238ce3471c0be5e9574990f9b7ea3b7a570eef03527d192c1249895114",
-    url = "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 4 2020.pdf",
-)
-use_repo(sources, publication_name)
+[
+    sources.publication(
+        name = publication["name"],
+        ipfs_cid = publication["ipfs_cid"],
+        sha256 = publication["sha256"],
+        url = publication["url"],
+    )
+    for publication in PUBLICATIONS
+]
+
+[use_repo(sources, publication["name"]) for publication in PUBLICATIONS]
