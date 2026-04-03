@@ -8,7 +8,7 @@ in {
     packageOverrides = pyFinal: pyPrev:
       (oldPackageOverrides pyFinal pyPrev)
       // {
-        docling = pyPrev.docling.overridePythonAttrs (_old: let
+        docling = pyPrev.docling.overridePythonAttrs (old: let
           version = "2.84.0";
           hash = "sha256-rjRGBZDWqao32AGM4WTFubZ50cNqRWxKAOLojgR7uBk=";
         in {
@@ -19,6 +19,39 @@ in {
             repo = "docling";
             rev = "v${version}";
           };
+          nativeBuildInputs =
+            (old.nativeBuildInputs or [])
+            ++ [pyFinal.pythonRelaxDepsHook];
+          pythonRelaxDeps = (old.pythonRelaxDeps or []) ++ ["defusedxml" "typer"];
+          propagatedBuildInputs =
+            (old.propagatedBuildInputs or [])
+            ++ [pyFinal.polyfactory];
+        });
+
+        docling-ibm-models = pyPrev."docling-ibm-models".overridePythonAttrs (_old: let
+          version = "3.13.0";
+          hash = "sha256-T8sVXG9s7jlhoRNexPRmCaiHPtQUAhDa9Z0Ri9i0zcc=";
+        in {
+          inherit version;
+          src = final.fetchFromGitHub {
+            inherit hash version;
+            owner = "docling-project";
+            repo = "docling-ibm-models";
+            rev = "v${version}";
+          };
+          disabledTests = [
+            "test_figure_classifier"
+            "test_layoutpredictor"
+            "test_tableformer_v2_batch_inference"
+            "test_tableformer_v2_forward_pass"
+            "test_tableformer_v2_image_encoding"
+            "test_tableformer_v2_model_loading"
+            "test_tableformer_v2_numpy_input"
+            "test_tableformer_v2_predict"
+            "test_tableformer_v2_tokenizer_loading"
+            "test_tableformer_v2_unsupported_input"
+            "test_tf_predictor"
+          ];
         });
 
         docling-parse = pyPrev.docling-parse.overridePythonAttrs (old: let

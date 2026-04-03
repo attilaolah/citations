@@ -25,7 +25,7 @@
       in {
         formatter = pkgs.alejandra;
         packages = {
-          inherit (pkgs.python314Packages) docling docling-parse;
+          inherit (pkgs.python314Packages) docling docling-parse docling-ibm-models;
           bazel = pkgs.bazel_9;
         };
         devShells.default = pkgs.mkShell {
