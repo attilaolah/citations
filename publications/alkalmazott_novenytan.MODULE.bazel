@@ -1,0 +1,15 @@
+http_file = use_repo_rule(
+    "@bazel_tools//tools/build_defs/repo:http.bzl",
+    "http_file",
+)
+
+http_file(
+    name = "alkalmazott_novenytan_4_2020_pdf",
+    urls = [
+        "https://ipfs.io/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+        "https://cloudflare-ipfs.com/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+        "https://dweb.link/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+        "https://gateway.pinata.cloud/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+        "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 4 2020.pdf",
+    ],
+)

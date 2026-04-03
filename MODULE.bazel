@@ -1,3 +1,5 @@
 module(
     name = "citations",
 )
+
+include("//publications:alkalmazott_novenytan.MODULE.bazel")
