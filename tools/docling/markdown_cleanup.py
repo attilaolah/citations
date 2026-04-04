@@ -2,38 +2,51 @@
 
 import argparse
 import re
+from enum import Enum
 from pathlib import Path
 
-IMAGE_PLACEHOLDER_RE = re.compile(r"\s*<!--\s*image\s*-->\s*")
-HEADING_RE = re.compile(r"^\s*#{1,6}\s")
-LEADING_MIDDOT_RE = re.compile(r"^(\s*)·\s*(\S.*)$")
-DOUBLE_DASH_BULLET_RE = re.compile(r"^(\s*)-\s*-\s*(\S.*)$")
-EMPTY_BULLET_RE = re.compile(r"^\s*-\s*$")
-SINGLE_NON_ASCII_RE = re.compile(r"^\s*([^\x00-\x7F])\s*$")
-THREE_PLUS_NEWLINES_RE = re.compile(r"\n{3,}")
+
+class _Re(Enum):
+    image_placeholder = re.compile(r"\s*<!--\s*image\s*-->\s*")
+    heading = re.compile(r"^\s*#{1,6}\s")
+    leading_middot = re.compile(r"^(\s*)·\s*(\S.*)$")
+    double_dash_bullet = re.compile(r"^(\s*)-\s*-\s*(\S.*)$")
+    empty_bullet = re.compile(r"^\s*-\s*$")
+    single_non_ascii = re.compile(r"^\s*([^\x00-\x7F])\s*$")
+    three_plus_newlines = re.compile(r"\n{3,}")
 
 
-def clean_line(line: str) -> str | None:
+def main() -> int:
+    """Run the Markdown cleanup CLI.
+
+    Returns:
+        Process exit code.
+    """
+    args = _parse_args()
+    src = Path(args.input)
+    dst = Path(args.output)
+    dst.write_text(_clean_markdown(src.read_text(encoding="utf-8")), encoding="utf-8")
+    return 0
+
+
+def _clean_line(line: str) -> str | None:
     """Normalize one line of extracted Markdown, or drop it.
 
     Returns:
         The cleaned line, or `None` if the line should be removed.
     """
-    line = IMAGE_PLACEHOLDER_RE.sub("", line)
+    line = _Re.image_placeholder.value.sub("", line)
 
-    if EMPTY_BULLET_RE.match(line):
+    if _Re.empty_bullet.value.match(line) or _Re.single_non_ascii.value.match(line):
         return None
 
-    if SINGLE_NON_ASCII_RE.match(line):
-        return None
-
-    if not HEADING_RE.match(line):
-        middot_match = LEADING_MIDDOT_RE.match(line)
+    if not _Re.heading.value.match(line):
+        middot_match = _Re.leading_middot.value.match(line)
         if middot_match:
             indent, text = middot_match.groups()
             line = f"{indent}- {text}"
 
-    double_dash_match = DOUBLE_DASH_BULLET_RE.match(line)
+    double_dash_match = _Re.double_dash_bullet.value.match(line)
     if double_dash_match:
         indent, text = double_dash_match.groups()
         line = f"{indent}  - {text}"
@@ -41,7 +54,7 @@ def clean_line(line: str) -> str | None:
     return line.rstrip()
 
 
-def clean_markdown(text: str) -> str:
+def _clean_markdown(text: str) -> str:
     """Apply conservative Markdown cleanup transforms to a whole document.
 
     Returns:
@@ -49,16 +62,16 @@ def clean_markdown(text: str) -> str:
     """
     cleaned_lines: list[str] = []
     for raw_line in text.splitlines():
-        cleaned_line = clean_line(raw_line)
+        cleaned_line = _clean_line(raw_line)
         if cleaned_line is not None:
             cleaned_lines.append(cleaned_line)
 
     out = "\n".join(cleaned_lines)
-    out = THREE_PLUS_NEWLINES_RE.sub("\n\n", out)
+    out = _Re.three_plus_newlines.value.sub("\n\n", out)
     return out.strip() + "\n"
 
 
-def parse_args() -> argparse.Namespace:
+def _parse_args() -> argparse.Namespace:
     """Parse CLI arguments.
 
     Returns:
@@ -68,19 +81,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     return parser.parse_args()
-
-
-def main() -> int:
-    """Run the Markdown cleanup CLI.
-
-    Returns:
-        Process exit code.
-    """
-    args = parse_args()
-    src = Path(args.input)
-    dst = Path(args.output)
-    dst.write_text(clean_markdown(src.read_text(encoding="utf-8")), encoding="utf-8")
-    return 0
 
 
 if __name__ == "__main__":
