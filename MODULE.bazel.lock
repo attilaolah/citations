@@ -190,10 +190,10 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//publications:sources_extension.bzl%sources": {
+    "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "VhL6avmK97SmJnygxJP18LtFXu9OVHtyJVFt3LBaouo=",
-        "usagesDigest": "OxL7ct2gJxhTfyYRlzMW8quLtpUGqpIvALoBlmHJv3I=",
+        "usagesDigest": "EEu3k59zcFRvzowVHW9nLCwdZauG8haJYkwOGwOwV8w=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -547,7 +547,7 @@
     "@@rules_nixpkgs_core+//extensions:repository.bzl%nix_repo": {
       "general": {
         "bzlTransitiveDigest": "dTTtWNdwe7E4j77oKh1mHI1qtdxfaVSGSZa1oPf2QjU=",
-        "usagesDigest": "/NuSII2NsgIGeH5sa5y9/xq/lttdHKExCkl4wr+mrlg=",
+        "usagesDigest": "TgZlfzJmk1Qpp/MzqcgPY9aBcFEaqn6AO+zHx9LJBFU=",
         "recordedInputs": [
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
         ],
@@ -556,7 +556,7 @@
             "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_local_repository",
             "attributes": {
               "unmangled_name": "nixpkgs",
-              "nix_file": "@@//nix:nixpkgs_from_flake_lock.nix",
+              "nix_file": "@@//nix:nixpkgs.nix",
               "nix_file_deps": [
                 "@@//:flake.lock"
               ]

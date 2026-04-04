@@ -71,29 +71,6 @@ cp "$$md_out" "$@"
         message = "Extracting Markdown from %s" % src,
     )
 
-def ppt_to_pptx(name, src, out):
-    native.genrule(
-        name = name,
-        srcs = [src],
-        tools = ["@libreoffice//:soffice"],
-        outs = [out],
-        cmd = """
-set -euo pipefail
-tmp_dir="$(@D)/tmp_pptx"
-rm -rf "$$tmp_dir"
-mkdir -p "$$tmp_dir/in" "$$tmp_dir/out" "$$tmp_dir/home"
-export HOME="$$tmp_dir/home"
-
-input="$(location {src})"
-local_ppt="$$tmp_dir/in/input.ppt"
-cp "$$input" "$$local_ppt"
-$(location @libreoffice//:soffice) --headless --nologo --nolockcheck --nodefault --nofirststartwizard --convert-to pptx --outdir "$$tmp_dir/out" "$$local_ppt"
-
-cp "$$tmp_dir/out/input.pptx" "$@"
-""".format(src = src),
-        message = "Converting PPT to PPTX for %s" % src,
-    )
-
 def docling_pptx_to_markdown(name, src, out, models_tar = None):
     srcs = [src]
     artifacts_cmd = ""
