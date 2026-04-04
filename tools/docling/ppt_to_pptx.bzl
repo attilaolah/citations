@@ -4,8 +4,7 @@ def _ppt_to_pptx_impl(ctx):
     soffice = ctx.executable._soffice
 
     # LibreOffice writes "<input-basename>.pptx" to --outdir.
-    # Set the local input basename to match the declared output basename,
-    # so soffice writes directly to the declared output path.
+    # Set the local input basename to match the declared output basename, so soffice writes directly to the output.
     local_input = ctx.actions.declare_file(ctx.label.name + ".ppt")
 
     ctx.actions.symlink(
@@ -13,21 +12,21 @@ def _ppt_to_pptx_impl(ctx):
         target_file = src,
     )
 
-    soffice_args = ctx.actions.args()
-    soffice_args.add("--headless")
-    soffice_args.add("--nologo")
-    soffice_args.add("--nolockcheck")
-    soffice_args.add("--nodefault")
-    soffice_args.add("--nofirststartwizard")
-    soffice_args.add("--convert-to")
-    soffice_args.add("pptx")
-    soffice_args.add("--outdir")
-    soffice_args.add(out.dirname)
-    soffice_args.add(local_input.path)
+    args = ctx.actions.args()
+    args.add("--headless")
+    args.add("--nologo")
+    args.add("--nolockcheck")
+    args.add("--nodefault")
+    args.add("--nofirststartwizard")
+    args.add("--convert-to")
+    args.add("pptx")
+    args.add("--outdir")
+    args.add(out.dirname)
+    args.add(local_input.path)
 
     ctx.actions.run(
         executable = soffice,
-        arguments = [soffice_args],
+        arguments = [args],
         env = {
             "HOME": "/tmp",
         },
@@ -39,7 +38,7 @@ def _ppt_to_pptx_impl(ctx):
 
     return DefaultInfo(files = depset([out]))
 
-_ppt_to_pptx = rule(
+ppt_to_pptx = rule(
     implementation = _ppt_to_pptx_impl,
     attrs = {
         "src": attr.label(
@@ -53,9 +52,3 @@ _ppt_to_pptx = rule(
         ),
     },
 )
-
-def ppt_to_pptx(name, src):
-    _ppt_to_pptx(
-        name = name,
-        src = src,
-    )
