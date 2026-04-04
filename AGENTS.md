@@ -1,5 +1,13 @@
 # Agent Rules
 
-- All Nix files must be formatted with `alejandra`.
-- All Bazel files must be checked with `buildifier --warnings=all`, and any reported issues must be fixed with `buildifier --warnings=all --lint=fix`.
-- Markdown files must be formatted with `prettier`.
+## Formatting
+
+- Format all Nix files with `alejandra`.
+- Check all Bazel files with `buildifier --warnings=all`, then fix issues with `buildifier --warnings=all --lint=fix`.
+- Format Markdown files with `prettier`.
+
+## Bazel
+
+- Prefer native Starlark rules over `genrule`.
+- Keep publication-specific targets in `//publications`.
+- Keep Bazel tooling in `//tools` and Nix tooling in `//nix`.
