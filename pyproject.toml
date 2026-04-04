@@ -1,0 +1,37 @@
+[project]
+name = "citations"
+version = "1.0.0"
+description = "Citations of scientific and vernacular names"
+readme = "README.md"
+requires-python = ">=3.15"
+dependencies = [
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.black]
+line-length = 119
+
+[tool.ruff.lint]
+preview = true
+select = ["ALL"]
+ignore = [
+    "D203",  # D211 instead
+    "D212",  # D213 instead
+    "INP001",  # Bazel handles packages / namespaces
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/*_test.py" = ["S101"]  # asserts allowed in tests
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 119
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pyright]
+strict = ["."]

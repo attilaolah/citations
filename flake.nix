@@ -37,8 +37,14 @@
               ]))
 
             alejandra
+            black
             buildifier
             prettier
+            pyright
+            pyupgrade
+            ruff
+            ty
+            uv
           ];
         };
       };
