@@ -2,4 +2,49 @@ module(
     name = "citations",
 )
 
+bazel_dep(name = "rules_nixpkgs_core", version = "0.13.0")
+
+nix_repo = use_extension("@rules_nixpkgs_core//extensions:repository.bzl", "nix_repo")
+nix_repo.file(
+    name = "nixpkgs",
+    file = "//nix:nixpkgs_from_flake_lock.nix",
+    file_deps = [
+        "//:flake.lock",
+    ],
+)
+use_repo(nix_repo, "nixpkgs")
+
+nix_pkg = use_extension("@rules_nixpkgs_core//extensions:package.bzl", "nix_pkg")
+nix_pkg.attr(
+    name = "docling",
+    attr = "python314Packages.docling",
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+exports_files([
+    "bin/docling",
+    "bin/docling-tools",
+])
+filegroup(name = "docling", srcs = ["bin/docling"])
+filegroup(name = "docling-tools", srcs = ["bin/docling-tools"])
+""",
+    repo = "@nixpkgs",
+)
+nix_pkg.expr(
+    name = "docling_parse",
+    attr = "",
+    expr = 'with import <nixpkgs> {}; python314Packages."docling-parse"',
+    repo = "@nixpkgs",
+)
+nix_pkg.attr(
+    name = "libreoffice",
+    attr = "libreoffice-fresh",
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+exports_files(["bin/soffice"])
+filegroup(name = "soffice", srcs = ["bin/soffice"])
+""",
+    repo = "@nixpkgs",
+)
+use_repo(nix_pkg, "docling", "docling_parse", "libreoffice")
+
 include("//publications:alkalmazott_novenytan.MODULE.bazel")

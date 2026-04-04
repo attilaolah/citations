@@ -29,7 +29,7 @@ PUBLICATIONS = [
 ]
 
 PUBLICATION_NAMES = {
-    cid: file_name.lower().replace("é", "e").replace("ö", "o").replace(" ", "_")
+    cid: file_name.lower().replace("é", "e").replace("ö", "o").replace(" ", "_").replace(".", "_")
     for cid, _, file_name in PUBLICATIONS
 }
 

@@ -142,6 +142,8 @@
     "https://bcr.bazel.build/modules/rules_license/0.0.7/MODULE.bazel": "088fbeb0b6a419005b89cf93fe62d9517c0a2b8bb56af3244af65ecfe37e7d5d",
     "https://bcr.bazel.build/modules/rules_license/1.0.0/MODULE.bazel": "a7fda60eefdf3d8c827262ba499957e4df06f659330bbe6cdbdb975b768bb65c",
     "https://bcr.bazel.build/modules/rules_license/1.0.0/source.json": "a52c89e54cc311196e478f8382df91c15f7a2bfdf4c6cd0e2675cc2ff0b56efb",
+    "https://bcr.bazel.build/modules/rules_nixpkgs_core/0.13.0/MODULE.bazel": "b826d994220017d44c8a4e55435c2c2e6b4733eaaff69fff65232e0010afcb7b",
+    "https://bcr.bazel.build/modules/rules_nixpkgs_core/0.13.0/source.json": "c542b96a9d6ab189bd1a65da43e6c7b8be5f1099876ffba35cd9d2275f82740e",
     "https://bcr.bazel.build/modules/rules_pkg/0.7.0/MODULE.bazel": "df99f03fc7934a4737122518bb87e667e62d780b610910f0447665a7e2be62dc",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/MODULE.bazel": "5b1df97dbc29623bccdf2b0dcd0f5cb08e2f2c9050aab1092fd39a41e82686ff",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/source.json": "bd82e5d7b9ce2d31e380dd9f50c111d678c3bdaca190cb76b0e1c71b05e1ba8a",
@@ -187,6 +189,390 @@
     "https://bcr.bazel.build/modules/zlib/1.3.1/MODULE.bazel": "751c9940dcfe869f5f7274e1295422a34623555916eb98c174c1e945594bf198"
   },
   "selectedYankedVersions": {},
-  "moduleExtensions": {},
+  "moduleExtensions": {
+    "//publications:sources_extension.bzl%sources": {
+      "general": {
+        "bzlTransitiveDigest": "VhL6avmK97SmJnygxJP18LtFXu9OVHtyJVFt3LBaouo=",
+        "usagesDigest": "OxL7ct2gJxhTfyYRlzMW8quLtpUGqpIvALoBlmHJv3I=",
+        "recordedInputs": [
+          "REPO_MAPPING:,bazel_tools bazel_tools"
+        ],
+        "generatedRepoSpecs": {
+          "alkalmazott_novenytan_1_2020_pdf": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ",
+                "https://gateway.pinata.cloud/ipfs/QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ",
+                "https://dweb.link/ipfs/QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 1 2020.pdf"
+              ],
+              "sha256": "ecce58e638482b660a18a797a43b65cdaf7822f3c1eb79d077d0aca1258a22ad"
+            }
+          },
+          "alkalmazott_novenytan_2_2020_pdf": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5",
+                "https://gateway.pinata.cloud/ipfs/QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5",
+                "https://dweb.link/ipfs/QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 2 2020.pdf"
+              ],
+              "sha256": "193a705f108eb30b92d7adc92d6fb4eb583c7759f489920f63802547b918b4cd"
+            }
+          },
+          "alkalmazott_novenytan_3_2020_pdf": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U",
+                "https://gateway.pinata.cloud/ipfs/QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U",
+                "https://dweb.link/ipfs/QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 3 2020.pdf"
+              ],
+              "sha256": "b8611f06ca7d4c9b39a362507f8bdf03e1cf1a83d74feb0465ae30bce793ec8a"
+            }
+          },
+          "alkalmazott_novenytan_4_2020_pdf": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+                "https://gateway.pinata.cloud/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+                "https://dweb.link/ipfs/QmYdYu5a3DFNnQiupR7RKuaLm8752MYkemmT6a6EsaTnTw",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 4 2020.pdf"
+              ],
+              "sha256": "d51f15238ce3471c0be5e9574990f9b7ea3b7a570eef03527d192c1249895114"
+            }
+          },
+          "alkalmazott_novenytan_5_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx",
+                "https://gateway.pinata.cloud/ipfs/QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx",
+                "https://dweb.link/ipfs/QmNnRcgYWcnXh5eyi7cXD7GiPk1QbtfDd4k4b4hT5Tx3Hx",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 5 2019.ppt"
+              ],
+              "sha256": "107766c9ed49cb744bb89e6c103ad67c214d3cb9bb6002cb771ae6c5fdbff8eb"
+            }
+          },
+          "alkalmazott_novenytan_6_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7",
+                "https://gateway.pinata.cloud/ipfs/QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7",
+                "https://dweb.link/ipfs/QmR7b8e9Knqovv2Z4KAZGwZwk3V7FrdqYSKMEQHVbduCd7",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 6 2019.ppt"
+              ],
+              "sha256": "23067b8650d926948437367d664d1c9c9f3d806394fea6359bfbfbb9fec24a14"
+            }
+          },
+          "alkalmazott_novenytan_7_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi",
+                "https://gateway.pinata.cloud/ipfs/QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi",
+                "https://dweb.link/ipfs/QmeG6c6B1zdZr7BqV1WDUWdS1PZ4qp6QGfJx49P3kSwSEi",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 7 2019.ppt"
+              ],
+              "sha256": "6a129cebec8fea86b1d0d08a488186878f44c0e53f17c6f20ee5c206fc7c1735"
+            }
+          },
+          "alkalmazott_novenytan_8_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV",
+                "https://gateway.pinata.cloud/ipfs/QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV",
+                "https://dweb.link/ipfs/QmRuazJr57XEkZYEBY8vHMhbZVL1y6dgvMz44XFLnVqwjV",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 8 2019.ppt"
+              ],
+              "sha256": "f88ae55dd2872409526f2866f6c10bed8e10e048c57822db51f205a1e9833916"
+            }
+          },
+          "alkalmazott_novenytan_9_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a",
+                "https://gateway.pinata.cloud/ipfs/QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a",
+                "https://dweb.link/ipfs/QmetgWf5yFHbCwU1Jn1pnLH3o6TiPUuexsimSdW1bTta9a",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 9 2019.ppt"
+              ],
+              "sha256": "4be0353ecd44a9abfdd18339b7155c2aaad9843ec92e24200a4a8feb7bfc3d59"
+            }
+          },
+          "alkalmazott_novenytan_10_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt",
+                "https://gateway.pinata.cloud/ipfs/QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt",
+                "https://dweb.link/ipfs/QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 10 2019.ppt"
+              ],
+              "sha256": "994846be6b8161339267734992175ae11899708533c61ca8a77d9c1398f4f001"
+            }
+          },
+          "alkalmazott_novenytan_11_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB",
+                "https://gateway.pinata.cloud/ipfs/QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB",
+                "https://dweb.link/ipfs/QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 11 2019.ppt"
+              ],
+              "sha256": "793765c2c2764bdba8cec999ba8be3987d73352c2f7e59b8cca9cffa42219083"
+            }
+          },
+          "alkalmazott_novenytan_12_2019_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q",
+                "https://gateway.pinata.cloud/ipfs/QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q",
+                "https://dweb.link/ipfs/QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Alkalmazott növénytan 12 2019.ppt"
+              ],
+              "sha256": "87f4e2d5396777507271852bb4b9db690e0fe175cb19e0b23ef05ef124cb839c"
+            }
+          },
+          "rendszertan1v_2021_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR",
+                "https://gateway.pinata.cloud/ipfs/QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR",
+                "https://dweb.link/ipfs/QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan1v_2021.ppt"
+              ],
+              "sha256": "a55eff66263685626335cc2255faeb6067026446fc9f3a7aa16386c0d9a67df6"
+            }
+          },
+          "rendszertan2v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy",
+                "https://gateway.pinata.cloud/ipfs/QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy",
+                "https://dweb.link/ipfs/QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan2v.ppt"
+              ],
+              "sha256": "807d227f3896edaf27c8e5dd578e394fbe8295741edbe97a6b735bed8e129bb2"
+            }
+          },
+          "rendszertan3v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b",
+                "https://gateway.pinata.cloud/ipfs/QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b",
+                "https://dweb.link/ipfs/QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan3v.ppt"
+              ],
+              "sha256": "aa66985e1470cc955d0c95445546eb1bc747baabc39fd0a946a1a0673412ee85"
+            }
+          },
+          "rendszertan4v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25",
+                "https://gateway.pinata.cloud/ipfs/QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25",
+                "https://dweb.link/ipfs/QmdRr9Zse87sJhesF1DpaqrA3563bYBFZ2snb7YpuLoK25",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan4v.ppt"
+              ],
+              "sha256": "efb918966eb85df0a080059dae7eeefa8482f0b5d943170a409371c5b7106305"
+            }
+          },
+          "rendszertan5v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM",
+                "https://gateway.pinata.cloud/ipfs/QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM",
+                "https://dweb.link/ipfs/QmdLz42rgE8Ah4D3ES38r7yrLD48yE7yzkjcCoyhcejmWM",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan5v.ppt"
+              ],
+              "sha256": "322ecb246c9bca394e763263d9a2cfc700e2da8c71c205307fe6639615d4f4fe"
+            }
+          },
+          "rendszertan6v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf",
+                "https://gateway.pinata.cloud/ipfs/QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf",
+                "https://dweb.link/ipfs/QmdfMsZNgfwWavR82PwzX6b47uy1XELTBPgWoB81R3EGhf",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan6v.ppt"
+              ],
+              "sha256": "77d208db1117a7ea0634a55d8729e2382368111881f276e74a911fdd26e29cdf"
+            }
+          },
+          "rendszertan7v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn",
+                "https://gateway.pinata.cloud/ipfs/QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn",
+                "https://dweb.link/ipfs/QmWwKvLkSqTTPQf1N3vtbWqGwa1z3eAsnnfKzZB5HmLUBn",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan7v.ppt"
+              ],
+              "sha256": "e07f5256ae4ea6bd95b676d896627c16e7b3b93ac2882592943a0c6e2cf21e00"
+            }
+          },
+          "rendszertan8v_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn",
+                "https://gateway.pinata.cloud/ipfs/QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn",
+                "https://dweb.link/ipfs/QmbCLKPuihCsRsCr7NDB1UyfFDqibqyuWqqnJrxHfwsWvn",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan8v.ppt"
+              ],
+              "sha256": "dea666e44dd12e4eceabbf905e892ee0702f601e9abcbdefe9ec938bf2f7ad6b"
+            }
+          },
+          "rendszertan9v_2017_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD",
+                "https://gateway.pinata.cloud/ipfs/QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD",
+                "https://dweb.link/ipfs/QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan9v_2017.ppt"
+              ],
+              "sha256": "bc761c1825bf70ed168bd22fb4d7195ed1fbb7bae8c55ee9ba86fed8356df31f"
+            }
+          },
+          "rendszertan10v_2017_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o",
+                "https://gateway.pinata.cloud/ipfs/QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o",
+                "https://dweb.link/ipfs/QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan10v_2017.ppt"
+              ],
+              "sha256": "adf28c278c82a35db93dbc6254d607dacf166675f5a62cb6e8413c54b62ae954"
+            }
+          },
+          "rendszertan11v_2017_ppt": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA",
+                "https://gateway.pinata.cloud/ipfs/QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA",
+                "https://dweb.link/ipfs/QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan11v_2017.ppt"
+              ],
+              "sha256": "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054"
+            }
+          }
+        }
+      }
+    },
+    "@@rules_nixpkgs_core+//extensions:package.bzl%nix_pkg": {
+      "general": {
+        "bzlTransitiveDigest": "2alEQC7q9PgrArc8ZeI662VmDHLGfuswqnzBJvVDnmg=",
+        "usagesDigest": "5U5GvGyAr/NXZg1ETY0NgVoQjvyLu2h8ECmfmghLMws=",
+        "recordedInputs": [
+          "REPO_MAPPING:,nixpkgs rules_nixpkgs_core++nix_repo+nixpkgs",
+          "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
+        ],
+        "generatedRepoSpecs": {
+          "docling": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "docling",
+              "attribute_path": "python314Packages.docling",
+              "nix_file_deps": {},
+              "nix_file_content": "",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\n    \"bin/docling\",\n    \"bin/docling-tools\",\n])\nfilegroup(name = \"docling\", srcs = [\"bin/docling\"])\nfilegroup(name = \"docling-tools\", srcs = [\"bin/docling-tools\"])\n",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
+          },
+          "libreoffice": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "libreoffice",
+              "attribute_path": "libreoffice-fresh",
+              "nix_file_deps": {},
+              "nix_file_content": "",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\"bin/soffice\"])\nfilegroup(name = \"soffice\", srcs = [\"bin/soffice\"])\n",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
+          },
+          "docling_parse": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "docling_parse",
+              "attribute_path": "",
+              "nix_file_deps": {},
+              "nix_file_content": "with import <nixpkgs> {}; python314Packages.\"docling-parse\"",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file_content": "",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
+          }
+        },
+        "moduleExtensionMetadata": {
+          "explicitRootModuleDirectDeps": [
+            "docling",
+            "libreoffice",
+            "docling_parse"
+          ],
+          "explicitRootModuleDirectDevDeps": [],
+          "useAllRepos": "NO",
+          "reproducible": false
+        }
+      }
+    },
+    "@@rules_nixpkgs_core+//extensions:repository.bzl%nix_repo": {
+      "general": {
+        "bzlTransitiveDigest": "dTTtWNdwe7E4j77oKh1mHI1qtdxfaVSGSZa1oPf2QjU=",
+        "usagesDigest": "/NuSII2NsgIGeH5sa5y9/xq/lttdHKExCkl4wr+mrlg=",
+        "recordedInputs": [
+          "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
+        ],
+        "generatedRepoSpecs": {
+          "nixpkgs": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_local_repository",
+            "attributes": {
+              "unmangled_name": "nixpkgs",
+              "nix_file": "@@//nix:nixpkgs_from_flake_lock.nix",
+              "nix_file_deps": [
+                "@@//:flake.lock"
+              ]
+            }
+          }
+        },
+        "moduleExtensionMetadata": {
+          "explicitRootModuleDirectDeps": [
+            "nixpkgs"
+          ],
+          "explicitRootModuleDirectDevDeps": [],
+          "useAllRepos": "NO",
+          "reproducible": false
+        }
+      }
+    }
+  },
   "facts": {}
 }

@@ -1,4 +1,40 @@
+load(
+    "//publications:docling_extract.bzl",
+    "docling_models_tar",
+    "docling_pdf_to_markdown",
+    "docling_ppt_to_markdown",
+)
+
 exports_files([
     "alkalmazott_novenytan.MODULE.bazel",
+    "docling_extract.bzl",
     "sources_extension.bzl",
 ])
+
+docling_models_tar(
+    name = "docling_models_default_tar",
+    out = "docling_models_default.tar",
+    all_models = False,
+)
+
+docling_pdf_to_markdown(
+    name = "alkalmazott_novenytan_1_2020_pdf_markdown",
+    src = "@alkalmazott_novenytan_1_2020_pdf//file:file",
+    out = "alkalmazott_novenytan_1_2020.md",
+    models_tar = ":docling_models_default_tar",
+)
+
+docling_ppt_to_markdown(
+    name = "alkalmazott_novenytan_5_2019_ppt_markdown",
+    src = "@alkalmazott_novenytan_5_2019_ppt//file:file",
+    out = "alkalmazott_novenytan_5_2019.md",
+    models_tar = ":docling_models_default_tar",
+)
+
+filegroup(
+    name = "alkalmazott_novenytan_markdown",
+    srcs = [
+        ":alkalmazott_novenytan_1_2020_pdf_markdown",
+        ":alkalmazott_novenytan_5_2019_ppt_markdown",
+    ],
+)
