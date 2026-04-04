@@ -2,8 +2,8 @@ load(
     "//tools/docling:docling_extract.bzl",
     "docling_models_tar",
     "docling_pdf_to_markdown",
-    "docling_pptx_to_markdown",
 )
+load("//tools/docling:markdown_file.bzl", "markdown_file")
 load(
     "//tools/docling:pptx_file.bzl",
     "pptx_file",
@@ -31,10 +31,10 @@ pptx_file(
     src = "@alkalmazott_novenytan_5_2019_ppt//file",
 )
 
-docling_pptx_to_markdown(
+markdown_file(
     name = "alkalmazott_novenytan_5_2019_ppt_md",
     src = ":alkalmazott_novenytan_5_2019_pptx",
-    out = "alkalmazott_novenytan_5_2019.md",
+    from_format = "pptx",
     models_tar = ":docling_models_default_tar",
 )
 

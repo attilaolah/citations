@@ -26,6 +26,7 @@ def _pptx_file_impl(ctx):
         executable = soffice,
         arguments = [args],
         env = {
+            "DBUS_SESSION_BUS_ADDRESS": "disabled:",
             "HOME": "/tmp",
         },
         inputs = [local_input],
