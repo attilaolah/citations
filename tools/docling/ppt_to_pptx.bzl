@@ -1,6 +1,6 @@
 def _ppt_to_pptx_impl(ctx):
     src = ctx.file.src
-    out = ctx.outputs.out
+    out = ctx.actions.declare_file(ctx.label.name + ".pptx")
     soffice = ctx.executable._soffice
 
     # LibreOffice writes "<input-basename>.pptx" to --outdir.
@@ -37,6 +37,8 @@ def _ppt_to_pptx_impl(ctx):
         progress_message = "Converting PPT to PPTX for %s" % src.short_path,
     )
 
+    return DefaultInfo(files = depset([out]))
+
 _ppt_to_pptx = rule(
     implementation = _ppt_to_pptx_impl,
     attrs = {
@@ -49,9 +51,6 @@ _ppt_to_pptx = rule(
             default = "@libreoffice//:soffice",
             executable = True,
         ),
-    },
-    outputs = {
-        "out": "%{name}.pptx",
     },
 )
 
