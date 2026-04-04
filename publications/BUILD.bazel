@@ -2,7 +2,8 @@ load(
     "//publications:docling_extract.bzl",
     "docling_models_tar",
     "docling_pdf_to_markdown",
-    "docling_ppt_to_markdown",
+    "docling_pptx_to_markdown",
+    "ppt_to_pptx",
 )
 
 exports_files([
@@ -24,9 +25,15 @@ docling_pdf_to_markdown(
     models_tar = ":docling_models_default_tar",
 )
 
-docling_ppt_to_markdown(
-    name = "alkalmazott_novenytan_5_2019_ppt_md",
+ppt_to_pptx(
+    name = "alkalmazott_novenytan_5_2019_pptx",
     src = "@alkalmazott_novenytan_5_2019_ppt//file",
+    out = "alkalmazott_novenytan_5_2019.pptx",
+)
+
+docling_pptx_to_markdown(
+    name = "alkalmazott_novenytan_5_2019_ppt_md",
+    src = ":alkalmazott_novenytan_5_2019_pptx",
     out = "alkalmazott_novenytan_5_2019.md",
     models_tar = ":docling_models_default_tar",
 )
