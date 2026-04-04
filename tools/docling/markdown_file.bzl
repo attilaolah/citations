@@ -2,17 +2,7 @@ def _markdown_file_impl(ctx):
     src = ctx.file.src
     out = ctx.actions.declare_file(ctx.label.name + ".md")
 
-    from_format = ctx.attr.from_format
-    if from_format == "auto":
-        from_format = src.extension.lower()
-
-    if from_format not in ["pdf", "pptx"]:
-        fail(
-            "Unsupported input format '%s' for %s. Supported: pdf, pptx." % (
-                from_format,
-                src.short_path,
-            ),
-        )
+    from_format = src.extension.lower()
 
     # Name input to match expected markdown basename in the output directory.
     local_input = ctx.actions.declare_file(ctx.label.name + "." + from_format)
@@ -72,13 +62,9 @@ markdown_file = rule(
             default = "auto",
             values = ["auto", "cpu", "cuda", "mps", "xpu"],
         ),
-        "from_format": attr.string(
-            default = "auto",
-            values = ["auto", "pdf", "pptx"],
-        ),
         "models_tar": attr.label(allow_single_file = True),
         "src": attr.label(
-            allow_single_file = True,
+            allow_single_file = [".pdf", ".pptx"],
             mandatory = True,
         ),
         "_docling": attr.label(

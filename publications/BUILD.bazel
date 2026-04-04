@@ -34,7 +34,6 @@ pptx_file(
 markdown_file(
     name = "alkalmazott_novenytan_5_2019_ppt_md",
     src = ":alkalmazott_novenytan_5_2019_pptx",
-    from_format = "pptx",
     models_tar = ":docling_models_default_tar",
 )
 
