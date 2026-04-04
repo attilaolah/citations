@@ -50,7 +50,7 @@ export HF_HOME="$$tmp_dir/cache/huggingface"
 
 input="$(location {src})"
 device="$${{DOCLING_DEVICE:-auto}}"
-$(location @docling//:docling) --from pdf --to md --pipeline standard --pdf-backend docling_parse --no-ocr --device "$$device" {artifacts_flag} --output "$$tmp_dir/out" "$$input"
+$(location @docling//:docling) --from pdf --to md --image-export-mode placeholder --pipeline standard --pdf-backend docling_parse --no-ocr --device "$$device" {artifacts_flag} --output "$$tmp_dir/out" "$$input"
 
 base_name="$${{input##*/}}"
 stem="$${{base_name%.*}}"
@@ -127,7 +127,7 @@ export HF_HOME="$$tmp_dir/cache/huggingface"
 
 input="$(location {src})"
 device="$${{DOCLING_DEVICE:-auto}}"
-$(location @docling//:docling) --from pptx --to md --device "$$device" {artifacts_flag} --output "$$tmp_dir/out" "$$input"
+$(location @docling//:docling) --from pptx --to md --image-export-mode placeholder --device "$$device" {artifacts_flag} --output "$$tmp_dir/out" "$$input"
 
 base_name="$${{input##*/}}"
 stem="$${{base_name%.*}}"
