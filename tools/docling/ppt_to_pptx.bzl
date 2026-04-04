@@ -18,10 +18,8 @@ def _ppt_to_pptx_impl(ctx):
     args.add("--nolockcheck")
     args.add("--nodefault")
     args.add("--nofirststartwizard")
-    args.add("--convert-to")
-    args.add("pptx")
-    args.add("--outdir")
-    args.add(out.dirname)
+    args.add("--convert-to", "pptx")
+    args.add("--outdir", out.dirname)
     args.add(local_input.path)
 
     ctx.actions.run(
