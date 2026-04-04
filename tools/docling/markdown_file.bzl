@@ -68,7 +68,10 @@ tar -C "$1" -xf "$2"
 markdown_file = rule(
     implementation = _markdown_file_impl,
     attrs = {
-        "device": attr.string(default = "auto"),
+        "device": attr.string(
+            default = "auto",
+            values = ["auto", "cpu", "cuda", "mps", "xpu"],
+        ),
         "from_format": attr.string(
             default = "auto",
             values = ["auto", "pdf", "pptx"],
