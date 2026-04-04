@@ -9,7 +9,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "pytest",
+  "pytest",
 ]
 
 [tool.black]
@@ -19,9 +19,10 @@ line-length = 119
 preview = true
 select = ["ALL"]
 ignore = [
-    "D203",  # D211 instead
-    "D212",  # D213 instead
-    "INP001",  # Bazel handles packages / namespaces
+  "CPY001",  # LICENSE file already contains the license
+  "D203",  # D211 instead
+  "D212",  # D213 instead
+  "INP001",  # Bazel handles packages / namespaces
 ]
 
 [tool.ruff.lint.per-file-ignores]

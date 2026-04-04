@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-
-from __future__ import annotations
+"""Conservative post-processing for Docling-generated Markdown."""
 
 import argparse
 import re
@@ -16,6 +14,11 @@ THREE_PLUS_NEWLINES_RE = re.compile(r"\n{3,}")
 
 
 def clean_line(line: str) -> str | None:
+    """Normalize one line of extracted Markdown, or drop it.
+
+    Returns:
+        The cleaned line, or `None` if the line should be removed.
+    """
     line = IMAGE_PLACEHOLDER_RE.sub("", line)
 
     if EMPTY_BULLET_RE.match(line):
@@ -39,6 +42,11 @@ def clean_line(line: str) -> str | None:
 
 
 def clean_markdown(text: str) -> str:
+    """Apply conservative Markdown cleanup transforms to a whole document.
+
+    Returns:
+        The cleaned Markdown document.
+    """
     cleaned_lines: list[str] = []
     for raw_line in text.splitlines():
         cleaned_line = clean_line(raw_line)
@@ -47,12 +55,15 @@ def clean_markdown(text: str) -> str:
 
     out = "\n".join(cleaned_lines)
     out = THREE_PLUS_NEWLINES_RE.sub("\n\n", out)
-    if out and not out.endswith("\n"):
-        out += "\n"
-    return out
+    return out.strip() + "\n"
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments.
+
+    Returns:
+        Parsed command-line arguments.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
@@ -60,10 +71,15 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """Run the Markdown cleanup CLI.
+
+    Returns:
+        Process exit code.
+    """
     args = parse_args()
     src = Path(args.input)
     dst = Path(args.output)
-    dst.write_text(clean_markdown(src.read_text()), encoding="utf-8")
+    dst.write_text(clean_markdown(src.read_text(encoding="utf-8")), encoding="utf-8")
     return 0
 
 
