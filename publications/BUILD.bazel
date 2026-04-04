@@ -1,7 +1,3 @@
-load(
-    "//tools/docling:docling_extract.bzl",
-    "docling_models_tar",
-)
 load("//tools/docling:markdown_file.bzl", "markdown_file")
 load(
     "//tools/docling:pptx_file.bzl",
@@ -12,16 +8,10 @@ exports_files([
     "alkalmazott_novenytan.MODULE.bazel",
 ])
 
-docling_models_tar(
-    name = "docling_models_default_tar",
-    out = "docling_models_default.tar",
-    all_models = False,
-)
-
 markdown_file(
     name = "alkalmazott_novenytan_1_2020_pdf_md",
     src = "@alkalmazott_novenytan_1_2020_pdf//file",
-    models_tar = ":docling_models_default_tar",
+    models = "//tools/docling/models:default",
 )
 
 pptx_file(
@@ -32,7 +22,7 @@ pptx_file(
 markdown_file(
     name = "alkalmazott_novenytan_5_2019_ppt_md",
     src = ":alkalmazott_novenytan_5_2019_pptx",
-    models_tar = ":docling_models_default_tar",
+    models = "//tools/docling/models:default",
 )
 
 filegroup(

@@ -1,0 +1,7 @@
+load(":models.bzl", "models")
+
+models(
+    name = "default",
+    all_models = False,
+    visibility = ["//publications:__pkg__"],
+)

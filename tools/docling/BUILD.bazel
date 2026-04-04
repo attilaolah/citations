@@ -1,5 +1,4 @@
 exports_files([
-    "docling_extract.bzl",
     "markdown_file.bzl",
     "pptx_file.bzl",
 ])
