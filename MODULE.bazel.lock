@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "MJjn0KQMuxvUUTj4jZzrOChQGjQszX1BUJ39BSjdz40=",
-        "usagesDigest": "EEu3k59zcFRvzowVHW9nLCwdZauG8haJYkwOGwOwV8w=",
+        "usagesDigest": "F9u4iEW8zo0UY7v/tbERGIpHHx7HsqKpyevBFT2tfKI=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -495,6 +495,19 @@
               ],
               "sha256": "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054",
               "downloaded_file_path": "downloaded.ppt"
+            }
+          },
+          "invazios_novenyfajok_magyarorszagon": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmRXxXsHy4TPBGmwnZyGr75qZpYJDgDKkNsJahXoegcLMP",
+                "https://gateway.pinata.cloud/ipfs/QmRXxXsHy4TPBGmwnZyGr75qZpYJDgDKkNsJahXoegcLMP",
+                "https://dweb.link/ipfs/QmRXxXsHy4TPBGmwnZyGr75qZpYJDgDKkNsJahXoegcLMP",
+                "https://mek.oszk.hu/11700/11738/11738.pdf"
+              ],
+              "sha256": "92629c4c1864ed595f6ec43e2ef6020e84ffd8c630c2146d5b63f3165e82db4d",
+              "downloaded_file_path": "downloaded.pdf"
             }
           }
         }

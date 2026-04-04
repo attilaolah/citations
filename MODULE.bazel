@@ -56,4 +56,4 @@ exports_files(["bin/python"])
 )
 use_repo(nix_pkg, "docling", "docling_parse", "libreoffice", "python")
 
-include("//publications:alkalmazott_novenytan.MODULE.bazel")
+include("//publications:HU.MODULE.bazel")

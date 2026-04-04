@@ -5,30 +5,68 @@ load(
 )
 
 exports_files([
-    "alkalmazott_novenytan.MODULE.bazel",
+    "HU.MODULE.bazel",
 ])
 
-markdown_file(
-    name = "alkalmazott_novenytan_1_2020_pdf_md",
-    src = "@alkalmazott_novenytan_1_2020_pdf//file",
-    models = "//tools/docling/models:default",
-)
+_MODELS = "//tools/docling/models:default"
 
-pptx_file(
-    name = "alkalmazott_novenytan_5_2019_pptx",
-    src = "@alkalmazott_novenytan_5_2019_ppt//file",
-)
+_PDF_PUBLICATIONS = [
+    "alkalmazott_novenytan_1_2020_pdf",
+    "alkalmazott_novenytan_2_2020_pdf",
+    "alkalmazott_novenytan_3_2020_pdf",
+    "alkalmazott_novenytan_4_2020_pdf",
+    "invazios_novenyfajok_magyarorszagon",
+]
 
-markdown_file(
-    name = "alkalmazott_novenytan_5_2019_ppt_md",
-    src = ":alkalmazott_novenytan_5_2019_pptx",
-    models = "//tools/docling/models:default",
-)
+_PPT_PUBLICATIONS = [
+    "alkalmazott_novenytan_5_2019_ppt",
+    "alkalmazott_novenytan_6_2019_ppt",
+    "alkalmazott_novenytan_7_2019_ppt",
+    "alkalmazott_novenytan_8_2019_ppt",
+    "alkalmazott_novenytan_9_2019_ppt",
+    "alkalmazott_novenytan_10_2019_ppt",
+    "alkalmazott_novenytan_11_2019_ppt",
+    "alkalmazott_novenytan_12_2019_ppt",
+    "rendszertan1v_2021_ppt",
+    "rendszertan2v_ppt",
+    "rendszertan3v_ppt",
+    "rendszertan4v_ppt",
+    "rendszertan5v_ppt",
+    "rendszertan6v_ppt",
+    "rendszertan7v_ppt",
+    "rendszertan8v_ppt",
+    "rendszertan9v_2017_ppt",
+    "rendszertan10v_2017_ppt",
+    "rendszertan11v_2017_ppt",
+]
+
+[
+    markdown_file(
+        name = publication + "_md",
+        src = "@%s//file" % publication,
+        models = _MODELS,
+    )
+    for publication in _PDF_PUBLICATIONS
+]
+
+[
+    pptx_file(
+        name = publication + "_pptx",
+        src = "@%s//file" % publication,
+    )
+    for publication in _PPT_PUBLICATIONS
+]
+
+[
+    markdown_file(
+        name = publication + "_md",
+        src = ":" + publication + "_pptx",
+        models = _MODELS,
+    )
+    for publication in _PPT_PUBLICATIONS
+]
 
 filegroup(
     name = "alkalmazott_novenytan_md",
-    srcs = [
-        ":alkalmazott_novenytan_1_2020_pdf_md",
-        ":alkalmazott_novenytan_5_2019_ppt_md",
-    ],
+    srcs = [":" + publication + "_md" for publication in _PDF_PUBLICATIONS + _PPT_PUBLICATIONS],
 )

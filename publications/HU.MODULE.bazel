@@ -1,8 +1,8 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
 
-BASE_URL = "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/"
+ALKALMAZOTT_NOVENYTAN_BASE_URL = "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/"
 
-PUBLICATIONS = [
+ALKALMAZOTT_NOVENYTAN_PUBLICATIONS = [
     ("QmSxNmujZit4CvDNEP7jVPVkdhzkDabCsFCa2LfkcCU3vQ", "ecce58e638482b660a18a797a43b65cdaf7822f3c1eb79d077d0aca1258a22ad", "Alkalmazott növénytan 1 2020.pdf"),
     ("QmPRk2LTJJ5BERx3AUzdx1X3PdWhkuzKqkpfFtaUANZeV5", "193a705f108eb30b92d7adc92d6fb4eb583c7759f489920f63802547b918b4cd", "Alkalmazott növénytan 2 2020.pdf"),
     ("QmUE4eTdGswwLoJSfvD6Q614LxVsDyjMfFYVBqbNwqne2U", "b8611f06ca7d4c9b39a362507f8bdf03e1cf1a83d74feb0465ae30bce793ec8a", "Alkalmazott növénytan 3 2020.pdf"),
@@ -28,19 +28,27 @@ PUBLICATIONS = [
     ("QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA", "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054", "rendszertan11v_2017.ppt"),
 ]
 
-PUBLICATION_NAMES = {
+ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES = {
     cid: file_name.lower().replace("é", "e").replace("ö", "o").replace(" ", "_").replace(".", "_")
-    for cid, _, file_name in PUBLICATIONS
+    for cid, _, file_name in ALKALMAZOTT_NOVENYTAN_PUBLICATIONS
 }
 
 [
     sources.publication(
-        name = PUBLICATION_NAMES[cid],
+        name = ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES[cid],
         ipfs_cid = cid,
         sha256 = sha256,
-        url = BASE_URL + file_name,
+        url = ALKALMAZOTT_NOVENYTAN_BASE_URL + file_name,
     )
-    for cid, sha256, file_name in PUBLICATIONS
+    for cid, sha256, file_name in ALKALMAZOTT_NOVENYTAN_PUBLICATIONS
 ]
 
-[use_repo(sources, PUBLICATION_NAMES[cid]) for cid, _, _ in PUBLICATIONS]
+[use_repo(sources, ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES[cid]) for cid, _, _ in ALKALMAZOTT_NOVENYTAN_PUBLICATIONS]
+
+sources.publication(
+    name = "invazios_novenyfajok_magyarorszagon",
+    ipfs_cid = "QmRXxXsHy4TPBGmwnZyGr75qZpYJDgDKkNsJahXoegcLMP",
+    sha256 = "92629c4c1864ed595f6ec43e2ef6020e84ffd8c630c2146d5b63f3165e82db4d",
+    url = "https://mek.oszk.hu/11700/11738/11738.pdf",
+)
+use_repo(sources, "invazios_novenyfajok_magyarorszagon")
