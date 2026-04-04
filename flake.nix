@@ -2,7 +2,7 @@
   description = "Citations repository flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/ba6620cf1df0361c9737822330edba8bd5816377";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
   };
@@ -25,7 +25,6 @@
       in {
         formatter = pkgs.alejandra;
         packages = {
-          inherit (pkgs.python314Packages) docling docling-parse docling-ibm-models;
           bazel = pkgs.bazel_9;
         };
         devShells.default = pkgs.mkShell {
