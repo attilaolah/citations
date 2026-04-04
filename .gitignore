@@ -1,3 +1,4 @@
+/bazel-*
 /result
 .aider.*
 .claude
