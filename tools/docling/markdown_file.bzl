@@ -50,9 +50,9 @@ def _markdown_file_impl(ctx):
     clean_args.add("--input", raw_out.path)
     clean_args.add("--output", out.path)
     ctx.actions.run(
-        executable = ctx.executable._markdown_cleanup,
-        arguments = [clean_args],
-        inputs = [raw_out],
+        executable = ctx.file._python,
+        arguments = [ctx.file._markdown_cleanup.path, clean_args],
+        inputs = [raw_out, ctx.file._markdown_cleanup, ctx.file._python],
         outputs = [out],
         mnemonic = "CleanMarkdown",
         progress_message = "Cleaning extracted Markdown for %s" % src.short_path,
@@ -81,9 +81,13 @@ markdown_file = rule(
             executable = True,
         ),
         "_markdown_cleanup": attr.label(
+            allow_single_file = True,
+            default = "//tools/docling:markdown_cleanup.py",
+        ),
+        "_python": attr.label(
             cfg = "exec",
-            default = "//tools/docling:markdown_cleanup",
-            executable = True,
+            allow_single_file = True,
+            default = "@python//:bin/python",
         ),
     },
 )

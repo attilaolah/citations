@@ -3,14 +3,6 @@ module(
 )
 
 bazel_dep(name = "rules_nixpkgs_core", version = "0.13.0")
-bazel_dep(name = "rules_python", version = "1.7.0")
-
-python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-python.toolchain(
-    is_default = True,
-    python_version = "3.15",
-)
-use_repo(python, "python_3_15")
 
 nix_repo = use_extension("@rules_nixpkgs_core//extensions:repository.bzl", "nix_repo")
 nix_repo.file(
@@ -53,6 +45,15 @@ filegroup(name = "soffice", srcs = ["bin/soffice"])
 """,
     repo = "@nixpkgs",
 )
-use_repo(nix_pkg, "docling", "docling_parse", "libreoffice")
+nix_pkg.attr(
+    name = "python",
+    attr = "python315",
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+exports_files(["bin/python"])
+""",
+    repo = "@nixpkgs",
+)
+use_repo(nix_pkg, "docling", "docling_parse", "libreoffice", "python")
 
 include("//publications:alkalmazott_novenytan.MODULE.bazel")
