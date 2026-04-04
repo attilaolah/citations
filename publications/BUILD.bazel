@@ -1,7 +1,6 @@
 load(
     "//tools/docling:docling_extract.bzl",
     "docling_models_tar",
-    "docling_pdf_to_markdown",
 )
 load("//tools/docling:markdown_file.bzl", "markdown_file")
 load(
@@ -19,10 +18,9 @@ docling_models_tar(
     all_models = False,
 )
 
-docling_pdf_to_markdown(
+markdown_file(
     name = "alkalmazott_novenytan_1_2020_pdf_md",
     src = "@alkalmazott_novenytan_1_2020_pdf//file",
-    out = "alkalmazott_novenytan_1_2020.md",
     models_tar = ":docling_models_default_tar",
 )
 
