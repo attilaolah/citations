@@ -1,5 +1,5 @@
 load(
-    "//publications:docling_extract.bzl",
+    "//tools/docling:docling_extract.bzl",
     "docling_models_tar",
     "docling_pdf_to_markdown",
     "docling_pptx_to_markdown",
@@ -8,8 +8,6 @@ load(
 
 exports_files([
     "alkalmazott_novenytan.MODULE.bazel",
-    "docling_extract.bzl",
-    "sources_extension.bzl",
 ])
 
 docling_models_tar(

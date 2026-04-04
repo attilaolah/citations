@@ -1,4 +1,4 @@
-sources = use_extension("//publications:sources_extension.bzl", "sources")
+sources = use_extension("//tools:source_extensions.bzl", "sources")
 
 BASE_URL = "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/"
 
