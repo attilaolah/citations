@@ -1,4 +1,4 @@
 exports_files([
     "docling_extract.bzl",
-    "ppt_to_pptx.bzl",
+    "pptx_file.bzl",
 ])

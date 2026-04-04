@@ -1,4 +1,4 @@
-def _ppt_to_pptx_impl(ctx):
+def _pptx_file_impl(ctx):
     src = ctx.file.src
     out = ctx.actions.declare_file(ctx.label.name + ".pptx")
     soffice = ctx.executable._soffice
@@ -36,8 +36,8 @@ def _ppt_to_pptx_impl(ctx):
 
     return DefaultInfo(files = depset([out]))
 
-ppt_to_pptx = rule(
-    implementation = _ppt_to_pptx_impl,
+pptx_file = rule(
+    implementation = _pptx_file_impl,
     attrs = {
         "src": attr.label(
             allow_single_file = True,

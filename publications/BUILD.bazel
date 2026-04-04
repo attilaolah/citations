@@ -5,8 +5,8 @@ load(
     "docling_pptx_to_markdown",
 )
 load(
-    "//tools/docling:ppt_to_pptx.bzl",
-    "ppt_to_pptx",
+    "//tools/docling:pptx_file.bzl",
+    "pptx_file",
 )
 
 exports_files([
@@ -26,7 +26,7 @@ docling_pdf_to_markdown(
     models_tar = ":docling_models_default_tar",
 )
 
-ppt_to_pptx(
+pptx_file(
     name = "alkalmazott_novenytan_5_2019_pptx",
     src = "@alkalmazott_novenytan_5_2019_ppt//file",
 )
