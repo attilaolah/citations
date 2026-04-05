@@ -2,26 +2,21 @@
   description = "Citations repository flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/ba6620cf1df0361c9737822330edba8bd5816377";
+    nixpkgs.url = "github:NixOS/nixpkgs/24d724fc55d4bf31a7283621f2b456950531d030";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
   };
 
   outputs = inputs @ {
-    self,
     flake-parts,
     systems,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
-      flake.overlays = import ./nix/overlays/default.nix;
 
       perSystem = {system, ...}: let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [self.overlays.default];
-        };
+        pkgs = import inputs.nixpkgs {inherit system;};
       in {
         formatter = pkgs.alejandra;
         packages = {
