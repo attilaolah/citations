@@ -1,6 +1,7 @@
 """Extract Latin/Hungarian name pairs from one specific Wikibooks raw page."""
 
 import argparse
+import json
 import re
 from pathlib import Path
 
@@ -142,6 +143,7 @@ def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
     right_links = _extract_link_texts(cells[1])
     left_name = left_links[0] if left_links else _strip_markup(cells[0])
     right_name = right_links[0] if right_links else _strip_markup(cells[1])
+    left_hungarian_names = _extract_hungarian_names(cells[0])
 
     if not left_name or not right_name:
         return []
@@ -152,7 +154,8 @@ def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
     if right_latin is None:
         right_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[1])))
     if right_latin is not None:
-        return [(right_latin, left_name)]
+        names = left_hungarian_names or [left_name]
+        return [(right_latin, name) for name in names]
 
     latin_candidates = [link for link in left_links if _is_latin_like(link)]
     latin_candidates.extend(LATIN_TOKEN_RE.findall(_strip_markup(cells[0])))
@@ -165,6 +168,29 @@ def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
         seen_latin.add(latin)
         pairs.append((latin, right_name))
     return pairs
+
+
+def _extract_hungarian_names(cell: str) -> list[str]:
+    names: list[str] = list(_extract_link_texts(cell))
+
+    cleaned = _strip_markup(LINK_RE.sub(" ", cell))
+    for part in re.split(r"\s+vagy\s+", cleaned):
+        candidate = " ".join(part.split()).strip(" ,;|")
+        candidate = re.sub(r"^vagy\s+", "", candidate, flags=re.IGNORECASE)
+        candidate = re.sub(r"\s+vagy$", "", candidate, flags=re.IGNORECASE)
+        if candidate.casefold() == "vagy":
+            continue
+        if candidate:
+            names.append(candidate)
+
+    unique: list[str] = []
+    seen: set[str] = set()
+    for name in names:
+        if name in seen:
+            continue
+        seen.add(name)
+        unique.append(name)
+    return unique
 
 
 def _parse_taxon_bullet(line: str) -> tuple[str, str] | None:
@@ -229,8 +255,13 @@ def _main() -> int:
     lines = args.input.read_text(encoding="utf-8", errors="replace").splitlines()
     pairs = _extract_pairs(lines)
 
+    mapping: dict[str, set[str]] = {}
+    for latin, hungarian in pairs:
+        mapping.setdefault(latin, set()).add(hungarian)
+
+    sorted_mapping = {latin: sorted(mapping[latin]) for latin in sorted(mapping)}
     args.output.write_text(
-        "\n".join(f"{latin} = {hungarian}" for latin, hungarian in pairs) + "\n",
+        json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     return 0

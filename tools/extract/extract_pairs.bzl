@@ -1,7 +1,7 @@
 def _extract_pairs_impl(ctx):
     src = ctx.file.src
     python_bin = ctx.file._python
-    out = ctx.actions.declare_file(ctx.label.name + ".txt")
+    out = ctx.actions.declare_file(ctx.label.name + ".json")
 
     args = ctx.actions.args()
     args.add("--input", src.path)

@@ -26,6 +26,10 @@ name_pairs_test(
         "Herpes porcellus": ["bütyköshátú ormányos"],
         "Hylidae": ["levelibéka-félék"],
         "Isogenus nubecula": ["füstös álkérész"],
+        "Isophya modesta": [
+            "Pusztai tarsza",
+            "Szerény tarsza",
+        ],
         "Mantis religiosa": ["imádkozó sáska"],
         "Myoxus glis": ["nagy pele"],
         "Pelecanidae": ["gödényfélék"],
