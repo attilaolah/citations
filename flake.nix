@@ -25,13 +25,14 @@
       in {
         formatter = pkgs.alejandra;
         packages = {
+          inherit (pkgs) gnfinder gnparser;
           bazel = pkgs.bazel_9;
-          gnfinder = pkgs.gnfinder;
         };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bazel_9
             gnfinder
+            gnparser
             (python314.withPackages (ps:
               with ps; [
                 docling
