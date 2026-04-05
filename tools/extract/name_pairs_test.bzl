@@ -25,7 +25,7 @@ def _name_pairs_test_impl(ctx):
     for check in checks:
         quoted = _sh_single_quote(check)
         lines.extend([
-            "if ! grep -Fqx -- %s \"$pairs_file\"; then" % quoted,
+            "if ! grep -Fxiq -- %s \"$pairs_file\"; then" % quoted,
             "  echo \"Missing extracted pair: %s\" >&2" % check,
             "  exit 1",
             "fi",

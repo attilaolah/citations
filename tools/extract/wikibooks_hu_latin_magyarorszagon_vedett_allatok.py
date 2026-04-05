@@ -11,6 +11,8 @@ QUOTE_PAREN_RE = re.compile(r"''\(([^)]*)\)''")
 # Examples in this document: Acridoidea, Plecoptera, Insecta, Mantis religiosa
 LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [a-z][a-z-]+)?\b")
 MIN_TABLE_CELLS = 2
+MULTI_LINK_CELL = 2
+THREE_CELL_ROW = 3
 
 
 def _strip_markup(text: str) -> str:
@@ -78,7 +80,22 @@ def _parse_heading(line: str) -> tuple[str, str] | None:
 
 
 def _parse_table_row(line: str) -> list[tuple[str, str]]:
-    is_header_row = line.startswith("!")
+    cells = _split_table_cells(line)
+    if not cells:
+        return []
+
+    pairs = _parse_concat_first_cell(cells)
+    if pairs:
+        return pairs
+
+    pairs = _parse_empty_first_column(cells)
+    if pairs:
+        return pairs
+
+    return _parse_standard_cells(cells)
+
+
+def _split_table_cells(line: str) -> list[str]:
     content = line[1:].strip()
     if "||" not in content:
         return []
@@ -86,7 +103,41 @@ def _parse_table_row(line: str) -> list[tuple[str, str]]:
     cells = [cell.strip() for cell in content.split("||")]
     if len(cells) < MIN_TABLE_CELLS:
         return []
+    return cells
 
+
+def _parse_concat_first_cell(cells: list[str]) -> list[tuple[str, str]]:
+    left_links = _extract_link_texts(cells[0])
+    right_links = _extract_link_texts(cells[1])
+    right_name = right_links[0] if right_links else _strip_markup(cells[1])
+    if len(left_links) < MULTI_LINK_CELL or right_name:
+        return []
+
+    latin_links = [value for value in left_links if _is_latin_like(value)]
+    hungarian_links = [value for value in left_links if not _is_latin_like(value)]
+    if not latin_links or not hungarian_links:
+        return []
+    return [(latin_links[0], hungarian_links[0])]
+
+
+def _parse_empty_first_column(cells: list[str]) -> list[tuple[str, str]]:
+    if len(cells) < THREE_CELL_ROW or _strip_markup(cells[0]):
+        return []
+
+    c1_links = _extract_link_texts(cells[1])
+    c2_links = _extract_link_texts(cells[2])
+    c1_text = c1_links[0] if c1_links else _strip_markup(cells[1])
+    c2_text = c2_links[0] if c2_links else _strip_markup(cells[2])
+    c1_latin = _first_latin_candidate(c1_links) or _first_latin_candidate(LATIN_TOKEN_RE.findall(c1_text))
+    c2_latin = _first_latin_candidate(c2_links) or _first_latin_candidate(LATIN_TOKEN_RE.findall(c2_text))
+    if c1_latin is not None and not _is_latin_like(c2_text):
+        return [(c1_latin, c2_text)]
+    if c2_latin is not None and not _is_latin_like(c1_text):
+        return [(c2_latin, c1_text)]
+    return []
+
+
+def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
     left_links = _extract_link_texts(cells[0])
     right_links = _extract_link_texts(cells[1])
     left_name = left_links[0] if left_links else _strip_markup(cells[0])
@@ -97,41 +148,36 @@ def _parse_table_row(line: str) -> list[tuple[str, str]]:
     if {left_name, right_name} == {"Magyar neve", "Latin neve"}:
         return []
 
-    pairs: list[tuple[str, str]] = []
-
     right_latin = _first_latin_candidate(right_links)
-    if right_latin is None and is_header_row:
+    if right_latin is None:
         right_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[1])))
     if right_latin is not None:
-        pairs.append((right_latin, left_name))
-        return pairs
+        return [(right_latin, left_name)]
 
-    latin_candidates: list[str] = []
-    latin_candidates.extend(link for link in left_links if _is_latin_like(link))
+    latin_candidates = [link for link in left_links if _is_latin_like(link)]
     latin_candidates.extend(LATIN_TOKEN_RE.findall(_strip_markup(cells[0])))
 
+    pairs: list[tuple[str, str]] = []
     seen_latin: set[str] = set()
     for latin in latin_candidates:
-        if not _is_latin_like(latin):
-            continue
-        if latin in seen_latin:
+        if not _is_latin_like(latin) or latin in seen_latin:
             continue
         seen_latin.add(latin)
         pairs.append((latin, right_name))
-
     return pairs
 
 
 def _parse_taxon_bullet(line: str) -> tuple[str, str] | None:
-    if not line.startswith("*;"):
+    if not re.match(r"^[*;'\s]+", line):
         return None
 
-    body = line[2:].strip()
+    body = re.sub(r"^[*;'\s]+", "", line).strip()
     links = _extract_link_texts(body)
-    if not links:
-        return None
 
-    hungarian = links[0]
+    hungarian = links[0] if links else _strip_markup(PAREN_RE.sub("", body))
+    hungarian = hungarian.strip()
+    if not hungarian:
+        return None
     latin_candidates: list[str] = []
     latin_candidates.extend(_strip_markup(match) for match in QUOTE_PAREN_RE.findall(body))
     latin_candidates.extend(_strip_markup(match) for match in PAREN_RE.findall(body))
@@ -160,7 +206,7 @@ def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
                 seen.add(table_pair)
                 pairs.append(table_pair)
             continue
-        elif line.startswith("*;"):
+        elif re.match(r"^[*;']+", line):
             pair = _parse_taxon_bullet(line)
 
         if pair is None:
