@@ -10,6 +10,7 @@ sources.publication(
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL = "https://hu.wikibooks.org/w/index.php?title=Növények/Magyar-Latin-Népies/"
 
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
+    # TODO: (CID, hash, TitleCaseLetter e.g. "A", "B", ..., "Zs")
     ("a", "QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH", "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86"),
     ("b", "QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW", "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f"),
 ]
