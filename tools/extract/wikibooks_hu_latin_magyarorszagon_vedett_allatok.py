@@ -9,7 +9,7 @@ PAREN_RE = re.compile(r"\(([^)]*)\)")
 QUOTE_PAREN_RE = re.compile(r"''\(([^)]*)\)''")
 
 # Examples in this document: Acridoidea, Plecoptera, Insecta, Mantis religiosa
-LATIN_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z-]*(?: [a-z][a-z-]*)?")
+LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [a-z][a-z-]+)?\b")
 MIN_TABLE_CELLS = 2
 
 
@@ -77,7 +77,8 @@ def _parse_heading(line: str) -> tuple[str, str] | None:
     return latin, hungarian
 
 
-def _parse_table_row(line: str) -> tuple[str, str] | None:
+def _parse_table_row(line: str) -> tuple[str, str] | None:  # noqa: PLR0911
+    is_header_row = line.startswith("!")
     content = line[1:].strip()
     if "||" not in content:
         return None
@@ -93,15 +94,17 @@ def _parse_table_row(line: str) -> tuple[str, str] | None:
 
     if not left_name or not right_name:
         return None
+    if {left_name, right_name} == {"Magyar neve", "Latin neve"}:
+        return None
 
     right_latin = _first_latin_candidate(right_links)
-    if right_latin is None:
+    if right_latin is None and is_header_row:
         right_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[1])))
     if right_latin is not None:
         return right_latin, left_name
 
     left_latin = _first_latin_candidate(left_links)
-    if left_latin is None:
+    if left_latin is None and is_header_row:
         left_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[0])))
     if left_latin is None:
         return None
