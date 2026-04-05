@@ -1,13 +1,11 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
-sources.external_source(
+sources.wikibooks_hu_source(
     name = "latin_magyarorszagon_vedett_allatok",
     ipfs_cid = "QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc",
     sha256 = "d0f82f9512dedaac10d230a7ca2cfb1f53b773a3634b2afb0631446d5ec9fb81",
+    title = "Latin/Magyarországon_védett_állatok",
     updated_on = "2026-04-05",
-    url = "https://hu.wikibooks.org/w/index.php?title=Latin/Magyarországon_védett_állatok&action=raw",
 )
-
-WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL = "https://hu.wikibooks.org/w/index.php?title=Növények/Magyar-Latin-Népies/"
 
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
     # TODO: Add the remaining letter pages (e.g. "C", ..., "Zs").
@@ -16,12 +14,12 @@ WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
 ]
 
 [
-    sources.external_source(
+    sources.wikibooks_hu_source(
         name = "wikibooks_novenyek_magyar_latin_nepies_" + letter.lower(),
         ipfs_cid = cid,
         sha256 = sha256,
+        title = "Növények/Magyar-Latin-Népies/" + letter,
         updated_on = "2026-04-05",
-        url = WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL + letter + "&action=raw",
     )
     for cid, sha256, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
 ]
