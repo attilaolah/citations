@@ -20,9 +20,31 @@ sources.publication(
     updated_on = "2026-04-05",
     url = "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
 )
+
+WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL = "https://hu.wikibooks.org/wiki/Növények/Magyar-Latin-Népies/"
+
+WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
+    ("a", "QmUHWcnswzT4vzUjbSZUQedsd5JJAApyAF4vMB7M84vy51", "309b3fe92708f13403ba746b1f6cfd7178be74c03c4fe81e18e6ed18b13e1adc"),
+    ("b", "QmdyvH3GgRY2kX5DvwcC3PWpp2rfGq3VVega1mo2rVX677", "13380ae21ac472a54a53a90203ec2facb22fd485bb517eb031d09c7f83f0b1b1"),
+]
+
+[
+    sources.publication(
+        name = "wikibooks_novenyek_magyar_latin_nepies_" + letter,
+        ipfs_cid = cid,
+        sha256 = sha256,
+        updated_on = "2026-04-05",
+        url = WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL + letter.upper(),
+    )
+    for letter, cid, sha256 in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
+]
+
+# TODO: Add the remaining wikibooks_novenyek_magyar_latin_nepies_* letter pages.
 use_repo(
     sources,
     "latin_magyarorszagon_vedett_allatok",
     "magyar_novenynevek",
     "plant_names_in_hungarian_html",
 )
+
+[use_repo(sources, "wikibooks_novenyek_magyar_latin_nepies_" + letter) for letter, _, _ in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]
