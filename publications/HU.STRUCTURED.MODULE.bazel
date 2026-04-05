@@ -1,0 +1,28 @@
+sources = use_extension("//tools:source_extensions.bzl", "sources")
+sources.publication(
+    name = "latin_magyarorszagon_vedett_allatok",
+    ipfs_cid = "QmRKbDRFLp7nvYgG77ZAhLLnwtaMquieMkzcZccBL2PeSJ",
+    sha256 = "89aac6492392ba2431b626429af526df3e127bf27bc610a36b7e92278e815dad",
+    updated_on = "2026-04-05",
+    url = "https://hu.wikibooks.org/wiki/Latin/Magyarországon_védett_állatok",
+)
+sources.publication(
+    name = "magyar_novenynevek",
+    ipfs_cid = "QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
+    sha256 = "c43e20b8173caa7dd6eb60c85f8ec03cf3c9d3a30ad55e01b4eb9155800a0e1d",
+    updated_on = "2026-04-05",
+    url = "https://www.tuja.hu/magyar_novenynevek.htm",
+)
+sources.publication(
+    name = "plant_names_in_hungarian_html",
+    ipfs_cid = "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+    sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    updated_on = "2026-04-05",
+    url = "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
+)
+use_repo(
+    sources,
+    "latin_magyarorszagon_vedett_allatok",
+    "magyar_novenynevek",
+    "plant_names_in_hungarian_html",
+)

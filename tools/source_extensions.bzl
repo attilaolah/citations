@@ -23,7 +23,7 @@ def _sources_impl(module_ctx):
         for publication in module.tags.publication:
             http_file(
                 name = publication.name,
-                urls = _ipfs_mirror_urls(publication.ipfs_cid) + [publication.url],
+                urls = _ipfs_mirror_urls(publication.ipfs_cid),
                 sha256 = publication.sha256,
                 downloaded_file_path = _downloaded_file_path(publication.url),
             )
@@ -33,6 +33,7 @@ _publication_tag = tag_class(
         "ipfs_cid": attr.string(mandatory = True),
         "name": attr.string(mandatory = True),
         "sha256": attr.string(mandatory = True),
+        "updated_on": attr.string(mandatory = True),
         "url": attr.string(mandatory = True),
     },
 )

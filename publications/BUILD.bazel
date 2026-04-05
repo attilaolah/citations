@@ -9,16 +9,18 @@ load(
 )
 
 exports_files([
+    "HU.STRUCTURED.MODULE.bazel",
     "HU.MODULE.bazel",
 ])
 
 _MODELS = "//tools/docling/models:default"
 
 _PDF_PUBLICATIONS = [
-    "alkalmazott_novenytan_1_2020_pdf",
-    "alkalmazott_novenytan_2_2020_pdf",
-    "alkalmazott_novenytan_3_2020_pdf",
-    "alkalmazott_novenytan_4_2020_pdf",
+    "alkalmazott_novenytan_1_2020",
+    "alkalmazott_novenytan_2_2020",
+    "alkalmazott_novenytan_3_2020",
+    "alkalmazott_novenytan_4_2020",
+    "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     "fajfelismeres_fas_2021",
     "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
     "invazios_novenyfajok_magyarorszagon",
@@ -29,30 +31,30 @@ _PDF_PUBLICATIONS = [
 ]
 
 _PPT_PUBLICATIONS = [
-    "alkalmazott_novenytan_5_2019_ppt",
-    "alkalmazott_novenytan_6_2019_ppt",
-    "alkalmazott_novenytan_7_2019_ppt",
-    "alkalmazott_novenytan_8_2019_ppt",
-    "alkalmazott_novenytan_9_2019_ppt",
-    "alkalmazott_novenytan_10_2019_ppt",
-    "alkalmazott_novenytan_11_2019_ppt",
-    "alkalmazott_novenytan_12_2019_ppt",
-    "rendszertan1v_2021_ppt",
-    "rendszertan2v_ppt",
-    "rendszertan3v_ppt",
-    "rendszertan4v_ppt",
-    "rendszertan5v_ppt",
-    "rendszertan6v_ppt",
-    "rendszertan7v_ppt",
-    "rendszertan8v_ppt",
-    "rendszertan9v_2017_ppt",
-    "rendszertan10v_2017_ppt",
-    "rendszertan11v_2017_ppt",
+    "alkalmazott_novenytan_5_2019",
+    "alkalmazott_novenytan_6_2019",
+    "alkalmazott_novenytan_7_2019",
+    "alkalmazott_novenytan_8_2019",
+    "alkalmazott_novenytan_9_2019",
+    "alkalmazott_novenytan_10_2019",
+    "alkalmazott_novenytan_11_2019",
+    "alkalmazott_novenytan_12_2019",
+    "rendszertan1v_2021",
+    "rendszertan2v",
+    "rendszertan3v",
+    "rendszertan4v",
+    "rendszertan5v",
+    "rendszertan6v",
+    "rendszertan7v",
+    "rendszertan8v",
+    "rendszertan9v_2017",
+    "rendszertan10v_2017",
+    "rendszertan11v_2017",
 ]
 
 _DOC_PUBLICATIONS = [
-    "novenytani_jegyzet_fajleirasok_doc",
-    "novenytan_jegyzet_elmeleti_resz_doc",
+    "novenytani_jegyzet_fajleirasok",
+    "novenytan_jegyzet_elmeleti_resz",
 ]
 
 [
