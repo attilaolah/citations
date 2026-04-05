@@ -10,7 +10,7 @@
 ## Bazel
 
 - Prefer native Starlark rules over `genrule`.
-- Keep publication-specific targets in `//publications`.
+- Keep publication-specific targets in `//external_sources/publications`.
 - Keep Bazel tooling in `//tools` and Nix tooling in `//nix`.
 
 ## Python

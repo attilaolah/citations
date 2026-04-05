@@ -3,5 +3,5 @@ load(":models.bzl", "models")
 models(
     name = "default",
     all_models = False,
-    visibility = ["//publications:__pkg__"],
+    visibility = ["//external_sources/publications:__pkg__"],
 )

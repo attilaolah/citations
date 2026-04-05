@@ -9,7 +9,6 @@ load(
 )
 
 exports_files([
-    "HU.STRUCTURED.MODULE.bazel",
     "HU.MODULE.bazel",
 ])
 
