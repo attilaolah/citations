@@ -15,6 +15,8 @@ ALKALMAZOTT_NOVENYTAN_PUBLICATIONS = [
     ("QmT4Krvm7wYX491f55JmcUHaUsxMFHF2fLRMQCWmD5wjDt", "994846be6b8161339267734992175ae11899708533c61ca8a77d9c1398f4f001", "Alkalmazott növénytan 10 2019.ppt"),
     ("QmbyVtvvWf5odvUudYxdudT5HKdhN7FtGKdGXtb2DhzKmB", "793765c2c2764bdba8cec999ba8be3987d73352c2f7e59b8cca9cffa42219083", "Alkalmazott növénytan 11 2019.ppt"),
     ("QmTzFtTxpAjbbEsd89VNBAnm4t3wSeUSi5Ebth4dPoYo7Q", "87f4e2d5396777507271852bb4b9db690e0fe175cb19e0b23ef05ef124cb839c", "Alkalmazott növénytan 12 2019.ppt"),
+    ("QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV", "3581650e67ea6ee86673bff8129facf3315609c9b5c4e23aec468e680363683e", "Növénytani jegyzet - Fajleírások .doc"),
+    ("QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt", "8ecbf48246da2c6868f65d7d7f3c7c17e8748b41382d6cf80d3d4c986b5f0418", "Növénytan jegyzet - Elméleti rész.doc"),
     ("QmXmXbcR3coesSpgdyAEFm24d4HWZRAcKoiT7ZdjZJYDSR", "a55eff66263685626335cc2255faeb6067026446fc9f3a7aa16386c0d9a67df6", "rendszertan1v_2021.ppt"),
     ("QmUtEESuNPvX2Jcm3m7bajRTLMHsqvrVvg24C5Rt5VKmUy", "807d227f3896edaf27c8e5dd578e394fbe8295741edbe97a6b735bed8e129bb2", "rendszertan2v.ppt"),
     ("QmWZc3XW6K1EcZGGL6STy4uqBRosXtQgCaNL3d1TnbUY4b", "aa66985e1470cc955d0c95445546eb1bc747baabc39fd0a946a1a0673412ee85", "rendszertan3v.ppt"),
@@ -26,8 +28,6 @@ ALKALMAZOTT_NOVENYTAN_PUBLICATIONS = [
     ("QmSqxPgYM1aHjrJTWg6dG1F9jkmXcKshAAh7u44oe9SWoD", "bc761c1825bf70ed168bd22fb4d7195ed1fbb7bae8c55ee9ba86fed8356df31f", "rendszertan9v_2017.ppt"),
     ("QmVAt9uoEaU2FSU8jxpHzRnTTgqyDrwAggNkdL8aXnMW9o", "adf28c278c82a35db93dbc6254d607dacf166675f5a62cb6e8413c54b62ae954", "rendszertan10v_2017.ppt"),
     ("QmWPno5GGWYDyqkTYhnAQgqaJEHe77dg3PZLTPqqcFpJtA", "b4dbe2936694eff39113cd32bc9a778c6ed1a06cad95780734ba2c79b2004054", "rendszertan11v_2017.ppt"),
-    ("QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV", "3581650e67ea6ee86673bff8129facf3315609c9b5c4e23aec468e680363683e", "Növénytani jegyzet - Fajleírások .doc"),
-    ("QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt", "8ecbf48246da2c6868f65d7d7f3c7c17e8748b41382d6cf80d3d4c986b5f0418", "Növénytan jegyzet - Elméleti rész.doc"),
 ]
 
 ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES = {
@@ -89,6 +89,13 @@ sources.publication(
     url = "https://stud.mater.uni-mate.hu/9633/2/835493664_szdmelleklet.pdf",
 )
 sources.publication(
+    name = "nagy_szikibagoly",
+    ipfs_cid = "QmbnQVH62EHFEJydBcEEbeDuKsdsKy1A9JyCSamrYaJsev",
+    sha256 = "882d8c89301bf49860efd49d0cb649d6f487aa647b09ae9cd0105512daef5a06",
+    updated_on = "2026-04-05",
+    url = "https://enfo.hu/sites/default/files/nagy szikibagoly.pdf",
+)
+sources.publication(
     name = "novenytani_ismeretek",
     ipfs_cid = "QmQkVrUqJJARAR86AiaMVegXWQWTNsbPDy82AazWNXkrrv",
     sha256 = "1837de2e3aca0980d3bdbd28d9bec4e4ba4248610bfe1b7470214628d4870e75",
@@ -113,6 +120,7 @@ use_repo(
     "invazios_novenyfajok_magyarorszagon",
     "kepes_zengolegyhatarozo",
     "melleklet_felmert_novenyek_h2_tervlap",
+    "nagy_szikibagoly",
     "novenytani_ismeretek",
     "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin",
 )
