@@ -10,8 +10,12 @@ LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*
 LATIN_PAREN_TEXT_RE = re.compile(r"''\s*\(\s*([^()\[\]]+)\s*\)\s*''")
 LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [A-Za-z][A-Za-z-]+){0,3}\b")
 DASH_SPLIT_RE = re.compile(r"\s[\u2013-]\s", re.UNICODE)
+OR_SPLIT_RE = re.compile(r"(?:^|\s+)v\.\s+|(?:^|\s+)vagy\s+", re.IGNORECASE)
 NOVENYEK_PATH_PARTS_MIN = 3
 TAIL_SPLIT_PARTS_MIN = 2
+NON_NAME_TAIL_TOKENS = {
+    "fűszer",
+}
 
 
 def _strip_markup(text: str) -> str:
@@ -92,9 +96,15 @@ def _names_from_tail(line: str) -> list[str]:
     tail = _strip_markup(LINK_RE.sub(" ", tail))
     names: list[str] = []
     for chunk in re.split(r"[,;]", tail):
-        value = " ".join(chunk.split()).strip(" .:!?")
-        if value:
-            names.append(value)
+        for part in OR_SPLIT_RE.split(chunk):
+            value = " ".join(part.split()).strip(" .:!?()[]{}")
+            # Ignore punctuation-only fragments from malformed wiki markup.
+            if (
+                value
+                and re.search(r"[^\W\d_]", value, flags=re.UNICODE)
+                and value.casefold() not in NON_NAME_TAIL_TOKENS
+            ):
+                names.append(value)
     return names
 
 
