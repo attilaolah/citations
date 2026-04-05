@@ -10,7 +10,7 @@ PAREN_RE = re.compile(r"\(([^)]*)\)")
 QUOTE_PAREN_RE = re.compile(r"''\(([^)]*)\)''")
 
 # Examples in this document: Acridoidea, Plecoptera, Insecta, Mantis religiosa
-LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [a-z][a-z-]+)?\b")
+LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [a-z][a-z-]+){0,2}\b")
 MIN_TABLE_CELLS = 2
 MULTI_LINK_CELL = 2
 THREE_CELL_ROW = 3
@@ -81,6 +81,7 @@ def _parse_heading(line: str) -> tuple[str, str] | None:
 
 
 def _parse_table_row(line: str) -> list[tuple[str, str]]:
+    is_header_row = line.startswith("!")
     cells = _split_table_cells(line)
     if not cells:
         return []
@@ -93,7 +94,7 @@ def _parse_table_row(line: str) -> list[tuple[str, str]]:
     if pairs:
         return pairs
 
-    return _parse_standard_cells(cells)
+    return _parse_standard_cells(cells, is_header_row=is_header_row)
 
 
 def _split_table_cells(line: str) -> list[str]:
@@ -138,7 +139,7 @@ def _parse_empty_first_column(cells: list[str]) -> list[tuple[str, str]]:
     return []
 
 
-def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
+def _parse_standard_cells(cells: list[str], *, is_header_row: bool) -> list[tuple[str, str]]:
     left_links = _extract_link_texts(cells[0])
     right_links = _extract_link_texts(cells[1])
     left_name = left_links[0] if left_links else _strip_markup(cells[0])
@@ -151,7 +152,8 @@ def _parse_standard_cells(cells: list[str]) -> list[tuple[str, str]]:
         return []
 
     right_latin = _first_latin_candidate(right_links)
-    if right_latin is None:
+    has_malformed_right_link = any(("[" in link) or ("]" in link) for link in right_links)
+    if right_latin is None and (is_header_row or has_malformed_right_link or (not right_links and "[[" in cells[1])):
         right_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[1])))
     if right_latin is not None:
         names = left_hungarian_names or [left_name]
