@@ -20,15 +20,15 @@ def _downloaded_file_path(url):
 
 def _sources_impl(module_ctx):
     for module in module_ctx.modules:
-        for publication in module.tags.publication:
+        for external_source in module.tags.external_source:
             http_file(
-                name = publication.name,
-                urls = _ipfs_mirror_urls(publication.ipfs_cid),
-                sha256 = publication.sha256,
-                downloaded_file_path = _downloaded_file_path(publication.url),
+                name = external_source.name,
+                urls = _ipfs_mirror_urls(external_source.ipfs_cid),
+                sha256 = external_source.sha256,
+                downloaded_file_path = _downloaded_file_path(external_source.url),
             )
 
-_publication_tag = tag_class(
+_external_source_tag = tag_class(
     attrs = {
         "ipfs_cid": attr.string(mandatory = True),
         "name": attr.string(mandatory = True),
@@ -41,6 +41,6 @@ _publication_tag = tag_class(
 sources = module_extension(
     implementation = _sources_impl,
     tag_classes = {
-        "publication": _publication_tag,
+        "external_source": _external_source_tag,
     },
 )

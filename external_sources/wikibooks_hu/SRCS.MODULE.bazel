@@ -1,5 +1,5 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
-sources.publication(
+sources.external_source(
     name = "latin_magyarorszagon_vedett_allatok",
     ipfs_cid = "QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc",
     sha256 = "d0f82f9512dedaac10d230a7ca2cfb1f53b773a3634b2afb0631446d5ec9fb81",
@@ -16,7 +16,7 @@ WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
 ]
 
 [
-    sources.publication(
+    sources.external_source(
         name = "wikibooks_novenyek_magyar_latin_nepies_" + letter,
         ipfs_cid = cid,
         sha256 = sha256,
