@@ -58,7 +58,7 @@ sources.publication(
     ipfs_cid = "QmWJTDzyT1pw8nJ2oESQZptrFLRs6UiCYUs6SJJvHDf3aJ",
     sha256 = "c0aa13950b73bee983db890b434bca36e683c5cbb4b7d68e1fee403d4a5ed37f",
     updated_on = "2026-04-05",
-    url = "https://faragore95.web.elte.hu/4.f%C3%A9l%C3%A9v/biogeo%20gy/Fajfelismeres-Fas2011.pdf",
+    url = "https://faragore95.web.elte.hu/4.félév/biogeo gy/Fajfelismeres-Fas2011.pdf",
 )
 sources.publication(
     name = "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
