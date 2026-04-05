@@ -61,7 +61,7 @@ sources.external_source(
     url = "https://faragore95.web.elte.hu/4.félév/biogeo gy/Fajfelismeres-Fas2011.pdf",
 )
 sources.external_source(
-    name = "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
+    name = "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek",
     ipfs_cid = "QmSFkJhRdDheu2xwuQc1rmQSJzdP4uLKWjLmBz6WgVAcd4",
     sha256 = "a656e6f479aded7fbefd2311d811ca8da8f375501d5578d0fa0190cf78b7bb1d",
     updated_on = "2026-04-05",
@@ -103,7 +103,7 @@ sources.external_source(
     url = "https://real.mtak.hu/136608/1/Fodorpataki-Novenytani_online.pdf",
 )
 sources.external_source(
-    name = "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin",
+    name = "wild_plants_used_for_food",
     ipfs_cid = "QmXG9N9rJbWXgrcmq7YVYPiCpGsoueRXqNBQTkuhzm5JbS",
     sha256 = "3bb327bad38d71af85664b2b99c449b38f33e5889f33c95eacd5bcf90b8f41fb",
     updated_on = "2026-04-05",
@@ -116,11 +116,11 @@ use_repo(
     sources,
     "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     "fajfelismeres_fas_2021",
-    "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
+    "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek",
     "invazios_novenyfajok_magyarorszagon",
     "kepes_zengolegyhatarozo",
     "melleklet_felmert_novenyek_h2_tervlap",
     "nagy_szikibagoly",
     "novenytani_ismeretek",
-    "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin",
+    "wild_plants_used_for_food",
 )

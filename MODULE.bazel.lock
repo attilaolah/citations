@@ -522,7 +522,7 @@
               "downloaded_file_path": "downloaded.pdf"
             }
           },
-          "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke": {
+          "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -582,7 +582,7 @@
               "downloaded_file_path": "downloaded.pdf"
             }
           },
-          "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin": {
+          "wild_plants_used_for_food": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [

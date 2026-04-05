@@ -21,13 +21,13 @@ _PDF_PUBLICATIONS = [
     "alkalmazott_novenytan_4_2020",
     "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     "fajfelismeres_fas_2021",
-    "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
+    "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek",
     "invazios_novenyfajok_magyarorszagon",
     "kepes_zengolegyhatarozo",
     "melleklet_felmert_novenyek_h2_tervlap",
     "nagy_szikibagoly",
     "novenytani_ismeretek",
-    "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin",
+    "wild_plants_used_for_food",
 ]
 
 _PPT_PUBLICATIONS = [
