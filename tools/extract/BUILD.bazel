@@ -3,6 +3,7 @@ load("@rules_python//python:defs.bzl", "py_binary")
 exports_files(
     [
         "extract_pairs.bzl",
+        "name_pairs_test.bzl",
     ],
     visibility = ["//visibility:public"],
 )

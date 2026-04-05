@@ -1,4 +1,5 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
+load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
 
 exports_files([
     "SRCS.MODULE.bazel",
@@ -8,4 +9,12 @@ name_pairs(
     name = "latin_magyarorszagon_vedett_allatok_pairs",
     src = "@latin_magyarorszagon_vedett_allatok//file",
     tool = "//tools/extract:wikibooks_hu_latin_magyarorszagon_vedett_allatok",
+)
+
+name_pairs_test(
+    name = "latin_magyarorszagon_vedett_allatok_pairs_test",
+    src = ":latin_magyarorszagon_vedett_allatok_pairs",
+    expected = {
+        "Mantis religiosa": ["Imádkozó sáska"],
+    },
 )
