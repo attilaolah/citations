@@ -16,6 +16,10 @@ name_pairs_test(
     src = ":latin_magyarorszagon_vedett_allatok_pairs",
     expected = {
         "Acherontia atropos": ["halálfejes lepke"],
+        "Asteroscopus syriacus": [
+            "Kovács-bundásbagoly",
+            "magyar őszi-fésűsbagoly",
+        ],
         "Auchenorrhynca": ["kabócák"],
         "Bolbelasmus unicornis": ["szarvas álganéjtúró"],
         "Cerambycidae": ["cincérfélék"],

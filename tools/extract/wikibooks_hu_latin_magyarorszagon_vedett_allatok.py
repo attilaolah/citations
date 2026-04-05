@@ -145,6 +145,7 @@ def _parse_standard_cells(cells: list[str], *, is_header_row: bool) -> list[tupl
     left_name = left_links[0] if left_links else _strip_markup(cells[0])
     right_name = right_links[0] if right_links else _strip_markup(cells[1])
     left_hungarian_names = _extract_hungarian_names(cells[0])
+    right_hungarian_names = _extract_hungarian_names(cells[1])
 
     if not left_name or not right_name:
         return []
@@ -168,7 +169,8 @@ def _parse_standard_cells(cells: list[str], *, is_header_row: bool) -> list[tupl
         if not _is_latin_like(latin) or latin in seen_latin:
             continue
         seen_latin.add(latin)
-        pairs.append((latin, right_name))
+        names = right_hungarian_names or [right_name]
+        pairs.extend((latin, name) for name in names)
     return pairs
 
 
@@ -180,6 +182,8 @@ def _extract_hungarian_names(cell: str) -> list[str]:
         candidate = " ".join(part.split()).strip(" ,;|")
         candidate = re.sub(r"^vagy\s+", "", candidate, flags=re.IGNORECASE)
         candidate = re.sub(r"\s+vagy$", "", candidate, flags=re.IGNORECASE)
+        if candidate.startswith("(") and candidate.endswith(")"):
+            candidate = candidate[1:-1].strip()
         if candidate.casefold() == "vagy":
             continue
         if candidate:
