@@ -46,3 +46,61 @@ name_pairs_test(
         "Trichoptera": ["tegzesek"],
     },
 )
+
+_NOVENYEK_LETTER_SUFFIXES = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "oe",
+    "p",
+    "r",
+    "s",
+    "sz",
+    "t",
+    "u",
+    "ue",
+    "v",
+    "w",
+    "x_y",
+    "z",
+    "zs",
+]
+
+[
+    name_pairs(
+        name = "wikibooks_novenyek_magyar_latin_nepies_" + suffix + "_pairs",
+        src = "@wikibooks_novenyek_magyar_latin_nepies_" + suffix + "//file",
+        tool = "//tools/extract:wikibooks_hu_novenyek_magyar_latin_nepies",
+    )
+    for suffix in _NOVENYEK_LETTER_SUFFIXES
+]
+
+name_pairs_test(
+    name = "wikibooks_novenyek_magyar_latin_nepies_a_pairs_test",
+    src = ":wikibooks_novenyek_magyar_latin_nepies_a_pairs",
+    expected = {
+        "Thymus marschallianus": [
+            "alföldi kakukkfű",
+            "balzsamfű",
+            "démutka",
+            "kakucskafű",
+            "kakuk démutka",
+            "mézfű",
+            "timián",
+            "tömjénfű",
+            "vad csombor",
+        ],
+    },
+)

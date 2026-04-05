@@ -14,3 +14,10 @@ py_binary(
     main = "wikibooks_hu_latin_magyarorszagon_vedett_allatok.py",
     visibility = ["//visibility:public"],
 )
+
+py_binary(
+    name = "wikibooks_hu_novenyek_magyar_latin_nepies",
+    srcs = ["wikibooks_hu_novenyek_magyar_latin_nepies.py"],
+    main = "wikibooks_hu_novenyek_magyar_latin_nepies.py",
+    visibility = ["//visibility:public"],
+)
