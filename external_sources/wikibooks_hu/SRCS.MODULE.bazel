@@ -46,7 +46,7 @@ WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES = {
 
 [
     sources.wikibooks_hu_source(
-        name = "wikibooks_novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
+        name = "novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
             letter,
             letter.lower(),
         ),
@@ -65,7 +65,7 @@ use_repo(
 
 [use_repo(
     sources,
-    "wikibooks_novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
+    "novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
         letter,
         letter.lower(),
     ),

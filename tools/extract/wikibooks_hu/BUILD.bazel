@@ -1,0 +1,15 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "latin_magyarorszagon_vedett_allatok",
+    srcs = ["latin_magyarorszagon_vedett_allatok.py"],
+    main = "latin_magyarorszagon_vedett_allatok.py",
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "novenyek_magyar_latin_nepies",
+    srcs = ["novenyek_magyar_latin_nepies.py"],
+    main = "novenyek_magyar_latin_nepies.py",
+    visibility = ["//visibility:public"],
+)
