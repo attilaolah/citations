@@ -113,3 +113,31 @@ name_pairs_test(
         ],
     },
 )
+
+name_pairs_test(
+    name = "wikibooks_novenyek_magyar_latin_nepies_oe_pairs_test",
+    src = ":wikibooks_novenyek_magyar_latin_nepies_oe_pairs",
+    exact = True,
+    expected = {
+        "Actinidia arguta": [
+            "Öntermékeny kopaszkivi",
+        ],
+        "Buphthalmum salicifolium": [
+            "Fűzlevelű ökörszem",
+        ],
+        "Verbascum thapsus": [
+            "Molyhos ökörfarkkóró",
+        ],
+    },
+)
+
+name_pairs_test(
+    name = "wikibooks_novenyek_magyar_latin_nepies_x_y_pairs_test",
+    src = ":wikibooks_novenyek_magyar_latin_nepies_x_y_pairs",
+    exact = True,
+    expected = {
+        "Virola calophylloidea": [
+            "Yakée",
+        ],
+    },
+)

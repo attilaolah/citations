@@ -57,6 +57,16 @@ def _name_pairs_test_impl(ctx):
         "        print(f'Missing extracted pair: {latin} = {hungarian}')",
         "        raise SystemExit(1)",
         "",
+        "if %s:" % ("True" if ctx.attr.exact else "False"),
+        "    expected_map = {}",
+        "    for latin, hungarian in expected:",
+        "        expected_map.setdefault(latin.casefold(), set()).add(hungarian.casefold())",
+        "    for latin_cf, expected_values in expected_map.items():",
+        "        actual_values = index[latin_cf]",
+        "        if actual_values != expected_values:",
+        "            print(f'Unexpected values for key {latin_cf}: expected={sorted(expected_values)}, actual={sorted(actual_values)}')",
+        "            raise SystemExit(1)",
+        "",
         "print('All expected name pairs found.')",
         "PY",
         "",
@@ -77,6 +87,9 @@ name_pairs_test = rule(
     implementation = _name_pairs_test_impl,
     test = True,
     attrs = {
+        "exact": attr.bool(
+            default = False,
+        ),
         "expected": attr.string_list_dict(
             mandatory = True,
         ),
