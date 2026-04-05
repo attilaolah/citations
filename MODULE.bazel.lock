@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "MJjn0KQMuxvUUTj4jZzrOChQGjQszX1BUJ39BSjdz40=",
-        "usagesDigest": "F9u4iEW8zo0UY7v/tbERGIpHHx7HsqKpyevBFT2tfKI=",
+        "usagesDigest": "+qoUnapTfHq7/QuWMAe/NU5oSPEYUOFAXAoAl8gtmJk=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -497,6 +497,32 @@
               "downloaded_file_path": "downloaded.ppt"
             }
           },
+          "novenytani_jegyzet_fajleirasok_doc": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
+                "https://gateway.pinata.cloud/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
+                "https://dweb.link/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Növénytani jegyzet - Fajleírások .doc"
+              ],
+              "sha256": "3581650e67ea6ee86673bff8129facf3315609c9b5c4e23aec468e680363683e",
+              "downloaded_file_path": "downloaded.doc"
+            }
+          },
+          "novenytan_jegyzet_elmeleti_resz_doc": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
+                "https://gateway.pinata.cloud/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
+                "https://dweb.link/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
+                "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/Növénytan jegyzet - Elméleti rész.doc"
+              ],
+              "sha256": "8ecbf48246da2c6868f65d7d7f3c7c17e8748b41382d6cf80d3d4c986b5f0418",
+              "downloaded_file_path": "downloaded.doc"
+            }
+          },
           "invazios_novenyfajok_magyarorszagon": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -507,6 +533,84 @@
                 "https://mek.oszk.hu/11700/11738/11738.pdf"
               ],
               "sha256": "92629c4c1864ed595f6ec43e2ef6020e84ffd8c630c2146d5b63f3165e82db4d",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "kepes_zengolegyhatarozo": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmQuHNjx7JGxQXrFCKteSTvCvX296ZwKcUj2t6eTshnTnB",
+                "https://gateway.pinata.cloud/ipfs/QmQuHNjx7JGxQXrFCKteSTvCvX296ZwKcUj2t6eTshnTnB",
+                "https://dweb.link/ipfs/QmQuHNjx7JGxQXrFCKteSTvCvX296ZwKcUj2t6eTshnTnB",
+                "https://real-j.mtak.hu/9142/7/EPA01957_e-acta_15_2017.pdf"
+              ],
+              "sha256": "39bf144f4d7dec3ac3a1de88031285f9095ac64f7903ccf79f9360d8b2c59449",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmXG9N9rJbWXgrcmq7YVYPiCpGsoueRXqNBQTkuhzm5JbS",
+                "https://gateway.pinata.cloud/ipfs/QmXG9N9rJbWXgrcmq7YVYPiCpGsoueRXqNBQTkuhzm5JbS",
+                "https://dweb.link/ipfs/QmXG9N9rJbWXgrcmq7YVYPiCpGsoueRXqNBQTkuhzm5JbS",
+                "https://real.mtak.hu/27860/1/1031_3181_5_PB_u.pdf"
+              ],
+              "sha256": "3bb327bad38d71af85664b2b99c449b38f33e5889f33c95eacd5bcf90b8f41fb",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "plant_names_in_hungarian_html": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+                "https://gateway.pinata.cloud/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+                "https://dweb.link/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+                "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian"
+              ],
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "downloaded_file_path": "downloaded.asp"
+            }
+          },
+          "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmSFkJhRdDheu2xwuQc1rmQSJzdP4uLKWjLmBz6WgVAcd4",
+                "https://gateway.pinata.cloud/ipfs/QmSFkJhRdDheu2xwuQc1rmQSJzdP4uLKWjLmBz6WgVAcd4",
+                "https://dweb.link/ipfs/QmSFkJhRdDheu2xwuQc1rmQSJzdP4uLKWjLmBz6WgVAcd4",
+                "https://or.njt.hu/download/1049/resources/EJR_18440762-3._mell_klet.pdf"
+              ],
+              "sha256": "a656e6f479aded7fbefd2311d811ca8da8f375501d5578d0fa0190cf78b7bb1d",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "fajfelismeres_fas_2021": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWJTDzyT1pw8nJ2oESQZptrFLRs6UiCYUs6SJJvHDf3aJ",
+                "https://gateway.pinata.cloud/ipfs/QmWJTDzyT1pw8nJ2oESQZptrFLRs6UiCYUs6SJJvHDf3aJ",
+                "https://dweb.link/ipfs/QmWJTDzyT1pw8nJ2oESQZptrFLRs6UiCYUs6SJJvHDf3aJ",
+                "https://faragore95.web.elte.hu/4.f%C3%A9l%C3%A9v/biogeo%20gy/Fajfelismeres-Fas2011.pdf"
+              ],
+              "sha256": "c0aa13950b73bee983db890b434bca36e683c5cbb4b7d68e1fee403d4a5ed37f",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "melleklet_felmert_novenyek_h2_tervlap": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/Qmb5ZtETzAV2VLEacdgXBBSMv3Dt4TvCF9hAvNG9nbdcDS",
+                "https://gateway.pinata.cloud/ipfs/Qmb5ZtETzAV2VLEacdgXBBSMv3Dt4TvCF9hAvNG9nbdcDS",
+                "https://dweb.link/ipfs/Qmb5ZtETzAV2VLEacdgXBBSMv3Dt4TvCF9hAvNG9nbdcDS",
+                "https://stud.mater.uni-mate.hu/9633/2/835493664_szdmelleklet.pdf"
+              ],
+              "sha256": "12873e9f72490812c14fa3c36d8eff2e541b1bf7a2776851407a62de0e485c24",
               "downloaded_file_path": "downloaded.pdf"
             }
           }

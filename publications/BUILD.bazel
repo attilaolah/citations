@@ -1,3 +1,7 @@
+load(
+    "//tools/docling:docx_file.bzl",
+    "docx_file",
+)
 load("//tools/docling:markdown_file.bzl", "markdown_file")
 load(
     "//tools/docling:pptx_file.bzl",
@@ -15,7 +19,13 @@ _PDF_PUBLICATIONS = [
     "alkalmazott_novenytan_2_2020_pdf",
     "alkalmazott_novenytan_3_2020_pdf",
     "alkalmazott_novenytan_4_2020_pdf",
+    "fajfelismeres_fas_2021",
+    "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek_jegyzeke",
     "invazios_novenyfajok_magyarorszagon",
+    "kepes_zengolegyhatarozo",
+    "melleklet_felmert_novenyek_h2_tervlap",
+    "novenytani_ismeretek",
+    "wild_plants_used_for_food_by_hungarian_ethnic_groups_living_in_the_carpathian_basin",
 ]
 
 _PPT_PUBLICATIONS = [
@@ -38,6 +48,11 @@ _PPT_PUBLICATIONS = [
     "rendszertan9v_2017_ppt",
     "rendszertan10v_2017_ppt",
     "rendszertan11v_2017_ppt",
+]
+
+_DOC_PUBLICATIONS = [
+    "novenytani_jegyzet_fajleirasok_doc",
+    "novenytan_jegyzet_elmeleti_resz_doc",
 ]
 
 [
@@ -66,7 +81,24 @@ _PPT_PUBLICATIONS = [
     for publication in _PPT_PUBLICATIONS
 ]
 
+[
+    docx_file(
+        name = publication + "_docx",
+        src = "@%s//file" % publication,
+    )
+    for publication in _DOC_PUBLICATIONS
+]
+
+[
+    markdown_file(
+        name = publication + "_md",
+        src = ":" + publication + "_docx",
+        models = _MODELS,
+    )
+    for publication in _DOC_PUBLICATIONS
+]
+
 filegroup(
     name = "alkalmazott_novenytan_md",
-    srcs = [":" + publication + "_md" for publication in _PDF_PUBLICATIONS + _PPT_PUBLICATIONS],
+    srcs = [":" + publication + "_md" for publication in _PDF_PUBLICATIONS + _PPT_PUBLICATIONS + _DOC_PUBLICATIONS],
 )

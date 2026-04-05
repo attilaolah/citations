@@ -67,12 +67,12 @@ markdown_file = rule(
             default = "auto",
             values = ["auto", "cpu", "cuda", "mps", "xpu"],
         ),
-        "ocr_lang": attr.string(default = "hu"),
         "models": attr.label(
             providers = [ModelsInfo],
         ),
+        "ocr_lang": attr.string(default = "hu"),
         "src": attr.label(
-            allow_single_file = [".pdf", ".pptx"],
+            allow_single_file = [".pdf", ".pptx", ".docx"],
             mandatory = True,
         ),
         "_docling": attr.label(

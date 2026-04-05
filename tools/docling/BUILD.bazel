@@ -1,4 +1,5 @@
 exports_files([
+    "docx_file.bzl",
     "markdown_file.bzl",
     "markdown_cleanup.py",
     "pptx_file.bzl",
