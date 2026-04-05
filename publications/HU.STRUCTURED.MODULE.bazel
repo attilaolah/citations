@@ -1,12 +1,5 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
 sources.publication(
-    name = "latin_magyarorszagon_vedett_allatok",
-    ipfs_cid = "QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc",
-    sha256 = "d0f82f9512dedaac10d230a7ca2cfb1f53b773a3634b2afb0631446d5ec9fb81",
-    updated_on = "2026-04-05",
-    url = "https://hu.wikibooks.org/w/index.php?title=Latin/Magyarországon_védett_állatok&action=raw",
-)
-sources.publication(
     name = "magyar_novenynevek",
     ipfs_cid = "QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
     sha256 = "c43e20b8173caa7dd6eb60c85f8ec03cf3c9d3a30ad55e01b4eb9155800a0e1d",
@@ -20,31 +13,8 @@ sources.publication(
     updated_on = "2026-04-05",
     url = "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
 )
-
-WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL = "https://hu.wikibooks.org/w/index.php?title=Növények/Magyar-Latin-Népies/"
-
-WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
-    ("a", "QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH", "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86"),
-    ("b", "QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW", "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f"),
-]
-
-[
-    sources.publication(
-        name = "wikibooks_novenyek_magyar_latin_nepies_" + letter,
-        ipfs_cid = cid,
-        sha256 = sha256,
-        updated_on = "2026-04-05",
-        url = WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL + letter.upper() + "&action=raw",
-    )
-    for letter, cid, sha256 in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
-]
-
-# TODO: Add the remaining wikibooks_novenyek_magyar_latin_nepies_* letter pages.
 use_repo(
     sources,
-    "latin_magyarorszagon_vedett_allatok",
     "magyar_novenynevek",
     "plant_names_in_hungarian_html",
 )
-
-[use_repo(sources, "wikibooks_novenyek_magyar_latin_nepies_" + letter) for letter, _, _ in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]

@@ -1,0 +1,19 @@
+load("@rules_python//python:defs.bzl", "py_runtime", "py_runtime_pair")
+
+py_runtime(
+    name = "python_3_15_runtime",
+    interpreter = "@python//:bin/python",
+    python_version = "PY3",
+)
+
+py_runtime_pair(
+    name = "python_3_15_runtime_pair",
+    py3_runtime = ":python_3_15_runtime",
+)
+
+toolchain(
+    name = "python_3_15_toolchain",
+    toolchain = ":python_3_15_runtime_pair",
+    toolchain_type = "@rules_python//python:toolchain_type",
+    visibility = ["//visibility:public"],
+)

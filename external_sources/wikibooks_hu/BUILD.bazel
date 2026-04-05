@@ -1,0 +1,11 @@
+load("//tools/extract:extract_pairs.bzl", "name_pairs")
+
+exports_files([
+    "SRCS.MODULE.bazel",
+])
+
+name_pairs(
+    name = "latin_magyarorszagon_vedett_allatok_pairs",
+    src = "@latin_magyarorszagon_vedett_allatok//file",
+    tool = "//tools/extract:wikibooks_hu_latin_magyarorszagon_vedett_allatok",
+)

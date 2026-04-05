@@ -3,6 +3,7 @@ module(
 )
 
 bazel_dep(name = "rules_nixpkgs_core", version = "0.13.0")
+bazel_dep(name = "rules_python", version = "1.7.0")
 
 nix_repo = use_extension("@rules_nixpkgs_core//extensions:repository.bzl", "nix_repo")
 nix_repo.file(
@@ -50,11 +51,17 @@ nix_pkg.attr(
     attr = "python315",
     build_file_content = """
 package(default_visibility = ["//visibility:public"])
-exports_files(["bin/python"])
+exports_files([
+    "bin/python",
+    "bin/python3",
+])
 """,
     repo = "@nixpkgs",
 )
 use_repo(nix_pkg, "docling", "docling_parse", "libreoffice", "python")
 
+register_toolchains("//tools/python:python_3_15_toolchain")
+
 include("//publications:HU.MODULE.bazel")
 include("//publications:HU.STRUCTURED.MODULE.bazel")
+include("//external_sources/wikibooks_hu:SRCS.MODULE.bazel")

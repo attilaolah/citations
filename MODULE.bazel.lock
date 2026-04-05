@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "CYYLdj95wLEIOkyYzHG4AMHD6GYdy+dNv6HrLT6KUqU=",
-        "usagesDigest": "7ZFdoJnpbl1g8vBbjERTMj30YGY3WGIGViSliwLAJWw=",
+        "usagesDigest": "vbMOsjpDpH62CcxtsEY3V8PgaQQT1nxYqt2a62CEDhg=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -498,6 +498,18 @@
               "downloaded_file_path": "downloaded.doc"
             }
           },
+          "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmZ3XoGb3v5PuBnV55Tv3sr7xi5dTLTsmdTuMZyRneCKKg",
+                "https://gateway.pinata.cloud/ipfs/QmZ3XoGb3v5PuBnV55Tv3sr7xi5dTLTsmdTuMZyRneCKKg",
+                "https://dweb.link/ipfs/QmZ3XoGb3v5PuBnV55Tv3sr7xi5dTLTsmdTuMZyRneCKKg"
+              ],
+              "sha256": "83342fec8e9495a58e8b064a839aa1e9d8cadd8c17bdf7e635e3a6c1dc13a913",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
           "fajfelismeres_fas_2021": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -605,6 +617,42 @@
               "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "downloaded_file_path": "downloaded.asp"
             }
+          },
+          "latin_magyarorszagon_vedett_allatok": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc",
+                "https://gateway.pinata.cloud/ipfs/QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc",
+                "https://dweb.link/ipfs/QmeZM4sUL7cjHmEzLAJZAv7RrCiyuvGEG6zu5Vq4SymRsc"
+              ],
+              "sha256": "d0f82f9512dedaac10d230a7ca2cfb1f53b773a3634b2afb0631446d5ec9fb81",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_a": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH",
+                "https://gateway.pinata.cloud/ipfs/QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH",
+                "https://dweb.link/ipfs/QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH"
+              ],
+              "sha256": "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_b": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW",
+                "https://gateway.pinata.cloud/ipfs/QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW",
+                "https://dweb.link/ipfs/QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW"
+              ],
+              "sha256": "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f",
+              "downloaded_file_path": "downloaded.php"
+            }
           }
         }
       }
@@ -669,7 +717,7 @@
     "@@rules_nixpkgs_core+//extensions:package.bzl%nix_pkg": {
       "general": {
         "bzlTransitiveDigest": "2alEQC7q9PgrArc8ZeI662VmDHLGfuswqnzBJvVDnmg=",
-        "usagesDigest": "y54ovacMENewLUIHd0DOrPUJQvcQV8nKnh7JZxJchaI=",
+        "usagesDigest": "KKl4fP6lxUwlBXh+MRd/uz1jJ45AV4jsuCW8PMFOGMY=",
         "recordedInputs": [
           "REPO_MAPPING:,nixpkgs rules_nixpkgs_core++nix_repo+nixpkgs",
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
@@ -714,7 +762,7 @@
               "nix_file_content": "",
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
-              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\"bin/python\"])\n",
+              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\n    \"bin/python\",\n    \"bin/python3\",\n])\n",
               "nixopts": [],
               "quiet": false,
               "fail_not_supported": true

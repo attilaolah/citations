@@ -1,0 +1,15 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+exports_files(
+    [
+        "extract_pairs.bzl",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "wikibooks_hu_latin_magyarorszagon_vedett_allatok",
+    srcs = ["wikibooks_hu_latin_magyarorszagon_vedett_allatok.py"],
+    main = "wikibooks_hu_latin_magyarorszagon_vedett_allatok.py",
+    visibility = ["//visibility:public"],
+)
