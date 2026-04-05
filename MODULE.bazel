@@ -71,6 +71,13 @@ with import <nixpkgs> {};
 let
   py = python315.override {
     packageOverrides = final: prev: {
+      "et-xmlfile" = prev."et-xmlfile".overridePythonAttrs (old: {
+        disabledTests = (old.disabledTests or []) ++ [
+          "ElementTreeTest::test_iterparse"
+          "ElementTreeTest::test_simpleops"
+          "KeywordArgsTest::test_issue14818"
+        ];
+      });
       exceptiongroup = prev.exceptiongroup.overridePythonAttrs (old: {
         disabledTests = (old.disabledTests or []) ++ [
           "test_nameerror_suggestions_in_group[patched]"

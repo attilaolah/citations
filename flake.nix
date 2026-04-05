@@ -19,6 +19,15 @@
         pkgs = import inputs.nixpkgs {inherit system;};
         python315Patched = pkgs.python315.override {
           packageOverrides = final: prev: {
+            "et-xmlfile" = prev."et-xmlfile".overridePythonAttrs (old: {
+              disabledTests =
+                (old.disabledTests or [])
+                ++ [
+                  "ElementTreeTest::test_iterparse"
+                  "ElementTreeTest::test_simpleops"
+                  "KeywordArgsTest::test_issue14818"
+                ];
+            });
             exceptiongroup = prev.exceptiongroup.overridePythonAttrs (old: {
               disabledTests =
                 (old.disabledTests or [])
