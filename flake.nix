@@ -17,6 +17,16 @@
 
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {inherit system;};
+        python315Patched = pkgs.python315.override {
+          packageOverrides = final: prev: {
+            "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old: {
+              PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
+            });
+            "rpds-py" = prev."rpds-py".overridePythonAttrs (_old: {
+              PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
+            });
+          };
+        };
       in {
         formatter = pkgs.alejandra;
         packages = {
@@ -28,10 +38,11 @@
             bazel_9
             gnfinder
             gnparser
-            (python314.withPackages (ps:
+            (python315Patched.withPackages (ps:
               with ps; [
                 docling
                 docling-parse
+                pydantic
                 pytest
               ]))
 

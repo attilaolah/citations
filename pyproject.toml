@@ -38,4 +38,3 @@ convention = "google"
 
 [tool.pyright]
 strict = ["."]
-extraPaths = ["typings"]

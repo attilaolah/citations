@@ -18,7 +18,7 @@ use_repo(nix_repo, "nixpkgs")
 nix_pkg = use_extension("@rules_nixpkgs_core//extensions:package.bzl", "nix_pkg")
 nix_pkg.attr(
     name = "docling",
-    attr = "python314Packages.docling",
+    attr = "python315Packages.docling",
     build_file_content = """
 package(default_visibility = ["//visibility:public"])
 exports_files([
@@ -33,7 +33,7 @@ filegroup(name = "docling-tools", srcs = ["bin/docling-tools"])
 nix_pkg.expr(
     name = "docling_parse",
     attr = "",
-    expr = 'with import <nixpkgs> {}; python314Packages."docling-parse"',
+    expr = 'with import <nixpkgs> {}; python315Packages."docling-parse"',
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
