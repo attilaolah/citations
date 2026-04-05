@@ -192,8 +192,8 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "CYYLdj95wLEIOkyYzHG4AMHD6GYdy+dNv6HrLT6KUqU=",
-        "usagesDigest": "vbMOsjpDpH62CcxtsEY3V8PgaQQT1nxYqt2a62CEDhg=",
+        "bzlTransitiveDigest": "J/+INCorS3G5O485igsfocx8LRwjRWiAmYw3MksL23g=",
+        "usagesDigest": "CcGTUul1ID/5rnHMZuNTSJMcgZXbSATcd9jTMj+hrWs=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -342,6 +342,30 @@
               "downloaded_file_path": "downloaded.ppt"
             }
           },
+          "novenytani_jegyzet_fajleirasok": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
+                "https://gateway.pinata.cloud/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
+                "https://dweb.link/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV"
+              ],
+              "sha256": "3581650e67ea6ee86673bff8129facf3315609c9b5c4e23aec468e680363683e",
+              "downloaded_file_path": "downloaded.doc"
+            }
+          },
+          "novenytan_jegyzet_elmeleti_resz": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
+                "https://gateway.pinata.cloud/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
+                "https://dweb.link/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt"
+              ],
+              "sha256": "8ecbf48246da2c6868f65d7d7f3c7c17e8748b41382d6cf80d3d4c986b5f0418",
+              "downloaded_file_path": "downloaded.doc"
+            }
+          },
           "rendszertan1v_2021": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -474,30 +498,6 @@
               "downloaded_file_path": "downloaded.ppt"
             }
           },
-          "novenytani_jegyzet_fajleirasok": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
-            "attributes": {
-              "urls": [
-                "https://ipfs.io/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
-                "https://gateway.pinata.cloud/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV",
-                "https://dweb.link/ipfs/QmWBHnbvEcxYPzbRNCXGA2zEVhaSFUHZHbKTkPPah7YLfV"
-              ],
-              "sha256": "3581650e67ea6ee86673bff8129facf3315609c9b5c4e23aec468e680363683e",
-              "downloaded_file_path": "downloaded.doc"
-            }
-          },
-          "novenytan_jegyzet_elmeleti_resz": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
-            "attributes": {
-              "urls": [
-                "https://ipfs.io/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
-                "https://gateway.pinata.cloud/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt",
-                "https://dweb.link/ipfs/QmazMeEQh5Ccgp18b2Ntnjidkg9Qn41YaM9rDLAtnfBYmt"
-              ],
-              "sha256": "8ecbf48246da2c6868f65d7d7f3c7c17e8748b41382d6cf80d3d4c986b5f0418",
-              "downloaded_file_path": "downloaded.doc"
-            }
-          },
           "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -567,6 +567,18 @@
                 "https://dweb.link/ipfs/Qmb5ZtETzAV2VLEacdgXBBSMv3Dt4TvCF9hAvNG9nbdcDS"
               ],
               "sha256": "12873e9f72490812c14fa3c36d8eff2e541b1bf7a2776851407a62de0e485c24",
+              "downloaded_file_path": "downloaded.pdf"
+            }
+          },
+          "nagy_szikibagoly": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbnQVH62EHFEJydBcEEbeDuKsdsKy1A9JyCSamrYaJsev",
+                "https://gateway.pinata.cloud/ipfs/QmbnQVH62EHFEJydBcEEbeDuKsdsKy1A9JyCSamrYaJsev",
+                "https://dweb.link/ipfs/QmbnQVH62EHFEJydBcEEbeDuKsdsKy1A9JyCSamrYaJsev"
+              ],
+              "sha256": "882d8c89301bf49860efd49d0cb649d6f487aa647b09ae9cd0105512daef5a06",
               "downloaded_file_path": "downloaded.pdf"
             }
           },
@@ -651,6 +663,318 @@
                 "https://dweb.link/ipfs/QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW"
               ],
               "sha256": "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_c": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmVGuXat4zxER3QnRUHZFLsCiqyUNg5nwU3GMYKH3aptvX",
+                "https://gateway.pinata.cloud/ipfs/QmVGuXat4zxER3QnRUHZFLsCiqyUNg5nwU3GMYKH3aptvX",
+                "https://dweb.link/ipfs/QmVGuXat4zxER3QnRUHZFLsCiqyUNg5nwU3GMYKH3aptvX"
+              ],
+              "sha256": "d5a29cf53be963c4c45f0ffdc23f09ebcc3adc8faca22a33622f8f170c5c21fe",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_d": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmV3aVnKURafK5aD9ybKJwn2jBasACe7KDJF6yR5jBtmKr",
+                "https://gateway.pinata.cloud/ipfs/QmV3aVnKURafK5aD9ybKJwn2jBasACe7KDJF6yR5jBtmKr",
+                "https://dweb.link/ipfs/QmV3aVnKURafK5aD9ybKJwn2jBasACe7KDJF6yR5jBtmKr"
+              ],
+              "sha256": "921f22368810010f1f9cafdf8085d798c75f404ebfdb30593befab5fe24ced0a",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_e": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmVpNd5GV4QDCJzjvzRKeu8WKvmuzb7zoz1pvmwtegs4mF",
+                "https://gateway.pinata.cloud/ipfs/QmVpNd5GV4QDCJzjvzRKeu8WKvmuzb7zoz1pvmwtegs4mF",
+                "https://dweb.link/ipfs/QmVpNd5GV4QDCJzjvzRKeu8WKvmuzb7zoz1pvmwtegs4mF"
+              ],
+              "sha256": "1cf0aabfd0cabddf063d1ad35d779529d323139659dc79c36d487990cffcf37e",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_f": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmYoChZpuzgT5KVHFhtMRx8kWbMXFfvYbeQeV5qTCdhf9Q",
+                "https://gateway.pinata.cloud/ipfs/QmYoChZpuzgT5KVHFhtMRx8kWbMXFfvYbeQeV5qTCdhf9Q",
+                "https://dweb.link/ipfs/QmYoChZpuzgT5KVHFhtMRx8kWbMXFfvYbeQeV5qTCdhf9Q"
+              ],
+              "sha256": "dd2981b178b2de4eac6f4a5692b2840b799e6c626b90b22c9c517c6015d2bbca",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_g": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbdJjKysTTmASbnRERhLdFZeku2jWSh4LAmaHxtGHkKDB",
+                "https://gateway.pinata.cloud/ipfs/QmbdJjKysTTmASbnRERhLdFZeku2jWSh4LAmaHxtGHkKDB",
+                "https://dweb.link/ipfs/QmbdJjKysTTmASbnRERhLdFZeku2jWSh4LAmaHxtGHkKDB"
+              ],
+              "sha256": "418737114a01f557db33fc4b36edd913a0e7a73d823eca86c10c4f0a0cf47b24",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_h": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmcSUV9DEkWRMaTf18NP7HFM3HAAKxL1iPv3jd9TfXRBca",
+                "https://gateway.pinata.cloud/ipfs/QmcSUV9DEkWRMaTf18NP7HFM3HAAKxL1iPv3jd9TfXRBca",
+                "https://dweb.link/ipfs/QmcSUV9DEkWRMaTf18NP7HFM3HAAKxL1iPv3jd9TfXRBca"
+              ],
+              "sha256": "3c427f1f77c884dff3affe62db5589b6cbcef8a35be66df420f7854896b40729",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_i": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmdDYb6ceCPgL4rDd7HSAx579c8ePP74T3HzopcSx7jxxN",
+                "https://gateway.pinata.cloud/ipfs/QmdDYb6ceCPgL4rDd7HSAx579c8ePP74T3HzopcSx7jxxN",
+                "https://dweb.link/ipfs/QmdDYb6ceCPgL4rDd7HSAx579c8ePP74T3HzopcSx7jxxN"
+              ],
+              "sha256": "c7da999466eaba29989cb8042036d74d6bab0456256caca26708436a572c61be",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_j": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmZNwFS4925Y2NTqDJPWWACfS6zcCuegVoXtYE6YWLYJVq",
+                "https://gateway.pinata.cloud/ipfs/QmZNwFS4925Y2NTqDJPWWACfS6zcCuegVoXtYE6YWLYJVq",
+                "https://dweb.link/ipfs/QmZNwFS4925Y2NTqDJPWWACfS6zcCuegVoXtYE6YWLYJVq"
+              ],
+              "sha256": "277d063d90b0678652657771a87bc3902c89097f949901e41fd27cd0affc649d",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_k": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmeUq57qVudXMG7Dq8sKSnuQz4jCPCdjKrCYon1KVPv9Qz",
+                "https://gateway.pinata.cloud/ipfs/QmeUq57qVudXMG7Dq8sKSnuQz4jCPCdjKrCYon1KVPv9Qz",
+                "https://dweb.link/ipfs/QmeUq57qVudXMG7Dq8sKSnuQz4jCPCdjKrCYon1KVPv9Qz"
+              ],
+              "sha256": "db3aec5218387329da73a32a1c983c7cfb64259d2d79c0625ee3c16a21159d7c",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_l": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmTgiCyzdu8TanLisErhYv88MsfAeRPhgab1vP1aQrq3fE",
+                "https://gateway.pinata.cloud/ipfs/QmTgiCyzdu8TanLisErhYv88MsfAeRPhgab1vP1aQrq3fE",
+                "https://dweb.link/ipfs/QmTgiCyzdu8TanLisErhYv88MsfAeRPhgab1vP1aQrq3fE"
+              ],
+              "sha256": "695c7970d23546f43d48b49f3ca174ec022f5c5af42eed7047ee264c5dcb408e",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_m": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/Qmbz63R19EuH5nJ8sw2qB1Bj9D7tTE2n66QJpDgdoT14d3",
+                "https://gateway.pinata.cloud/ipfs/Qmbz63R19EuH5nJ8sw2qB1Bj9D7tTE2n66QJpDgdoT14d3",
+                "https://dweb.link/ipfs/Qmbz63R19EuH5nJ8sw2qB1Bj9D7tTE2n66QJpDgdoT14d3"
+              ],
+              "sha256": "8c4d745d2b4247e6843a039d6da6ccdf0bfece6bef950de258aefbd43dda1673",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_n": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmahauFkrbHEPmwrtn3jLN1EeJQeECZDEeGYdnqUM1n3wW",
+                "https://gateway.pinata.cloud/ipfs/QmahauFkrbHEPmwrtn3jLN1EeJQeECZDEeGYdnqUM1n3wW",
+                "https://dweb.link/ipfs/QmahauFkrbHEPmwrtn3jLN1EeJQeECZDEeGYdnqUM1n3wW"
+              ],
+              "sha256": "8db17cb58ce30cf230ff718d23ad361272cad75d3dccb248a212a11addbcc9fb",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_o": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmcsC2yuW1Kf32rGiWxPujeyJGYodpm61F8iYvdX9HMGsY",
+                "https://gateway.pinata.cloud/ipfs/QmcsC2yuW1Kf32rGiWxPujeyJGYodpm61F8iYvdX9HMGsY",
+                "https://dweb.link/ipfs/QmcsC2yuW1Kf32rGiWxPujeyJGYodpm61F8iYvdX9HMGsY"
+              ],
+              "sha256": "9b16501fe43a97a11e74257519f57962616b24b9b3423da5324107bfd7346d75",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_oe": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/Qmeb57JwoP5C9LeLRY5tKYHDB28HPEvBFULPEC8u4MZQ31",
+                "https://gateway.pinata.cloud/ipfs/Qmeb57JwoP5C9LeLRY5tKYHDB28HPEvBFULPEC8u4MZQ31",
+                "https://dweb.link/ipfs/Qmeb57JwoP5C9LeLRY5tKYHDB28HPEvBFULPEC8u4MZQ31"
+              ],
+              "sha256": "08339692c8ec3129b2a526ef983622498a12a90a6969be38039a0088dbaf921e",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_p": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmU7wLmv3LqXzncb3QwCQVi4W9ASxc7tNTmNHQckfT66yv",
+                "https://gateway.pinata.cloud/ipfs/QmU7wLmv3LqXzncb3QwCQVi4W9ASxc7tNTmNHQckfT66yv",
+                "https://dweb.link/ipfs/QmU7wLmv3LqXzncb3QwCQVi4W9ASxc7tNTmNHQckfT66yv"
+              ],
+              "sha256": "f263b155daf429984f530dfeb28b7c09380ac285f3c999e2adce6a7c81f72d4e",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_r": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmX1TYLRgxWU9z4EfiwokSWuBESLRGVdSfdUnRfNJnjTWj",
+                "https://gateway.pinata.cloud/ipfs/QmX1TYLRgxWU9z4EfiwokSWuBESLRGVdSfdUnRfNJnjTWj",
+                "https://dweb.link/ipfs/QmX1TYLRgxWU9z4EfiwokSWuBESLRGVdSfdUnRfNJnjTWj"
+              ],
+              "sha256": "51e53ac41beb71277fc20f09cfea6ce2f58ce816a8bfe4a9228385dd360f6801",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_s": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmP1ahvnAHKa3YsU1FK9tVffkCow4LnvnKc84y4SdFbUsF",
+                "https://gateway.pinata.cloud/ipfs/QmP1ahvnAHKa3YsU1FK9tVffkCow4LnvnKc84y4SdFbUsF",
+                "https://dweb.link/ipfs/QmP1ahvnAHKa3YsU1FK9tVffkCow4LnvnKc84y4SdFbUsF"
+              ],
+              "sha256": "cb219cc0d7fb778faabb5b8f39450d482c958d3fb242284b80fa25a690fad1ca",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_sz": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmccJRtjYoG6QyCZgwR6qfvXgvxFLLitvv9hTFfLnUQQ3P",
+                "https://gateway.pinata.cloud/ipfs/QmccJRtjYoG6QyCZgwR6qfvXgvxFLLitvv9hTFfLnUQQ3P",
+                "https://dweb.link/ipfs/QmccJRtjYoG6QyCZgwR6qfvXgvxFLLitvv9hTFfLnUQQ3P"
+              ],
+              "sha256": "12733a9b52475a330ac97973795f657f4480b0c69dababd406f866e0352b942e",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_t": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmP27ddkjjPNtv3ShsTDAVHidn1wokhaKFuL1wkx9r1LQd",
+                "https://gateway.pinata.cloud/ipfs/QmP27ddkjjPNtv3ShsTDAVHidn1wokhaKFuL1wkx9r1LQd",
+                "https://dweb.link/ipfs/QmP27ddkjjPNtv3ShsTDAVHidn1wokhaKFuL1wkx9r1LQd"
+              ],
+              "sha256": "5f01ac7504ba940b539242724f9a9a9548533bf9a41c3b1b06b5e67407492229",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_u": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmPttzFBcbVhpSV7XCCP7vEk15hLTkHgtVW4vZxpvsUdrB",
+                "https://gateway.pinata.cloud/ipfs/QmPttzFBcbVhpSV7XCCP7vEk15hLTkHgtVW4vZxpvsUdrB",
+                "https://dweb.link/ipfs/QmPttzFBcbVhpSV7XCCP7vEk15hLTkHgtVW4vZxpvsUdrB"
+              ],
+              "sha256": "72822e342c384bde150f24c7c240f13745c0aa9bc6ab20c51d8ba07144a1ff91",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_ue": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmayARqqAcqPQKvh69rynvKpyLRcE8STLy1gM824KPY7Tu",
+                "https://gateway.pinata.cloud/ipfs/QmayARqqAcqPQKvh69rynvKpyLRcE8STLy1gM824KPY7Tu",
+                "https://dweb.link/ipfs/QmayARqqAcqPQKvh69rynvKpyLRcE8STLy1gM824KPY7Tu"
+              ],
+              "sha256": "78c1c425a6a96cdbbc9603728552e86d307b9bc3bcbb706d5f122968bd908742",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_v": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmTLn7tGGKE82iLN5WRGEwvk84YZYtbR74QM8VonTXPPTB",
+                "https://gateway.pinata.cloud/ipfs/QmTLn7tGGKE82iLN5WRGEwvk84YZYtbR74QM8VonTXPPTB",
+                "https://dweb.link/ipfs/QmTLn7tGGKE82iLN5WRGEwvk84YZYtbR74QM8VonTXPPTB"
+              ],
+              "sha256": "0fbbaf8c9464a8410956de0458f3a6c6b090e87c9fa62419ac61da41257a78bb",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_w": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmdhzSzZSc1yXqZiRaJuYZum6UnjXGZNqgVxdKPFyoLZ9x",
+                "https://gateway.pinata.cloud/ipfs/QmdhzSzZSc1yXqZiRaJuYZum6UnjXGZNqgVxdKPFyoLZ9x",
+                "https://dweb.link/ipfs/QmdhzSzZSc1yXqZiRaJuYZum6UnjXGZNqgVxdKPFyoLZ9x"
+              ],
+              "sha256": "d4eda381473d12801a994658d8f1bf57e376c8f17dbfa5bfb764d934b85d2abe",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_x_y": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmPEyq3tJuDsXWSxykFh6HRx1rTXbCJMNQBiBs8cE4pKBD",
+                "https://gateway.pinata.cloud/ipfs/QmPEyq3tJuDsXWSxykFh6HRx1rTXbCJMNQBiBs8cE4pKBD",
+                "https://dweb.link/ipfs/QmPEyq3tJuDsXWSxykFh6HRx1rTXbCJMNQBiBs8cE4pKBD"
+              ],
+              "sha256": "df6a51c2ff7a264d159480e1ae0122144d9880491619f78dabc5921d0635dea2",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_z": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbMPiXPsvm124CRg73LkrD7PY1JWRajR2KkbuUsQNSAEr",
+                "https://gateway.pinata.cloud/ipfs/QmbMPiXPsvm124CRg73LkrD7PY1JWRajR2KkbuUsQNSAEr",
+                "https://dweb.link/ipfs/QmbMPiXPsvm124CRg73LkrD7PY1JWRajR2KkbuUsQNSAEr"
+              ],
+              "sha256": "6c8bea65361cf651ebf95ced865915fde18b9c2c290173904453f76898941674",
+              "downloaded_file_path": "downloaded.php"
+            }
+          },
+          "wikibooks_novenyek_magyar_latin_nepies_zs": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmPiZ325MiwJVqd71UXBNgsiLwj2N6pp5BQJ7kdtG3ZEGP",
+                "https://gateway.pinata.cloud/ipfs/QmPiZ325MiwJVqd71UXBNgsiLwj2N6pp5BQJ7kdtG3ZEGP",
+                "https://dweb.link/ipfs/QmPiZ325MiwJVqd71UXBNgsiLwj2N6pp5BQJ7kdtG3ZEGP"
+              ],
+              "sha256": "bd4f34210135950e3f5f7964e6dd7dadb2b2a8778e1db20a0ed95c6a690fc4e8",
               "downloaded_file_path": "downloaded.php"
             }
           }

@@ -8,14 +8,48 @@ sources.wikibooks_hu_source(
 )
 
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
-    # TODO: Add the remaining letter pages (e.g. "C", ..., "Zs").
     ("QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH", "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86", "A"),
     ("QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW", "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f", "B"),
+    ("QmVGuXat4zxER3QnRUHZFLsCiqyUNg5nwU3GMYKH3aptvX", "d5a29cf53be963c4c45f0ffdc23f09ebcc3adc8faca22a33622f8f170c5c21fe", "C"),
+    ("QmV3aVnKURafK5aD9ybKJwn2jBasACe7KDJF6yR5jBtmKr", "921f22368810010f1f9cafdf8085d798c75f404ebfdb30593befab5fe24ced0a", "D"),
+    ("QmVpNd5GV4QDCJzjvzRKeu8WKvmuzb7zoz1pvmwtegs4mF", "1cf0aabfd0cabddf063d1ad35d779529d323139659dc79c36d487990cffcf37e", "E"),
+    ("QmYoChZpuzgT5KVHFhtMRx8kWbMXFfvYbeQeV5qTCdhf9Q", "dd2981b178b2de4eac6f4a5692b2840b799e6c626b90b22c9c517c6015d2bbca", "F"),
+    ("QmbdJjKysTTmASbnRERhLdFZeku2jWSh4LAmaHxtGHkKDB", "418737114a01f557db33fc4b36edd913a0e7a73d823eca86c10c4f0a0cf47b24", "G"),
+    ("QmcSUV9DEkWRMaTf18NP7HFM3HAAKxL1iPv3jd9TfXRBca", "3c427f1f77c884dff3affe62db5589b6cbcef8a35be66df420f7854896b40729", "H"),
+    ("QmdDYb6ceCPgL4rDd7HSAx579c8ePP74T3HzopcSx7jxxN", "c7da999466eaba29989cb8042036d74d6bab0456256caca26708436a572c61be", "I"),
+    ("QmZNwFS4925Y2NTqDJPWWACfS6zcCuegVoXtYE6YWLYJVq", "277d063d90b0678652657771a87bc3902c89097f949901e41fd27cd0affc649d", "J"),
+    ("QmeUq57qVudXMG7Dq8sKSnuQz4jCPCdjKrCYon1KVPv9Qz", "db3aec5218387329da73a32a1c983c7cfb64259d2d79c0625ee3c16a21159d7c", "K"),
+    ("QmTgiCyzdu8TanLisErhYv88MsfAeRPhgab1vP1aQrq3fE", "695c7970d23546f43d48b49f3ca174ec022f5c5af42eed7047ee264c5dcb408e", "L"),
+    ("Qmbz63R19EuH5nJ8sw2qB1Bj9D7tTE2n66QJpDgdoT14d3", "8c4d745d2b4247e6843a039d6da6ccdf0bfece6bef950de258aefbd43dda1673", "M"),
+    ("QmahauFkrbHEPmwrtn3jLN1EeJQeECZDEeGYdnqUM1n3wW", "8db17cb58ce30cf230ff718d23ad361272cad75d3dccb248a212a11addbcc9fb", "N"),
+    ("QmcsC2yuW1Kf32rGiWxPujeyJGYodpm61F8iYvdX9HMGsY", "9b16501fe43a97a11e74257519f57962616b24b9b3423da5324107bfd7346d75", "O"),
+    ("Qmeb57JwoP5C9LeLRY5tKYHDB28HPEvBFULPEC8u4MZQ31", "08339692c8ec3129b2a526ef983622498a12a90a6969be38039a0088dbaf921e", "Ö"),
+    ("QmU7wLmv3LqXzncb3QwCQVi4W9ASxc7tNTmNHQckfT66yv", "f263b155daf429984f530dfeb28b7c09380ac285f3c999e2adce6a7c81f72d4e", "P"),
+    ("QmX1TYLRgxWU9z4EfiwokSWuBESLRGVdSfdUnRfNJnjTWj", "51e53ac41beb71277fc20f09cfea6ce2f58ce816a8bfe4a9228385dd360f6801", "R"),
+    ("QmP1ahvnAHKa3YsU1FK9tVffkCow4LnvnKc84y4SdFbUsF", "cb219cc0d7fb778faabb5b8f39450d482c958d3fb242284b80fa25a690fad1ca", "S"),
+    ("QmccJRtjYoG6QyCZgwR6qfvXgvxFLLitvv9hTFfLnUQQ3P", "12733a9b52475a330ac97973795f657f4480b0c69dababd406f866e0352b942e", "Sz"),
+    ("QmP27ddkjjPNtv3ShsTDAVHidn1wokhaKFuL1wkx9r1LQd", "5f01ac7504ba940b539242724f9a9a9548533bf9a41c3b1b06b5e67407492229", "T"),
+    ("QmPttzFBcbVhpSV7XCCP7vEk15hLTkHgtVW4vZxpvsUdrB", "72822e342c384bde150f24c7c240f13745c0aa9bc6ab20c51d8ba07144a1ff91", "U"),
+    ("QmayARqqAcqPQKvh69rynvKpyLRcE8STLy1gM824KPY7Tu", "78c1c425a6a96cdbbc9603728552e86d307b9bc3bcbb706d5f122968bd908742", "Ü"),
+    ("QmTLn7tGGKE82iLN5WRGEwvk84YZYtbR74QM8VonTXPPTB", "0fbbaf8c9464a8410956de0458f3a6c6b090e87c9fa62419ac61da41257a78bb", "V"),
+    ("QmdhzSzZSc1yXqZiRaJuYZum6UnjXGZNqgVxdKPFyoLZ9x", "d4eda381473d12801a994658d8f1bf57e376c8f17dbfa5bfb764d934b85d2abe", "W"),
+    ("QmPEyq3tJuDsXWSxykFh6HRx1rTXbCJMNQBiBs8cE4pKBD", "df6a51c2ff7a264d159480e1ae0122144d9880491619f78dabc5921d0635dea2", "X,Y"),
+    ("QmbMPiXPsvm124CRg73LkrD7PY1JWRajR2KkbuUsQNSAEr", "6c8bea65361cf651ebf95ced865915fde18b9c2c290173904453f76898941674", "Z"),
+    ("QmPiZ325MiwJVqd71UXBNgsiLwj2N6pp5BQJ7kdtG3ZEGP", "bd4f34210135950e3f5f7964e6dd7dadb2b2a8778e1db20a0ed95c6a690fc4e8", "Zs"),
 ]
+
+WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES = {
+    "X,Y": "x_y",
+    "Ö": "oe",
+    "Ü": "ue",
+}
 
 [
     sources.wikibooks_hu_source(
-        name = "wikibooks_novenyek_magyar_latin_nepies_" + letter.lower(),
+        name = "wikibooks_novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
+            letter,
+            letter.lower(),
+        ),
         ipfs_cid = cid,
         sha256 = sha256,
         title = "Növények/Magyar-Latin-Népies/" + letter,
@@ -24,10 +58,15 @@ WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
     for cid, sha256, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
 ]
 
-# TODO: Add the remaining wikibooks_novenyek_magyar_latin_nepies_* letter pages.
 use_repo(
     sources,
     "latin_magyarorszagon_vedett_allatok",
 )
 
-[use_repo(sources, "wikibooks_novenyek_magyar_latin_nepies_" + letter.lower()) for _, _, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]
+[use_repo(
+    sources,
+    "wikibooks_novenyek_magyar_latin_nepies_" + WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_REPO_SUFFIXES.get(
+        letter,
+        letter.lower(),
+    ),
+) for _, _, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]
