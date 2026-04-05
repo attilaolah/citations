@@ -37,6 +37,15 @@ nix_pkg.expr(
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
+    name = "gnparser",
+    attr = "gnparser",
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+exports_files(["bin/gnparser"])
+""",
+    repo = "@nixpkgs",
+)
+nix_pkg.attr(
     name = "libreoffice",
     attr = "libreoffice-fresh",
     build_file_content = """
@@ -58,7 +67,7 @@ exports_files([
 """,
     repo = "@nixpkgs",
 )
-use_repo(nix_pkg, "docling", "docling_parse", "libreoffice", "python")
+use_repo(nix_pkg, "docling", "docling_parse", "gnparser", "libreoffice", "python")
 
 register_toolchains("//tools/python:python_3_15_toolchain")
 

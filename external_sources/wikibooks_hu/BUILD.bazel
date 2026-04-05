@@ -1,4 +1,5 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
+load("//tools/extract:name_pairs_gnparser_test.bzl", "name_pairs_gnparser_test")
 load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
 
 exports_files([
@@ -83,6 +84,14 @@ _NOVENYEK_LETTER_SUFFIXES = [
         name = "wikibooks_novenyek_magyar_latin_nepies_" + suffix + "_pairs",
         src = "@wikibooks_novenyek_magyar_latin_nepies_" + suffix + "//file",
         tool = "//tools/extract:wikibooks_hu_novenyek_magyar_latin_nepies",
+    )
+    for suffix in _NOVENYEK_LETTER_SUFFIXES
+]
+
+[
+    name_pairs_gnparser_test(
+        name = "wikibooks_novenyek_magyar_latin_nepies_" + suffix + "_pairs_gnparser_test",
+        src = ":wikibooks_novenyek_magyar_latin_nepies_" + suffix + "_pairs",
     )
     for suffix in _NOVENYEK_LETTER_SUFFIXES
 ]
