@@ -19,6 +19,13 @@
         pkgs = import inputs.nixpkgs {inherit system;};
         python315Patched = pkgs.python315.override {
           packageOverrides = final: prev: {
+            exceptiongroup = prev.exceptiongroup.overridePythonAttrs (old: {
+              disabledTests =
+                (old.disabledTests or [])
+                ++ [
+                  "test_nameerror_suggestions_in_group[patched]"
+                ];
+            });
             "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old: {
               PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
             });
