@@ -9,7 +9,7 @@ load(
 )
 
 exports_files([
-    "HU.MODULE.bazel",
+    "SRCS.MODULE.bazel",
 ])
 
 _MODELS = "//tools/docling/models:default"

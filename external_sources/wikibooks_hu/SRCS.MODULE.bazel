@@ -10,20 +10,20 @@ sources.external_source(
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL = "https://hu.wikibooks.org/w/index.php?title=Növények/Magyar-Latin-Népies/"
 
 WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS = [
-    # TODO: (CID, hash, TitleCaseLetter e.g. "A", "B", ..., "Zs")
-    ("a", "QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH", "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86"),
-    ("b", "QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW", "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f"),
+    # TODO: Add the remaining letter pages (e.g. "C", ..., "Zs").
+    ("QmRvGkz272omPBTTq5oW9K25vPVPZpa2aPM1FZNvJpsEUH", "345f096b4ed37f48115b252c5318388b47d1de14a8c99c0825979654be49eb86", "A"),
+    ("QmbcJ3igB2ZjB8py4X35DNv5moCk254JjETPwR8q3aRDmW", "1a6a8162d6f0ecad7f60636f587f464c259c4eb569013c94a4ca9d630740380f", "B"),
 ]
 
 [
     sources.external_source(
-        name = "wikibooks_novenyek_magyar_latin_nepies_" + letter,
+        name = "wikibooks_novenyek_magyar_latin_nepies_" + letter.lower(),
         ipfs_cid = cid,
         sha256 = sha256,
         updated_on = "2026-04-05",
-        url = WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL + letter.upper() + "&action=raw",
+        url = WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_BASE_URL + letter + "&action=raw",
     )
-    for letter, cid, sha256 in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
+    for cid, sha256, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS
 ]
 
 # TODO: Add the remaining wikibooks_novenyek_magyar_latin_nepies_* letter pages.
@@ -32,4 +32,4 @@ use_repo(
     "latin_magyarorszagon_vedett_allatok",
 )
 
-[use_repo(sources, "wikibooks_novenyek_magyar_latin_nepies_" + letter) for letter, _, _ in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]
+[use_repo(sources, "wikibooks_novenyek_magyar_latin_nepies_" + letter.lower()) for _, _, letter in WIKIBOOKS_NOVENYEK_MAGYAR_LATIN_NEPIES_PUBLICATIONS]
