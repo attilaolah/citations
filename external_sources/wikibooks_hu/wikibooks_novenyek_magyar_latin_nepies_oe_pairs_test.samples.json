@@ -1,0 +1,8 @@
+{
+  "exact": true,
+  "expected": {
+    "Actinidia arguta": ["Öntermékeny kopaszkivi"],
+    "Buphthalmum salicifolium": ["Fűzlevelű ökörszem"],
+    "Verbascum thapsus": ["Molyhos ökörfarkkóró"]
+  }
+}

@@ -4,6 +4,7 @@ exports_files(
     [
         "extract_pairs.bzl",
         "name_pairs_gnparser_test.bzl",
+        "name_pairs_pytest_test.py",
         "name_pairs_test.bzl",
     ],
     visibility = ["//visibility:public"],

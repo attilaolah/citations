@@ -4,6 +4,10 @@ load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
 
 exports_files([
     "SRCS.MODULE.bazel",
+    "latin_magyarorszagon_vedett_allatok_pairs_test.samples.json",
+    "wikibooks_novenyek_magyar_latin_nepies_a_pairs_test.samples.json",
+    "wikibooks_novenyek_magyar_latin_nepies_oe_pairs_test.samples.json",
+    "wikibooks_novenyek_magyar_latin_nepies_x_y_pairs_test.samples.json",
 ])
 
 name_pairs(
@@ -15,37 +19,7 @@ name_pairs(
 name_pairs_test(
     name = "latin_magyarorszagon_vedett_allatok_pairs_test",
     src = ":latin_magyarorszagon_vedett_allatok_pairs",
-    expected = {
-        "Acherontia atropos": ["halálfejes lepke"],
-        "Asteroscopus syriacus": [
-            "Kovács-bundásbagoly",
-            "magyar őszi-fésűsbagoly",
-        ],
-        "Auchenorrhynca": ["kabócák"],
-        "Bolbelasmus unicornis": ["szarvas álganéjtúró"],
-        "Cerambycidae": ["cincérfélék"],
-        "Chrysomelidae": ["levélbogárfélék"],
-        "Curculionidae": ["ormányosbogár-félék"],
-        "Cymindis miliaris": ["kékes laposfutó"],
-        "Dorcadion fulvum fulvum": ["barna gyalogcincér"],
-        "Eurythyrea aurata": ["aranyos díszbogár"],
-        "Gliridae": ["pelefélék"],
-        "Glis glis": ["nagy pele"],
-        "Herpes porcellus": ["bütyköshátú ormányos"],
-        "Hylidae": ["levelibéka-félék"],
-        "Isogenus nubecula": ["füstös álkérész"],
-        "Isophya modesta": [
-            "pusztai tarsza",
-            "szerény tarsza",
-        ],
-        "Mantis religiosa": ["imádkozó sáska"],
-        "Myoxus glis": ["nagy pele"],
-        "Pelecanidae": ["gödényfélék"],
-        "Pelecanus crispus": ["borzas gödény"],
-        "Prostomidae": ["fogasállúbogár-félék"],
-        "Sitta europaea": ["csuszka"],
-        "Trichoptera": ["tegzesek"],
-    },
+    samples = ":latin_magyarorszagon_vedett_allatok_pairs_test.samples.json",
 )
 
 _NOVENYEK_LETTER_SUFFIXES = [
@@ -99,45 +73,17 @@ _NOVENYEK_LETTER_SUFFIXES = [
 name_pairs_test(
     name = "wikibooks_novenyek_magyar_latin_nepies_a_pairs_test",
     src = ":wikibooks_novenyek_magyar_latin_nepies_a_pairs",
-    expected = {
-        "Thymus marschallianus": [
-            "alföldi kakukkfű",
-            "balzsamfű",
-            "démutka",
-            "kakucskafű",
-            "kakuk démutka",
-            "mézfű",
-            "timián",
-            "tömjénfű",
-            "vad csombor",
-        ],
-    },
+    samples = ":wikibooks_novenyek_magyar_latin_nepies_a_pairs_test.samples.json",
 )
 
 name_pairs_test(
     name = "wikibooks_novenyek_magyar_latin_nepies_oe_pairs_test",
     src = ":wikibooks_novenyek_magyar_latin_nepies_oe_pairs",
-    exact = True,
-    expected = {
-        "Actinidia arguta": [
-            "Öntermékeny kopaszkivi",
-        ],
-        "Buphthalmum salicifolium": [
-            "Fűzlevelű ökörszem",
-        ],
-        "Verbascum thapsus": [
-            "Molyhos ökörfarkkóró",
-        ],
-    },
+    samples = ":wikibooks_novenyek_magyar_latin_nepies_oe_pairs_test.samples.json",
 )
 
 name_pairs_test(
     name = "wikibooks_novenyek_magyar_latin_nepies_x_y_pairs_test",
     src = ":wikibooks_novenyek_magyar_latin_nepies_x_y_pairs",
-    exact = True,
-    expected = {
-        "Virola calophylloidea": [
-            "Yakée",
-        ],
-    },
+    samples = ":wikibooks_novenyek_magyar_latin_nepies_x_y_pairs_test.samples.json",
 )

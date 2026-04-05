@@ -32,6 +32,7 @@
               with ps; [
                 docling
                 docling-parse
+                pytest
               ]))
 
             alejandra

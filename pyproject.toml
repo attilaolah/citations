@@ -9,6 +9,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+  "pydantic",
   "pytest",
 ]
 
@@ -27,6 +28,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "**/*_test.py" = ["S101"]  # asserts allowed in tests
+"tools/extract/name_pairs_pytest_test.py" = ["S404", "S603"]  # invokes gnparser binary directly
 
 [tool.ruff.lint.pycodestyle]
 max-line-length = 119
@@ -36,3 +38,4 @@ convention = "google"
 
 [tool.pyright]
 strict = ["."]
+extraPaths = ["typings"]

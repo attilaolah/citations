@@ -55,14 +55,34 @@ filegroup(name = "soffice", srcs = ["bin/soffice"])
 """,
     repo = "@nixpkgs",
 )
-nix_pkg.attr(
+nix_pkg.expr(
     name = "python",
-    attr = "python315",
+    attr = "",
     build_file_content = """
 package(default_visibility = ["//visibility:public"])
 exports_files([
     "bin/python",
     "bin/python3",
+    "bin/pytest",
+])
+""",
+    expr = """
+with import <nixpkgs> {};
+let
+  py = python315.override {
+    packageOverrides = final: prev: {
+      "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old: {
+        PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
+      });
+      "rpds-py" = prev."rpds-py".overridePythonAttrs (_old: {
+        PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
+      });
+    };
+  };
+in
+py.withPackages (ps: with ps; [
+  pydantic
+  pytest
 ])
 """,
     repo = "@nixpkgs",
