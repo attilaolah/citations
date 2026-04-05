@@ -15,6 +15,10 @@ name_pairs_test(
     name = "latin_magyarorszagon_vedett_allatok_pairs_test",
     src = ":latin_magyarorszagon_vedett_allatok_pairs",
     expected = {
+        "Glis glis": ["nagy pele"],
         "Mantis religiosa": ["Imádkozó sáska"],
+        "Myoxus glis": ["nagy pele"],
+        "Pelecanidae": ["Gödényfélék"],
+        "Pelecanus crispus": ["borzas gödény"],
     },
 )

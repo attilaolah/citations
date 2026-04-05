@@ -77,15 +77,15 @@ def _parse_heading(line: str) -> tuple[str, str] | None:
     return latin, hungarian
 
 
-def _parse_table_row(line: str) -> tuple[str, str] | None:  # noqa: PLR0911
+def _parse_table_row(line: str) -> list[tuple[str, str]]:
     is_header_row = line.startswith("!")
     content = line[1:].strip()
     if "||" not in content:
-        return None
+        return []
 
     cells = [cell.strip() for cell in content.split("||")]
     if len(cells) < MIN_TABLE_CELLS:
-        return None
+        return []
 
     left_links = _extract_link_texts(cells[0])
     right_links = _extract_link_texts(cells[1])
@@ -93,23 +93,53 @@ def _parse_table_row(line: str) -> tuple[str, str] | None:  # noqa: PLR0911
     right_name = right_links[0] if right_links else _strip_markup(cells[1])
 
     if not left_name or not right_name:
-        return None
+        return []
     if {left_name, right_name} == {"Magyar neve", "Latin neve"}:
-        return None
+        return []
+
+    pairs: list[tuple[str, str]] = []
 
     right_latin = _first_latin_candidate(right_links)
     if right_latin is None and is_header_row:
         right_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[1])))
     if right_latin is not None:
-        return right_latin, left_name
+        pairs.append((right_latin, left_name))
+        return pairs
 
-    left_latin = _first_latin_candidate(left_links)
-    if left_latin is None and is_header_row:
-        left_latin = _first_latin_candidate(LATIN_TOKEN_RE.findall(_strip_markup(cells[0])))
-    if left_latin is None:
+    latin_candidates: list[str] = []
+    latin_candidates.extend(link for link in left_links if _is_latin_like(link))
+    latin_candidates.extend(LATIN_TOKEN_RE.findall(_strip_markup(cells[0])))
+
+    seen_latin: set[str] = set()
+    for latin in latin_candidates:
+        if not _is_latin_like(latin):
+            continue
+        if latin in seen_latin:
+            continue
+        seen_latin.add(latin)
+        pairs.append((latin, right_name))
+
+    return pairs
+
+
+def _parse_taxon_bullet(line: str) -> tuple[str, str] | None:
+    if not line.startswith("*;"):
         return None
 
-    return left_latin, right_name
+    body = line[2:].strip()
+    links = _extract_link_texts(body)
+    if not links:
+        return None
+
+    hungarian = links[0]
+    latin_candidates: list[str] = []
+    latin_candidates.extend(_strip_markup(match) for match in QUOTE_PAREN_RE.findall(body))
+    latin_candidates.extend(_strip_markup(match) for match in PAREN_RE.findall(body))
+    latin_candidates.extend(LATIN_TOKEN_RE.findall(_strip_markup(LINK_RE.sub(" ", body))))
+    latin = _first_latin_candidate(latin_candidates)
+    if latin is None:
+        return None
+    return latin, hungarian
 
 
 def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
@@ -123,7 +153,15 @@ def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
         if line.startswith("=") and line.endswith("="):
             pair = _parse_heading(line)
         elif line.startswith(("|", "!")):
-            pair = _parse_table_row(line)
+            table_pairs = _parse_table_row(line)
+            for table_pair in table_pairs:
+                if table_pair in seen:
+                    continue
+                seen.add(table_pair)
+                pairs.append(table_pair)
+            continue
+        elif line.startswith("*;"):
+            pair = _parse_taxon_bullet(line)
 
         if pair is None:
             continue
