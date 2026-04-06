@@ -1,0 +1,7 @@
+package(default_visibility = ["//visibility:public"])
+
+exports_files([
+    "bin/python",
+    "bin/python3",
+    "bin/pytest",
+])

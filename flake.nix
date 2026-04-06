@@ -11,12 +11,24 @@
     flake-parts,
     systems,
     ...
-  }:
+  }: let
+    python314Overlay = final: prev: {
+      python = prev.python314.withPackages (ps:
+        with ps; [
+          pydantic
+          pytest
+        ]);
+    };
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
+      flake.overlays.default = python314Overlay;
 
       perSystem = {system, ...}: let
-        pkgs = import inputs.nixpkgs {inherit system;};
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [python314Overlay];
+        };
       in {
         formatter = pkgs.alejandra;
         devShells.default = pkgs.mkShell {
@@ -24,11 +36,7 @@
             bazel_9
             gnfinder
             gnparser
-            (python314.withPackages (ps:
-              with ps; [
-                pydantic
-                pytest
-              ]))
+            python
 
             alejandra
             black

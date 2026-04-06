@@ -1,3 +1,7 @@
 exports_files([
+    "docling.bazel",
+    "gnparser.bazel",
+    "libreoffice.bazel",
     "nixpkgs.nix",
+    "python.bazel",
 ])

@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+exports_files([
+    "bin/docling",
+    "bin/docling-tools",
+])
+
+filegroup(
+    name = "docling",
+    srcs = ["bin/docling"],
+)
+
+filegroup(
+    name = "docling-tools",
+    srcs = ["bin/docling-tools"],
+)

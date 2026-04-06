@@ -1056,7 +1056,8 @@
               "nix_file_content": "",
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
-              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\n    \"bin/docling\",\n    \"bin/docling-tools\",\n])\nfilegroup(name = \"docling\", srcs = [\"bin/docling\"])\nfilegroup(name = \"docling-tools\", srcs = [\"bin/docling-tools\"])\n",
+              "build_file": "@@//nix:docling.bazel",
+              "build_file_content": "",
               "nixopts": [],
               "quiet": false,
               "fail_not_supported": true
@@ -1071,7 +1072,8 @@
               "nix_file_content": "",
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
-              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\"bin/gnparser\"])\n",
+              "build_file": "@@//nix:gnparser.bazel",
+              "build_file_content": "",
               "nixopts": [],
               "quiet": false,
               "fail_not_supported": true
@@ -1086,7 +1088,8 @@
               "nix_file_content": "",
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
-              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\"bin/soffice\"])\nfilegroup(name = \"soffice\", srcs = [\"bin/soffice\"])\n",
+              "build_file": "@@//nix:libreoffice.bazel",
+              "build_file_content": "",
               "nixopts": [],
               "quiet": false,
               "fail_not_supported": true
@@ -1111,12 +1114,13 @@
             "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
             "attributes": {
               "unmangled_name": "python",
-              "attribute_path": "",
+              "attribute_path": "python",
               "nix_file_deps": {},
-              "nix_file_content": "\nwith import <nixpkgs> {};\npython314.withPackages (ps: with ps; [\n  pydantic\n  pytest\n])\n",
+              "nix_file_content": "",
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
-              "build_file_content": "\npackage(default_visibility = [\"//visibility:public\"])\nexports_files([\n    \"bin/python\",\n    \"bin/python3\",\n    \"bin/pytest\",\n])\n",
+              "build_file": "@@//nix:python.bazel",
+              "build_file_content": "",
               "nixopts": [],
               "quiet": false,
               "fail_not_supported": true
