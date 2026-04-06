@@ -22,15 +22,28 @@
             py3o.PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
           in
             {
-              pydantic-core = prev."pydantic-core".overridePythonAttrs (_old:
-                py3o
-                // {
-                  preBuild =
-                    (_old.preBuild or "")
-                    + ''
-                      export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
-                    '';
-                });
+              pydantic = prev.pydantic.overridePythonAttrs (_old: rec {
+                version = "2.13.0b3";
+                src = pkgs.fetchFromGitHub {
+                  owner = "pydantic";
+                  repo = "pydantic";
+                  tag = "v${version}";
+                  hash = "sha256-zxooO1fMqtD8Vy59odEcKBHaD6b7sSL4vScn0Z2+/Rs=";
+                };
+              });
+              pydantic-core = prev."pydantic-core".overridePythonAttrs (old: rec {
+                version = "2.45.0";
+                src = pkgs.fetchPypi {
+                  pname = "pydantic_core";
+                  inherit version;
+                  hash = "sha256-o/9lkhfcs9E0Qu00jhLhLtbIdnkRVKV13vH+qbtmfY4=";
+                };
+                cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+                  inherit src version;
+                  pname = old.pname;
+                  hash = "sha256-OD2nw4tf5Xt75tfp5faaWz5BjEVsFSyLSqSeEXIZWl4=";
+                };
+              });
             }
             // (builtins.listToAttrs (map (name: {
                 inherit name;
