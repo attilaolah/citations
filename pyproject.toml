@@ -5,10 +5,6 @@ description = "Citations of scientific and vernacular names"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-]
-
-[dependency-groups]
-dev = [
   "pydantic",
   "pytest",
 ]
