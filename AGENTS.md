@@ -15,8 +15,8 @@
 
 ## Python
 
-- Use Python `3.15`.
-- Lint with `ruff check --target-version py315`; apply `--fix --unsafe-fixes` when needed.
+- Use Python `3.14`.
+- Lint with `ruff check --target-version py314`; apply `--fix --unsafe-fixes` when needed.
 - Run `pyright` on changed Python code.
 - Run `pyupgrade` to adopt the newest syntax it supports.
 - Do not add `noqa` pragmas.
