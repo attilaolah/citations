@@ -1,3 +1,4 @@
 exports_files([
     "flake.lock",
+    "pyproject.toml",
 ])
