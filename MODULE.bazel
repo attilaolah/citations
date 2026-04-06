@@ -11,6 +11,7 @@ nix_repo.file(
     file = "//nix:nixpkgs.nix",
     file_deps = [
         "//:flake.lock",
+        "//nix/overlays:python.nix",
     ],
 )
 use_repo(nix_repo, "nixpkgs")

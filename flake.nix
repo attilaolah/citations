@@ -12,22 +12,16 @@
     systems,
     ...
   }: let
-    python314Overlay = final: prev: {
-      python = prev.python314.withPackages (ps:
-        with ps; [
-          pydantic
-          pytest
-        ]);
-    };
+    pythonOverlay = import ./nix/overlays/python.nix;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
-      flake.overlays.default = python314Overlay;
+      flake.overlays.default = pythonOverlay;
 
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [python314Overlay];
+          overlays = [pythonOverlay];
         };
       in {
         formatter = pkgs.alejandra;
