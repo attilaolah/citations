@@ -69,27 +69,39 @@ exports_files([
     expr = """
 with import <nixpkgs> {};
 let
+  py3o.PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
   py = python315.override {
-    packageOverrides = final: prev: {
-      "et-xmlfile" = prev."et-xmlfile".overridePythonAttrs (old: {
-        disabledTests = (old.disabledTests or []) ++ [
-          "ElementTreeTest::test_iterparse"
-          "ElementTreeTest::test_simpleops"
-          "KeywordArgsTest::test_issue14818"
-        ];
-      });
-      exceptiongroup = prev.exceptiongroup.overridePythonAttrs (old: {
-        disabledTests = (old.disabledTests or []) ++ [
-          "test_nameerror_suggestions_in_group[patched]"
-        ];
-      });
-      "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old: {
-        PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
-      });
-      "rpds-py" = prev."rpds-py".overridePythonAttrs (_old: {
-        PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
-      });
-    };
+    packageOverrides = final: prev:
+      {
+        "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old:
+          py3o // {
+            preBuild = (_old.preBuild or "") + ''
+              export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
+            '';
+          });
+      }
+      // (builtins.listToAttrs (map (name: {
+            inherit name;
+            value = prev.${name}.overridePythonAttrs (_old: py3o);
+          }) [
+            "python-bidi"
+            "rpds-py"
+          ]))
+      // (builtins.listToAttrs (map (name: {
+            inherit name;
+            value = prev.${name}.overridePythonAttrs (_old: {doCheck = false;});
+          }) [
+            "et-xmlfile"
+            "exceptiongroup"
+            "parso"
+            "pure-eval"
+            "readme-renderer"
+            "setproctitle"
+            "time-machine"
+            "tkinter"
+            "toolz"
+            "tornado"
+          ]));
   };
 in
 py.withPackages (ps: with ps; [
@@ -103,6 +115,6 @@ use_repo(nix_pkg, "docling", "docling_parse", "gnparser", "libreoffice", "python
 
 register_toolchains("//tools/python:python_3_15_toolchain")
 
-include("//external_sources/publications:SRCS.MODULE.bazel")
 include("//external_sources:SRCS.MODULE.bazel")
+include("//external_sources/publications:SRCS.MODULE.bazel")
 include("//external_sources/wikibooks_hu:SRCS.MODULE.bazel")

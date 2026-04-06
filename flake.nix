@@ -17,47 +17,53 @@
 
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {inherit system;};
-        python315Patched = pkgs.python315.override {
-          packageOverrides = final: prev: {
-            "et-xmlfile" = prev."et-xmlfile".overridePythonAttrs (old: {
-              disabledTests =
-                (old.disabledTests or [])
-                ++ [
-                  "ElementTreeTest::test_iterparse"
-                  "ElementTreeTest::test_simpleops"
-                  "KeywordArgsTest::test_issue14818"
-                ];
-            });
-            exceptiongroup = prev.exceptiongroup.overridePythonAttrs (old: {
-              disabledTests =
-                (old.disabledTests or [])
-                ++ [
-                  "test_nameerror_suggestions_in_group[patched]"
-                ];
-            });
-            "pydantic-core" = prev."pydantic-core".overridePythonAttrs (_old: {
-              PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
-            });
-            "rpds-py" = prev."rpds-py".overridePythonAttrs (_old: {
-              PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
-            });
-          };
+        python315 = pkgs.python315.override {
+          packageOverrides = final: prev: let
+            py3o.PYO3_USE_ABI3_FORWARD_COMPATIBILITY = "1";
+          in
+            {
+              pydantic-core = prev."pydantic-core".overridePythonAttrs (_old:
+                py3o
+                // {
+                  preBuild =
+                    (_old.preBuild or "")
+                    + ''
+                      export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
+                    '';
+                });
+            }
+            // (builtins.listToAttrs (map (name: {
+                inherit name;
+                value = prev.${name}.overridePythonAttrs (_old: py3o);
+              }) [
+                "python-bidi"
+                "rpds-py"
+              ]))
+            // (builtins.listToAttrs (map (name: {
+                inherit name;
+                value = prev.${name}.overridePythonAttrs (_old: {doCheck = false;});
+              }) [
+                "et-xmlfile"
+                "exceptiongroup"
+                "parso"
+                "pure-eval"
+                "readme-renderer"
+                "setproctitle"
+                "time-machine"
+                "tkinter"
+                "toolz"
+                "tornado"
+              ]));
         };
       in {
         formatter = pkgs.alejandra;
-        packages = {
-          inherit (pkgs) gnfinder gnparser;
-          bazel = pkgs.bazel_9;
-        };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bazel_9
             gnfinder
             gnparser
-            (python315Patched.withPackages (ps:
+            (python315.withPackages (ps:
               with ps; [
-                docling
-                docling-parse
                 pydantic
                 pytest
               ]))
