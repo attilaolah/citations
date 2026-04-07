@@ -35,3 +35,10 @@ py_binary(
     main = "enfo_hu.py",
     visibility = ["//external_sources/enfo_hu:__pkg__"],
 )
+
+py_binary(
+    name = "plant_names_in_hungarian",
+    srcs = ["plant_names_in_hungarian.py"],
+    main = "plant_names_in_hungarian.py",
+    visibility = ["//visibility:public"],
+)

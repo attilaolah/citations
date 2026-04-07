@@ -23,14 +23,39 @@ def _downloaded_file_path(url):
 def _wikibooks_hu_raw_url(title):
     return _WIKIBOOKS_HU_RAW_URL_BASE + title + "&action=raw"
 
+def _xz_source_repo_impl(repository_ctx):
+    repository_ctx.download_and_extract(
+        url = repository_ctx.attr.urls,
+        sha256 = repository_ctx.attr.sha256,
+        type = "xz",
+        output = "file",
+    )
+    repository_ctx.file(
+        "file/BUILD.bazel",
+        content = """package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "file",
+    srcs = glob(["**"], exclude = ["BUILD.bazel"]),
+)
+""",
+    )
+
+_xz_source_repo = repository_rule(
+    implementation = _xz_source_repo_impl,
+    attrs = {
+        "sha256": attr.string(mandatory = True),
+        "urls": attr.string_list(mandatory = True),
+    },
+)
+
 def _sources_impl(module_ctx):
     for module in module_ctx.modules:
         for external_source in module.tags.external_source:
-            http_file(
+            _xz_source_repo(
                 name = external_source.name,
                 urls = _ipfs_mirror_urls(external_source.ipfs_cid),
                 sha256 = external_source.sha256,
-                downloaded_file_path = _downloaded_file_path(external_source.url),
             )
         for wikibooks_hu_source in module.tags.wikibooks_hu_source:
             url = _wikibooks_hu_raw_url(wikibooks_hu_source.title)

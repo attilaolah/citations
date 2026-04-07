@@ -1,0 +1,7 @@
+load("//tools/extract:extract_pairs.bzl", "name_pairs")
+
+name_pairs(
+    name = "plant_names_in_hungarian_pairs",
+    src = "@plant_names_in_hungarian//file",
+    tool = "//tools/extract:plant_names_in_hungarian",
+)
