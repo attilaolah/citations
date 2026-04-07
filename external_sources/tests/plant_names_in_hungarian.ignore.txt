@@ -1,2 +1,0 @@
-# Currently no ignore entries are needed.
-# Keep this file for future, source-specific exceptions only.

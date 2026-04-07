@@ -4,7 +4,6 @@ load("//tools/extract:known_homonyms_test.bzl", "known_homonyms_test")
 name_pairs(
     name = "plant_names_in_hungarian_pairs",
     src = "@plant_names_in_hungarian//file",
-    ignore = ":tests/plant_names_in_hungarian.ignore.txt",
     tool = "//tools/extract:plant_names_in_hungarian",
 )
 
