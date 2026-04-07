@@ -9,6 +9,12 @@ filegroup(
 )
 """
 
+_URLS_BUILD = """\
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["urls.txt"])
+"""
+
 _IPFS_GATEWAYS = [
     "ipfs.io",
     "gateway.pinata.cloud",
@@ -52,7 +58,26 @@ _xz_source_repo = repository_rule(
     },
 )
 
+def _source_urls_repo_impl(repository_ctx):
+    repository_ctx.file(
+        "BUILD.bazel",
+        content = _URLS_BUILD,
+    )
+    repository_ctx.file(
+        "urls.txt",
+        content = "".join(["%s\n" % url for url in repository_ctx.attr.urls]),
+    )
+
+_source_urls_repo = repository_rule(
+    implementation = _source_urls_repo_impl,
+    attrs = {
+        "urls": attr.string_list(mandatory = True),
+    },
+)
+
 def _sources_impl(module_ctx):
+    source_urls = {}
+
     for module in module_ctx.modules:
         for external_source in module.tags.external_source:
             _xz_source_repo(
@@ -60,6 +85,7 @@ def _sources_impl(module_ctx):
                 urls = _ipfs_mirror_urls(external_source.ipfs_cid),
                 sha256 = external_source.sha256,
             )
+            source_urls[external_source.url] = None
         for wikibooks_hu_source in module.tags.wikibooks_hu_source:
             url = _wikibooks_hu_raw_url(wikibooks_hu_source.title)
             http_file(
@@ -68,6 +94,12 @@ def _sources_impl(module_ctx):
                 sha256 = wikibooks_hu_source.sha256,
                 downloaded_file_path = _downloaded_file_path(url),
             )
+            source_urls[url] = None
+
+    _source_urls_repo(
+        name = "source_urls",
+        urls = sorted(source_urls.keys()),
+    )
 
 _external_source_tag = tag_class(
     attrs = {

@@ -1,5 +1,4 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
-
 sources.external_source(
     name = "magyar_novenynevek",
     ipfs_cid = "QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
@@ -9,7 +8,6 @@ sources.external_source(
 )
 
 # The table rows on this page are not deterministically ordered, so the output hash may vary.
-# TYPO: "Sarga liliom": "Sárga liliom"
 sources.external_source(
     name = "plant_names_in_hungarian",
     ipfs_cid = "QmQgBsgognjNQFznf2BeSrfNJfVcPTZZz3esG1qBdkBRsL",
@@ -21,4 +19,5 @@ use_repo(
     sources,
     "magyar_novenynevek",
     "plant_names_in_hungarian",
+    "source_urls",
 )

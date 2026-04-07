@@ -1,5 +1,6 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
 
+# TYPO: "Sarga liliom": "Sárga liliom"
 name_pairs(
     name = "plant_names_in_hungarian_pairs",
     src = "@plant_names_in_hungarian//file",
