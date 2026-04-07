@@ -7,9 +7,17 @@ import sys
 from collections.abc import Callable
 from pathlib import Path
 
-from pydantic import TypeAdapter
+from pydantic import BaseModel, TypeAdapter
 
-PAIRS_ADAPTER = TypeAdapter(dict[str, list[str]])
+
+class VernacularName(BaseModel):
+    """Vernacular entry from extractor output."""
+
+    verbatim: str
+    canonical: str | None = None
+
+
+PAIRS_ADAPTER = TypeAdapter(dict[str, list[str | VernacularName]])
 GNPARSER_OUTPUT_ADAPTER = TypeAdapter(dict[str, object])
 
 _DROP_FIELDS = {
@@ -19,7 +27,7 @@ _DROP_FIELDS = {
     "parserVersion",
 }
 
-CleanStep = Callable[[dict[str, object], list[str]], dict[str, object]]
+CleanStep = Callable[[dict[str, object], list[str | VernacularName]], dict[str, object]]
 
 
 def _normalize_gnparser_candidate(name: str) -> str:
@@ -45,19 +53,38 @@ def _run_gnparser(gnparser_bin: Path, key: str) -> dict[str, object]:
     return parsed
 
 
-def _drop_gnparser_fields(entry: dict[str, object], _: list[str]) -> dict[str, object]:
+def _drop_gnparser_fields(entry: dict[str, object], _: list[str | VernacularName]) -> dict[str, object]:
     return {key: value for key, value in entry.items() if key not in _DROP_FIELDS}
 
 
-def _add_hungarian_vernacular(entry: dict[str, object], vernaculars: list[str]) -> dict[str, object]:
+def _add_hungarian_vernacular(
+    entry: dict[str, object],
+    vernaculars: list[str | VernacularName],
+) -> dict[str, object]:
     out = dict(entry)
     out["vernacular"] = {
-        "hu": [{"verbatim": value} for value in vernaculars],
+        "hu": _normalized_vernacular_output(vernaculars),
     }
     return out
 
 
-def _clean_entry(raw: dict[str, object], vernaculars: list[str]) -> dict[str, object]:
+def _normalized_vernacular_output(vernaculars: list[str | VernacularName]) -> list[dict[str, str]]:
+    values: list[dict[str, str]] = []
+    for value in vernaculars:
+        if isinstance(value, str):
+            values.append({"canonical": value, "verbatim": value})
+            continue
+
+        values.append(
+            {
+                "canonical": value.canonical or value.verbatim,
+                "verbatim": value.verbatim,
+            },
+        )
+    return values
+
+
+def _clean_entry(raw: dict[str, object], vernaculars: list[str | VernacularName]) -> dict[str, object]:
     # Cleaning is a small pipeline so additional steps can be inserted later.
     steps: list[CleanStep] = [
         _drop_gnparser_fields,

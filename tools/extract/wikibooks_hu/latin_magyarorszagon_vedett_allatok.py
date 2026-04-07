@@ -5,6 +5,8 @@ import json
 import re
 from pathlib import Path
 
+from tools.extract.known_typos import normalize_hungarian_canonical
+
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 PAREN_RE = re.compile(r"\(([^)]*)\)")
 QUOTE_PAREN_RE = re.compile(r"''\(([^)]*)\)''")
@@ -14,6 +16,7 @@ LATIN_TOKEN_RE = re.compile(r"\b[A-Z][a-z-]+(?: [a-z][a-z-]+){0,2}\b")
 MIN_TABLE_CELLS = 2
 MULTI_LINK_CELL = 2
 THREE_CELL_ROW = 3
+MIN_GENUS_LENGTH = 3
 
 
 def _strip_markup(text: str) -> str:
@@ -40,20 +43,20 @@ def _extract_link_texts(text: str) -> list[str]:
 
 def _is_latin_like(value: str) -> bool:
     candidate = " ".join(value.split()).strip()
-    if not candidate:
-        return False
-    if re.search(r"[^A-Za-z -]", candidate):
+    if (not candidate) or (re.search(r"[^A-Za-z -]", candidate) is not None):
         return False
     parts = candidate.split()
-    if not parts or parts[0][0].islower():
+    genus = parts[0] if parts else ""
+    if (
+        (not genus)
+        or genus[0].islower()
+        or (len(genus) < MIN_GENUS_LENGTH)
+        or (re.fullmatch(r"[A-Z][a-z-]+", genus) is None)
+    ):
         return False
-    if len(parts[0]) < 3:
-        return False
-    if not re.fullmatch(r"[A-Z][a-z-]+", parts[0]):
-        return False
-    if any(re.fullmatch(r"[a-z][a-z-]+", part) is None for part in parts[1:]):
-        return False
-    return LATIN_TOKEN_RE.fullmatch(candidate) is not None
+    return (not any(re.fullmatch(r"[a-z][a-z-]+", part) is None for part in parts[1:])) and (
+        LATIN_TOKEN_RE.fullmatch(candidate) is not None
+    )
 
 
 def _first_latin_candidate(values: list[str]) -> str | None:
@@ -272,12 +275,23 @@ def _main() -> int:
     for latin, hungarian in pairs:
         mapping.setdefault(latin, set()).add(hungarian)
 
-    sorted_mapping = {latin: sorted(mapping[latin]) for latin in sorted(mapping)}
+    sorted_mapping = {latin: _sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
     args.output.write_text(
         json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     return 0
+
+
+def _sorted_vernacular_entries(values: set[str]) -> list[dict[str, str]]:
+    unique: dict[tuple[str, str], dict[str, str]] = {}
+    for verbatim in values:
+        canonical = normalize_hungarian_canonical(verbatim)
+        unique[canonical, verbatim] = {
+            "canonical": canonical,
+            "verbatim": verbatim,
+        }
+    return [unique[key] for key in sorted(unique, key=lambda item: (item[0], item[1].casefold()))]
 
 
 if __name__ == "__main__":

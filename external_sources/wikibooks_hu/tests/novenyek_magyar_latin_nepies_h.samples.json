@@ -1,12 +1,31 @@
 {
   "Acer pseudoplatanus": [
-    "Hegyi juhar",
-    "Fehér juhar",
+    "hegyi juhar",
+    "fehér juhar",
     "fürtös juhar",
     "közönséges juhar",
     "igarfa",
     "iharfa",
     "juhar",
     "jávor"
+  ],
+  "Sempervivum tectorum": [
+    "boldogasszony rózsája",
+    "égi dörgő",
+    "fülbe csavarító",
+    "fülbecsavaró",
+    "fülben eresztő fű",
+    "fülben mászó fű",
+    "házi fülfű",
+    "házi kövirózsa",
+    "házi zöld",
+    "jupiter szakálla",
+    "kőrózsa",
+    "kövi rózsa",
+    "mennydörgő fű",
+    "mindenkor élő",
+    "őszi kaktusz",
+    "rózsás fülfű",
+    "téli zöld"
   ]
 }

@@ -2,7 +2,10 @@ load("@rules_python//python:defs.bzl", "py_binary")
 
 py_binary(
     name = "latin_magyarorszagon_vedett_allatok",
-    srcs = ["latin_magyarorszagon_vedett_allatok.py"],
+    srcs = [
+        "latin_magyarorszagon_vedett_allatok.py",
+        "//tools/extract:known_typos.py",
+    ],
     main = "latin_magyarorszagon_vedett_allatok.py",
     visibility = ["//visibility:public"],
 )

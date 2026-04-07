@@ -8,7 +8,7 @@ import unicodedata
 from itertools import starmap
 from pathlib import Path
 
-from tools.extract.known_typos import normalize_known_hungarian_typo
+from tools.extract.known_typos import normalize_hungarian_canonical
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
@@ -59,9 +59,11 @@ HYPHENATED_OR_RE = re.compile(
     flags=re.IGNORECASE | re.UNICODE,
 )
 PLANT_SUFFIXES = ("fa",)
-COMPOUND_HEAD_SUFFIXES = ("fű", "gyökér", "levél", "madárlép", "pipacs", "virág")
+COMPOUND_HEAD_SUFFIXES = ("fenyő", "fű", "gyökér", "levél", "madárlép", "pipacs", "virág")
+SEGMENT_SHARED_HEADS = {"jegenye", "fenyő"}
 PREFIX_CARRY_ADJECTIVES = {"fekete"}
 PREFIX_CARRY_PARTS = 2
+OR_SPLIT_TWO_NAMES = 2
 COMPOUND_PREFIX_ADJECTIVES = ("édes",)
 LEVENSHTEIN_MAX_DISTANCE = 2
 
@@ -269,20 +271,26 @@ def _names_from_links(line: str, *, letter_links_only: bool, exclude_latin_like:
 def _names_from_tail(tail: str) -> list[str]:
     tail = re.sub(r"<ref[^>]*>.*?</ref>", " ", tail, flags=re.IGNORECASE | re.DOTALL)
     tail = _strip_markup(_replace_links_with_values(tail))
-    chunks = [part for part in (_clean_tail_fragment(part) for part in re.split(r"[,;]", tail)) if part]
-    grouped_names, consumed_indexes = _expand_prefix_grouping(chunks)
-    names = list(grouped_names)
-    for index, chunk in enumerate(chunks):
-        if index in consumed_indexes:
+    names: list[str] = []
+    for segment in tail.split(";"):
+        chunks = [part for part in (_clean_tail_fragment(part) for part in segment.split(",")) if part]
+        if not chunks:
             continue
-        names.extend(_names_from_chunk(chunk))
+        grouped_names, consumed_indexes = _expand_prefix_grouping(chunks)
+        segment_head_names, segment_head_consumed = _expand_segment_shared_head(chunks)
+        consumed_indexes.update(segment_head_consumed)
+        names.extend(grouped_names)
+        names.extend(segment_head_names)
+        for index, chunk in enumerate(chunks):
+            if index in consumed_indexes:
+                continue
+            names.extend(_names_from_chunk(chunk))
     return names
 
 
 def _clean_tail_fragment(value: str) -> str:
     cleaned = " ".join(value.split()).strip(" .:!?()[]{}-'\"")
-    cleaned = re.sub(r"^(?:fokozottan\s+)?védett!?\s*[-\u2013]\s*", "", cleaned, flags=re.IGNORECASE)
-    return normalize_known_hungarian_typo(cleaned)
+    return re.sub(r"^(?:fokozottan\s+)?védett!?\s*[-\u2013]\s*", "", cleaned, flags=re.IGNORECASE)
 
 
 def _expand_prefix_grouping(chunks: list[str]) -> tuple[list[str], set[int]]:
@@ -352,6 +360,9 @@ def _names_from_chunk(chunk: str) -> list[str]:
         value = _clean_tail_fragment(part)
         if _is_acceptable_vernacular(value):
             names.append(value)
+    expanded = _expand_split_or_with_shared_head(names)
+    if expanded is not None:
+        return expanded
     return names
 
 
@@ -430,8 +441,7 @@ def _expand_left_or_compound_head(left: str, right: str) -> list[str] | None:
         suffix_folded = _ascii_fold(suffix.casefold())
         if (not right_folded.endswith(suffix_folded)) or (right_folded == suffix_folded):
             continue
-        separator = " " if left_clean.casefold().endswith("i") else ""
-        return [left_clean + separator + right_clean[-len(suffix) :], right_clean]
+        return [left_clean + " " + right_clean[-len(suffix) :], right_clean]
 
     return None
 
@@ -476,6 +486,88 @@ def _expand_truncated_head_pair(previous: str, current: str) -> list[str] | None
             return None
         return [previous_clean[:stem_len] + right]
 
+    return None
+
+
+def _expand_split_or_with_shared_head(names: list[str]) -> list[str] | None:
+    if len(names) != OR_SPLIT_TWO_NAMES:
+        return None
+
+    left_tokens = names[0].split()
+    right_tokens = names[1].split()
+    if len(right_tokens) < (len(left_tokens) + 1):
+        return None
+    if right_tokens[:-2] != left_tokens[:-1]:
+        return None
+
+    head = right_tokens[-1]
+    if not _is_single_word(head):
+        return None
+    return [" ".join([*left_tokens, head]), names[1]]
+
+
+def _expand_segment_shared_head(chunks: list[str]) -> tuple[list[str], set[int]]:
+    anchor = _find_segment_head_anchor(chunks)
+    if anchor is None:
+        return [], set()
+
+    anchor_index, head = anchor
+    if head.casefold() not in SEGMENT_SHARED_HEADS:
+        return [], set()
+    names: list[str] = []
+    consumed: set[int] = set()
+    for index in range(anchor_index):
+        chunk = chunks[index]
+        if not _is_single_word(chunk):
+            continue
+        if not _is_acceptable_vernacular(chunk):
+            continue
+        names.append(f"{chunk} {head}")
+        consumed.add(index)
+    return names, consumed
+
+
+def _find_segment_head_anchor(chunks: list[str]) -> tuple[int, str] | None:
+    for index in range(len(chunks) - 1, -1, -1):
+        chunk = chunks[index]
+
+        left_or_head_match = PAIR_LEFT_OR_ALT_HEAD_RE.fullmatch(chunk)
+        if left_or_head_match is not None:
+            return index, left_or_head_match.group("head")
+
+        pair_match = PAIR_OR_RE.fullmatch(chunk)
+        if pair_match is not None:
+            inferred = _infer_head_from_or_pair(pair_match.group("left"), pair_match.group("right"))
+            if inferred is not None:
+                return index, inferred
+
+        tokens = chunk.split()
+        if len(tokens) >= MIN_LATIN_PARTS:
+            head = tokens[-1]
+            if _is_single_word(head):
+                return index, head
+
+    return None
+
+
+def _infer_head_from_or_pair(left: str, right: str) -> str | None:
+    left_clean = _clean_tail_fragment(left)
+    right_clean = _clean_tail_fragment(right)
+    if (not _is_single_word(left_clean)) or (not _is_single_word(right_clean)):
+        return None
+
+    right_head = _infer_head_from_single_token(right_clean)
+    if right_head is not None:
+        return right_head
+    return _infer_head_from_single_token(left_clean)
+
+
+def _infer_head_from_single_token(token: str) -> str | None:
+    token_folded = _ascii_fold(token.casefold())
+    for suffix in COMPOUND_HEAD_SUFFIXES:
+        suffix_folded = _ascii_fold(suffix.casefold())
+        if token_folded.endswith(suffix_folded) and (token_folded != suffix_folded):
+            return token[-len(suffix) :]
     return None
 
 
@@ -656,7 +748,7 @@ def _main() -> int:
     mapping = _extract_pairs(lines)
 
     sorted_mapping = {
-        latin: sorted(values, key=lambda s: s.casefold())
+        latin: _sorted_vernacular_entries(values)
         for latin, values in sorted(mapping.items(), key=lambda kv: kv[0].casefold())
     }
 
@@ -665,6 +757,17 @@ def _main() -> int:
         encoding="utf-8",
     )
     return 0
+
+
+def _sorted_vernacular_entries(values: set[str]) -> list[dict[str, str]]:
+    unique: dict[tuple[str, str], dict[str, str]] = {}
+    for verbatim in values:
+        canonical = normalize_hungarian_canonical(verbatim)
+        unique[canonical, verbatim] = {
+            "canonical": canonical,
+            "verbatim": verbatim,
+        }
+    return [unique[key] for key in sorted(unique, key=lambda item: (item[0], item[1].casefold()))]
 
 
 if __name__ == "__main__":

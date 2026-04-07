@@ -5,13 +5,22 @@ import sys
 from pathlib import Path
 
 import pytest
-from pydantic import TypeAdapter
+from pydantic import BaseModel, TypeAdapter
 
-PAIRS_ADAPTER = TypeAdapter(dict[str, list[str]])
+
+class VernacularName(BaseModel):
+    """Vernacular entry from extractor output."""
+
+    verbatim: str
+    canonical: str | None = None
+
+
+PAIRS_ADAPTER = TypeAdapter(dict[str, list[str | VernacularName]])
+SAMPLES_ADAPTER = TypeAdapter(dict[str, list[str]])
 
 
 @pytest.fixture(scope="session")
-def pairs() -> dict[str, list[str]]:
+def pairs() -> dict[str, list[str | VernacularName]]:
     """Provide extracted pairs data.
 
     Returns:
@@ -21,18 +30,21 @@ def pairs() -> dict[str, list[str]]:
 
 
 @pytest.fixture(scope="session")
-def indexed_pairs(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
-    """Provide casefolded pair index.
+def indexed_pairs(pairs: dict[str, list[str | VernacularName]]) -> dict[str, set[str]]:
+    """Provide canonical pair index.
 
     Returns:
-        Case-insensitive lookup map.
+        Case-sensitive lookup map over canonical vernacular values.
     """
     index: dict[str, set[str]] = {}
     for latin_name, values in pairs.items():
         latin_casefold = latin_name.casefold()
         existing_values = index.setdefault(latin_casefold, set())
         for value in values:
-            existing_values.add(value.casefold())
+            if isinstance(value, str):
+                existing_values.add(value)
+                continue
+            existing_values.add(value.canonical or value.verbatim)
     return index
 
 
@@ -44,7 +56,7 @@ def samples() -> dict[str, list[str]]:
         Parsed samples for pair tests.
     """
     samples_path = Path(os.environ["SAMPLES"])
-    return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
+    return SAMPLES_ADAPTER.validate_json(samples_path.read_bytes())
 
 
 def test_expected_pairs_present(samples: dict[str, list[str]], indexed_pairs: dict[str, set[str]]) -> None:
@@ -52,7 +64,7 @@ def test_expected_pairs_present(samples: dict[str, list[str]], indexed_pairs: di
     for latin_name in sorted(samples):
         latin_casefold = latin_name.casefold()
         assert latin_casefold in indexed_pairs, f"Missing extracted key: {latin_name}"
-        expected = {hungarian_name.casefold() for hungarian_name in samples[latin_name]}
+        expected = set(samples[latin_name])
         actual = indexed_pairs[latin_casefold]
         missing = sorted(expected - actual)
         extra = sorted(actual - expected)
