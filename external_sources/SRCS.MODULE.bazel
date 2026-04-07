@@ -1,18 +1,23 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
-sources.external_source(
-    name = "fokozottan_vedett_izeltlabuak_0",
-    ipfs_cid = "QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM",
-    sha256 = "9aa21f63f555197021af53cdee84e1a6057749088ab1b0acdffb0df9fe522d39",
-    updated_on = "2026-04-06",
-    url = "https://enfo.hu/keptar/8058?page=0",
-)
-sources.external_source(
-    name = "fokozottan_vedett_izeltlabuak_1",
-    ipfs_cid = "QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy",
-    sha256 = "8f71c7c6db40ff65aa25f70cb4fd37dbbdb1548884ece935549099fde9a1dac9",
-    updated_on = "2026-04-06",
-    url = "https://enfo.hu/keptar/8058?page=1",
-)
+
+ENFO_HU = {
+    "fokozottan_vedett_izeltlabuak": [
+        ("QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM", "9aa21f63f555197021af53cdee84e1a6057749088ab1b0acdffb0df9fe522d39"),
+        ("QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy", "8f71c7c6db40ff65aa25f70cb4fd37dbbdb1548884ece935549099fde9a1dac9"),
+    ],
+}
+
+[
+    sources.external_source(
+        name = "fokozottan_vedett_izeltlabuak_%d" % page,
+        ipfs_cid = cid,
+        sha256 = sha256,
+        updated_on = "2026-04-06",
+        url = "https://enfo.hu/keptar/8058?page=%d" % page,
+    )
+    for page, (cid, sha256) in enumerate(ENFO_HU["fokozottan_vedett_izeltlabuak"])
+]
+
 sources.external_source(
     name = "magyar_novenynevek",
     ipfs_cid = "QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
@@ -21,16 +26,17 @@ sources.external_source(
     url = "https://www.tuja.hu/magyar_novenynevek.htm",
 )
 sources.external_source(
-    name = "plant_names_in_hungarian_html",
+    name = "plant_names_in_hungarian",
     ipfs_cid = "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
     sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     updated_on = "2026-04-05",
     url = "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
 )
+
+[use_repo(sources, "fokozottan_vedett_izeltlabuak_%d" % page) for page in range(len(ENFO_HU["fokozottan_vedett_izeltlabuak"]))]
+
 use_repo(
     sources,
-    "fokozottan_vedett_izeltlabuak_0",
-    "fokozottan_vedett_izeltlabuak_1",
     "magyar_novenynevek",
-    "plant_names_in_hungarian_html",
+    "plant_names_in_hungarian",
 )

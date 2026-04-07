@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "J/+INCorS3G5O485igsfocx8LRwjRWiAmYw3MksL23g=",
-        "usagesDigest": "sW/H+dC0sUQ3A6DnUKp8awJPZQRlb7x1GlM5vIbWi6w=",
+        "usagesDigest": "8dlXSuVQI5i+kz1gL72qKthGI/qSbLJmd27YwOG1K/Q=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
@@ -234,7 +234,7 @@
               "downloaded_file_path": "downloaded.htm"
             }
           },
-          "plant_names_in_hungarian_html": {
+          "plant_names_in_hungarian": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
