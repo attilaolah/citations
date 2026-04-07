@@ -7,12 +7,63 @@ from pathlib import Path
 
 from lxml import html
 
-LATIN_RE = re.compile(r"[A-Z][a-z-]+(?: [a-z][a-z-]+){1,3}")
+LATIN_ALLOWED_RE = re.compile(r"^[A-Za-z .-]+$")
+LATIN_WORD_RE = re.compile(r"^[a-z][a-z-]*$")
+LATIN_GENUS_RE = re.compile(r"^[A-Z][a-z-]+$")
+RANK_TOKENS = {"subsp", "ssp", "var", "f"}
+AGG_TOKENS = {"agg", "agg."}
 MIN_COLUMN_COUNT = 3
+SINGLE_TOKEN_COUNT = 1
+PAIR_TOKEN_COUNT = 2
+RANKED_REST_TOKEN_COUNT = 2
 
 
 def _normalized_text(value: str) -> str:
     return " ".join(value.split())
+
+
+def _normalized_latin(value: str) -> str | None:
+    candidate = _normalized_text(value).strip(" .")
+    if not candidate:
+        return None
+    if LATIN_ALLOWED_RE.fullmatch(candidate) is None:
+        return None
+
+    tokens = candidate.split()
+    if not tokens:
+        return None
+    if LATIN_GENUS_RE.fullmatch(tokens[0]) is None:
+        return None
+    if len(tokens) == SINGLE_TOKEN_COUNT:
+        return tokens[0]
+    return _normalized_latin_tokens(tokens)
+
+
+def _normalized_latin_tokens(tokens: list[str]) -> str | None:
+    species = tokens[1]
+    if LATIN_WORD_RE.fullmatch(species) is None:
+        return None
+    if len(tokens) == PAIR_TOKEN_COUNT:
+        return f"{tokens[0]} {species}"
+    return _normalize_latin_rest(tokens[0], species, tokens[2:])
+
+
+def _normalize_latin_rest(genus: str, species: str, rest: list[str]) -> str | None:
+    if len(rest) == 1 and rest[0] in AGG_TOKENS:
+        return f"{genus} {species} agg"
+
+    if (
+        len(rest) == RANKED_REST_TOKEN_COUNT
+        and rest[0].removesuffix(".") in RANK_TOKENS
+        and LATIN_WORD_RE.fullmatch(rest[1])
+    ):
+        rank = rest[0].removesuffix(".")
+        return f"{genus} {species} {rank}. {rest[1]}"
+
+    if all(LATIN_WORD_RE.fullmatch(token) for token in rest):
+        return " ".join([genus, species, *rest])
+
+    return None
 
 
 def _extract_pairs(content: bytes) -> dict[str, set[str]]:
@@ -28,10 +79,8 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
             continue
 
         hungarian = _normalized_text(columns[1].text_content())
-        latin = _normalized_text(columns[2].text_content())
+        latin = _normalized_latin(columns[2].text_content())
         if not hungarian or not latin:
-            continue
-        if LATIN_RE.fullmatch(latin) is None:
             continue
 
         mapping.setdefault(latin, set()).add(hungarian)

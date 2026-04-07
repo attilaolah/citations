@@ -192,7 +192,7 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "4zcmKm0GsOz51LkLc6hBlc5XzjejVe0fc+yBiP0tVjI=",
+        "bzlTransitiveDigest": "qQ0oVtYhGZ9wE8EqaVgMjVxxiLIbhvkiTqJHAQ+yp1s=",
         "usagesDigest": "No/oPXRcTw0IzvsIGNb3e4+AT+ewGe5NHQ2yqyT+2h8=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"

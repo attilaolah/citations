@@ -9,6 +9,7 @@ sources.external_source(
 )
 
 # The table rows on this page are not deterministically ordered, so the output hash may vary.
+# TYPO: "Sarga liliom": "Sárga liliom"
 sources.external_source(
     name = "plant_names_in_hungarian",
     ipfs_cid = "QmQgBsgognjNQFznf2BeSrfNJfVcPTZZz3esG1qBdkBRsL",

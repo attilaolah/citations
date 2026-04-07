@@ -1,5 +1,14 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
+_BUILD = """\
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "file",
+    srcs = glob(["**"], exclude = ["BUILD.bazel"]),
+)
+"""
+
 _IPFS_GATEWAYS = [
     "ipfs.io",
     "gateway.pinata.cloud",
@@ -32,13 +41,7 @@ def _xz_source_repo_impl(repository_ctx):
     )
     repository_ctx.file(
         "file/BUILD.bazel",
-        content = """package(default_visibility = ["//visibility:public"])
-
-filegroup(
-    name = "file",
-    srcs = glob(["**"], exclude = ["BUILD.bazel"]),
-)
-""",
+        content = _BUILD,
     )
 
 _xz_source_repo = repository_rule(
