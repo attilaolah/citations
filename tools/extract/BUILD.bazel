@@ -6,6 +6,8 @@ exports_files(
         "global_names.bzl",
         "global_names.py",
         "known_typos.py",
+        "known_homonyms_test.bzl",
+        "known_homonyms_test.py",
         "name_pairs_clean.bzl",
         "name_pairs_clean.py",
         "name_pairs_completeness_test.bzl",

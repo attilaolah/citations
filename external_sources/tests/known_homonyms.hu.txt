@@ -1,0 +1,1056 @@
+# Known Hungarian vernacular names used for multiple scientific names.
+# Format: one vernacular name per line. Use '#' for comments.
+
+# TODO: Many of these are clearly incorrectly extracted names.
+# One way to improve the extraction logic is to remove obvious mistakes from this file & re-run the tests.
+
+Fekete áfonya
+Kis ezerjófű
+Köles
+Kömény
+a maláj neve az abrus precatorius nevű kemény
+a puszták szüze
+acsalapu
+akác
+aloé
+angol mustár
+angosztura
+angyalgyökér
+anyafű
+apró
+aprócsalán
+aranka
+arany versengő
+aranynyal versengő
+aranyos istápfű
+aranysaláta
+aranysárga aggófű
+aranyvessző
+articsóka
+atlaszfű
+atlaszér
+atorna gonda
+atorna juhar
+atracél
+auranci
+bab
+bajfű
+bakfű
+balhafű
+balzsamfű
+balzsammag
+bandurka
+barna darúorr
+barátcinege
+barátfej
+barátfű
+bemagos fenyő
+berkenye
+berkenyebogyó
+berzengő mag
+bibiricskó
+birsalma
+birskörtvély
+bogyófűrt
+bogáncs
+bogáncs-vakaró
+bogár perjeszittyó
+bojtorjános szamárturbolya
+bojtvirág
+bokor alatt kuczorgó
+bolhamag
+bolyóka
+bondor
+borbolya
+bordalap
+borjúfül
+boronafa
+borostyán
+borserejű fű
+borsfű
+borsfű pereszlény
+borsika
+borsikafű
+borsos keserűfű
+borsóka
+borvirág
+boszorkányfű
+boszorkánykása
+brassica oleracea
+bubulyka
+bujdosó mák
+burgonya
+bábaszőlő
+bábatüske
+bársonyvirág
+bárzsing
+bárány
+bárány-nyelvű
+bárányfarkú libatop
+bécsi kömény
+bécsi rozmaring
+béka
+békalencse
+békaliliom
+békatarsoly
+békaterjék
+békavirág
+bíbor hagyma
+bíboros kosbor
+búbos cinege
+búza-eső
+búza-zápor
+büdös
+büdös fa
+büdös mák
+büdös szaporafű
+büdöske
+bűzfa
+bűzös szőlő. fekete ribizlilevél
+c-betűs lepke
+cayenne-i bors
+ceyloni fahéjfa
+cica-here
+cici
+cigány-medvelepke
+ciklámen
+cinnamomum cassia
+citrancs
+citrom
+citrom fa
+citromfű
+citromszagú melissza
+cola acuminata
+cola nitida
+cola vera
+coleoptera
+csabaíre
+csalánlevelű csengettyűke
+csapka
+csapóecset
+csattanó szamóca
+csattogó szamóca
+csepült azál
+cser tölgy
+csere galagonya
+cserje
+csermulya
+csikorka
+csikófark
+csillag gerepcsin
+csillag szívfű
+csillagfű
+csillagos májfű
+csillagvirág
+csombor
+csomborbors
+csombord
+csomorika
+csudafa
+csudafű
+császármadár
+császárszakáll
+csípős torma
+csórmány
+cukorrépa
+czindrót
+czipelő
+czúczik
+cédrusfa
+cékla
+dankasirály
+dantzia-gyökér
+darúláb
+dicső-fű
+dicsőségesfű
+dinnyefű
+dinnyeszagú fű
+disznó
+disznókék
+diófa
+drága jó
+démutka
+dúsvirágú ökörfarkkóró
+ebcseresznye
+ebgyömbér
+ebkapor
+ebsefa
+ebszékfű
+egres
+egynyári seprence
+egérfül
+egérszagú fű
+ekeakadály
+elevenszülő gyík
+encián
+enczián
+engem ne bánts
+epefű
+eperparéj
+erdei
+erdei csillagfürt
+erdei gombernyő
+erdei mester
+erdei mácsonya
+erdei pajzsika
+erdei sikló
+erdei zsálya
+erdélyi havasszépe
+erdődísz. érdeske
+erdőmesterfű
+erős fű
+erősítő fű
+esztergamag
+eszterág orra
+esztragór
+ezerforintos fű
+ezerlevelű fű
+ezüst fenyő
+ezüstös apróbagoly
+fa
+fahéj
+fakó boglárka
+falfű
+falgyom
+farkasalma
+farkasbab
+farkasbogyó
+farkascseresznye
+farkasfog
+farkasfű
+farkasnyílfű
+farkasszőlő
+farkastalp
+farkastalpfű
+fecskefű
+fecskevirág
+fehér bibak
+fehér fenyő
+fehér harangfű
+fehér hunyor
+fehér jegenye
+fehér madársisak
+fehér mustár
+fehér nárcisz
+fehér árvacsalán
+fehér üröm
+fehérfarkú lilebíbic
+fejes káposzta
+fejér menta
+fejér tövis
+fekete
+fekete cseresznye
+fekete ebszőlő
+fekete gyopár
+fekete mustár
+fekete nyár
+fekete ribiszke
+fekete éger
+feketegyökér
+feketehajas gyökerű fű
+felpillantó küllő
+fenyvescinege
+festő-kökény
+festőfű
+filipendula hexapetala
+fodorka
+fodormenta
+fodros gerely
+fodros metélőpetrezselyem
+foghagymaszagú fű
+folyó fű
+folyófű
+folyóka
+forrasztófű
+fái
+fájtlinka
+fájvirág
+féregmag
+földepe
+földepe-tárnics
+földi borostyán
+földi epefű
+földi fenyő
+földialma
+földimogyoró
+fügelevelű fű
+fügezöld
+fülemilefű
+fürtös fenyő
+fürtösfű
+füstike
+fűzfa
+fűzfakéreg
+fűzfalevél
+galagonya
+galamb saláta
+galambbegy saláta
+galambláb
+galanga
+galanga maioris
+gambir
+gelegenye
+gentius király füve
+gerezdes
+gesztenye
+giligán
+gilisztaüző lúdláb
+gilisztaűző
+gilisztaűző varádics
+gingiber
+golyvarontófű
+golyóbisforma kosbor
+gordon
+grape fruit
+grulya
+grépfrút
+guggon ülő kankalin
+gumós burgonya
+gumós ebszőlő
+gyapjúfű
+gyermekláncfű
+gyertyánaljafű
+gyászcincér
+gyíkfű
+gyökérpetrezselyem
+gyökönkécske
+gyömbér
+gyömbérgyökértörzs
+gyöngyvirágfa
+gályafű
+gímpáfrány
+gólyacsőr
+gólyakut
+gólyaköröm
+gólyaorr
+gólyavirág
+gömbös kosbor
+hajdina
+hajnalmadár
+halvány geze
+halványfoltú küllő
+halászsas
+halászsirály
+hamuka
+haragos sikló
+harangvirág
+harasztfa
+haslágyító fű
+havadi virág
+havasi meggy
+hegyi gyömbérgyökér
+henye azál
+herefojtó aranka
+herehura
+herehura lóhere
+heverő azálea
+hideglelés-fű
+hideglelésfű
+hideglelést gyógyító fű
+holdfű
+holló
+holtcsalán
+homoki küllő
+homoki nőszirom
+hozzám ne nyúlj
+hullámvonalas araszoló
+hurkafű
+hályogfa
+házi len
+héjakút
+héjasas
+hímteke
+hóbagoly
+húsvétvirág
+ibolyaforma repcsény
+igaz nádrafű
+ikerkosbor
+illatos aranka
+illatos turbolya
+illatos ánizs
+imola
+imádságbokor
+indás ínfű
+ingwer
+isten buzája
+isten szakálla
+istenalma
+isteni gyümölcs
+iszapfű
+japán keserűfű
+jeneszter
+jujuba
+juszalag
+jávai tea
+jónás fája
+jónás kabakja
+kacagó béka
+kajszi
+kajszibarack
+kakas
+kakaslábfű
+kakasvirág
+kakucskafű
+kakuk saláta
+kakuksaláta
+kakukvirág
+kalapfű
+kalaplapu
+kalló-bogáncs
+kamilla
+kamkvat
+kankalin
+kaporlevelű ebszékfű
+kapotnyik
+kartifli
+karéjos bokál
+kassai rózsa
+katonapetrezselyem
+kecskebéka
+kegyelemfű
+keleti gyertyán
+keleti tuja
+kender
+kenderike
+kerek kapotnyak
+kerek nádrafű
+kerek repkény
+kerek repkényfű
+kerek saláta
+keresztes fenyő
+keresztes jegenyefenyő
+keresztes tárnics
+keresztfű
+keresztgyökér
+kerti berzseny
+kerti izsópfű
+kerti kakukkfű
+kerti kandilla
+kerti menta
+kerti méhfű
+kerti petrezselyem
+kerti ricinus
+kerti ruta
+keserű
+keserű lapu
+keserűgyökerű-fű
+keskenylevelű gyapjúsás
+kigyófű
+kigyónyelvű fű
+kikeleti saláta
+kiki
+kikinos
+kikojona
+kinai gyömbér
+királyfű
+királyné asszony káposztája
+kis bojtorján
+kis csér
+kis czentauria
+kis ezerjófű
+kis fecskefű
+kis kakascímer
+kis kamilla
+kis rókalepke
+kis sirály
+kis tavibéka
+kis vérfű
+kisaszszony papucsa
+kláris
+kocafa
+kocsányos
+kocérka
+koldustetű
+kolompér
+koloncos bajnóca
+koloncos legyezőfű
+komlotyú
+komló
+komotyú
+konkoly
+koriandrom
+kormosfejű cinege
+koronafa
+kosztos fenyő
+kotroncz
+krisztus pálma
+krisztus tövis
+krumpli
+krumpér
+kukojczafa
+kukorica
+kukujó
+kultúrlen
+kumkvat
+kurkuma
+kurkuma citvor
+kutya
+kutya-fa
+kutyabenge
+kutyabogyó
+kutyanyelvű fű
+kutyatej
+káka
+kákics
+kányafa
+kányafű
+kányazsombor
+kásafű
+kásavirág
+kék cinege
+kék csillagfű
+kék kandilla
+kékbogyó
+kéküstökű
+kéküstökű csormolya
+kétbibés galagonya
+kétiksz-repkény
+kétsoros árpa
+kígyó
+kígyófű
+kígyógyökér
+kígyómarást gyógyító fű
+kínai kúszómagnólia
+kódistetű
+kóla
+kökény
+kökörnifa
+köményes menta
+körömfű
+köszméte
+köszvényfű
+kövi körte
+kövi naspolya
+közönséges
+közönséges aranyvessző
+közönséges birs
+közönséges búza
+közönséges cigányzab
+közönséges dió
+közönséges istác
+közönséges lizinka
+közönséges mandula
+közönséges palástfű
+közönséges pipacs
+közönséges pohánka
+közönséges pásztortáska
+közönséges szurokfű
+közönséges torma
+közönséges ánizs
+közönséges ördögcérna
+kőris
+kőrisfa-övesbagoly
+kőrislevelű juhar
+kőrontó fű
+kőrontófű
+laska
+latin nevéből: oregánónak. szurokfű fűszer
+len
+lepényfa
+lestyán
+lestyán gyökér
+leustyan
+levescsík
+levestikom
+levestököm
+libatop
+libatopfélék
+lilebíbic
+limon
+lobogós
+lopó
+lápi acsa
+ló menta
+lóborsó
+lócsér
+lófarkfű
+lóhere
+lóstya
+löböstök
+lúcfenyő
+lúdmák
+macskagödölye
+macskahere
+macskaméz
+macskanadrág
+macskaparéj
+macskatök
+macskatövis
+madár
+madárberkenye
+madárhúr
+magos jegenye
+magyar
+magyar zsombor
+mandarin
+mandarin-narancs
+mandula
+mate
+maté levél
+mecsekifű
+medvegerezd
+medveszőlő
+medveszőlő levél
+medvetalp
+meggy
+mellaparti gerebcsény
+mennyei árpa
+mesterfű
+mestergyökér
+mezei
+mezei csorbóka
+mezei kakukkfű
+mezei kapor
+mezei saláta
+mezei szegfű
+mezei tarsóka
+mezgés eger
+mirha
+mirhafű
+mirigyfű
+mirrhafű mirrhafű
+mogyoró
+mogyoróalj-kámfor
+mogyoróalja
+mogyoróalja fű
+molyfű
+murkó
+murok
+murvapikk
+mustármag
+májfű kökörcsin
+májusfa
+málna
+málnalevél
+máriatövis
+máriatövistermés
+mátrafű
+méhfű
+méhvirág
+mézfű
+mézgáncs
+mézgás éger
+mézpázsit
+mórmályva
+mórmályvavirág
+nagy
+nagy aranka
+nagy hajnalika
+nagy kócsag
+nagy pele
+nagy szittyó
+nagy szulák
+nagy sárfű
+nagy övesbagoly
+nagyfoltú hangyaboglárka
+nappali pávaszem
+narancs
+narancs héja
+naspolya
+ne illess
+ne érj
+nemes fenyő
+nemes májfű
+nemes pipitér
+nyakas
+nyolchímű szilfa
+nyárfarügy
+nyári hérics
+nyílfoltos tarkaaraszoló
+nyírfajd
+nyúlkenyér
+nyúllábfű
+nyúlvessző
+népies nevei: merőlevelű sás
+nőszirom
+olasz
+olvasólián
+oregánó
+oroszfű
+oroszlánfog
+oroszlánláb
+oroszlántalpfű
+orvosi aloé
+orvosi angyalgyökér
+orvosi citromfű
+orvosi csikorka
+orvosi ebnyelvűfű
+orvosi lestyán
+orvosi medveszőlő
+orvosi székfű
+orvosi székfű szent iván-pipitér
+orvosi tüdőfű
+orvosi veronika
+orvosi veronikafű
+oránzs
+palaczkfű
+palakék boglárka
+paperszény
+paphajgáló tövis
+papsajtmájva
+papsaláta
+paptarsoly
+papucsvirág
+parlagi gyopár
+parlagi rózsa
+parókafa
+patika zsálya
+patikai szigoráll
+patkány fű
+patkányírtó fű
+perefű
+peregtető
+pereszlén
+peszercze
+peszércze
+petroselinum crispum
+petroselinum tuberosum
+pillenges foghagymaszagúfű
+pipacs
+pipacsmák mák
+pipehúr
+pipitér
+pirkó
+piros budavirág
+piros madársisak
+pirosító gyökér
+pirítógyökér
+pityere
+pitypalatyvirág
+pityóka
+platina-vacakbagoly
+polyvacsukk
+pongyola pitypang
+porcfű
+porcgyom
+porcikafű
+porcogófű
+porczogó saláta
+porfej
+porlock som
+poéta nárcis
+prüszszentőfű
+pulykafű
+puskapor-fa
+pusztai földibagoly
+pántlikafű
+páponya
+páprány
+pártamag
+pártásdaru
+pásztorerszény
+pásztormadár
+pásztortarsoly
+pásztortáska
+pásztortáskafű
+pásztorvesszeje
+pázsitszeg
+péra
+pörögj
+rejtike
+repedő himboj
+ritka fahéj bagoly
+rozmaring
+rozmaring gamandor
+rozmaring levél
+rubiánka
+rugófű
+répa
+réparepce
+réti csikorgófű
+réti here
+rókafark
+római kamilla
+saláta boglárka
+saláta galambbegy
+saláta szironták
+sarkantyús fészekbogár
+sarlófű
+sebforrasztófű
+selyemmályva
+seprő hajlár
+seprőfű
+seprős zanót
+sertecsék
+sertetalp
+simafenyő
+sisymbrium altissimum
+sonka-tök
+sorbus
+sorbus aria
+sorbus aucuparia
+sordély
+spanyol
+spanyol artifiola
+spanyol pozdor
+sugársás
+suly
+svábtök
+szagos májusfű
+szagos müge
+szakadást gyógyító fű
+szamárlapu
+szamárpetrezselyem
+szamártövis
+szamóca
+szappanfű
+szaragyógya
+szeder
+szelíd csalán
+szelíd gesztenye
+szemüdv
+szenna
+szennalevél
+szentgyörgysaláta
+szentgyörgyvirág
+szentgyörgyvirága
+szentilonaasszonyfűve
+szentilonafüve
+szentiván
+szentivánpipitér
+szentjánosfüve
+szentjánosvirága
+szentlászlókirályfüve
+szentlászlótárnics
+szikfű
+szipóka
+szipókavirág
+szirti fanyarka
+szirti körte
+szirti sziklaiternye
+szomjutövis
+szulák
+szunyogfa
+szurkos fenyő
+szurokfű
+szurokszagú fű
+szálkacsék
+szánikula zsányik
+száraz fű
+szártalan
+százaranyas fű
+százforintos földepe
+százforintos fű
+százfű
+székfű
+szép asszony szőlője
+szép szőlő
+szépasszony tenyere
+szíkvirág
+szívfű
+szívkésfű
+szögfű
+szöszös fű
+szürkés hangyaboglárka
+szüzek anyja
+szüzekanyja
+szőlő
+szőlőfű
+szőrös barack
+szőrös kandilla
+szűkésfű fű
+sárfűz
+sárga
+sárga bakfű
+sárga bakszakál
+sárga festőfű
+sárga gyűszűvirág
+sárga ibolya
+sárga kikerics
+sárga rózsa
+sárga viola
+sárgabarack
+sárgás seprőke
+sátánfű
+sédkender
+sötét hangyaboglárka
+sövény szulák
+sövényfutó szulák
+sülyfű
+sütő-tök
+takarmányrépa
+takács-mácsonya
+tarackbúza
+tarackbúza-gyökértörzs
+tarackgyökér
+taréjos búzafű
+tatárka
+tavaszi kankalin
+tavaszi saláta
+tavaszika
+tavibéka
+tea
+tealevél
+tejesfű virág
+tejoltó galaj
+tejoltó. szent iván seprűje
+tejoltógalajfű
+tejzsugorító fű
+tekeportartó
+televényturbolya
+temondádfű
+tengeri baraczk
+tengerparti útifű
+tengerszegély
+tenyere
+termesztett len
+tetűfa
+tiktara
+timián
+tiszafa-jegenye fenyő
+tisztesfű
+tojórépa
+topolyafa
+torma
+tornyos vitézvirág
+torokfű
+torokgyíkfű
+trencsényi manna
+tyúkbegy
+tyúkhúr
+tyúkorr
+tyúkszemfa
+tyúkvakító
+tátkanaf
+tátos virág
+téli czikória
+téli saláta
+téli zöld
+téltemető
+tök
+tökmag
+tökszár
+tömjénfű
+töményfű
+törpe mandula
+törpe zászpa
+törpemandula
+törpesas
+török juhar
+törökmag
+törő zsányik
+tövises lapu
+tüdőfű
+tüdőfűlevél
+tündérfürt
+tüske
+tüskemag
+tüskés bíbic
+tőkincs
+tűzvirág
+ugorka nőszőfű
+vackor
+vad
+vad fenyő
+vad gyömbér
+vad mák
+vadalma
+vadcsombor
+vadkörte
+vadkörtvély
+vadmajoránna
+vadmurok
+vadmustár
+vadpoláj
+vadsáfrány
+vadsárgarépa
+vakaró
+vakondakfa
+vargák festő füve
+vargák füve
+varju-bingó
+varjú láb
+varjúköröm
+varjúmogyoró
+varázsdió-kéreg
+vasfű
+vaskos csabak
+vastaggallyú körte
+venus asszony ferdője
+veres darúorr
+versengő saláta
+vesepáfrány
+vesetea
+vetési pipacs
+vetési pipacs közönséges pipacs
+vetővirág
+villás harangvirág
+violás repcsény
+viperafű
+virnánc
+virág
+vizi hunyor
+vizitorma
+vonalkás hegyiaraszoló
+vékonycsőrű sirály
+vénic szil
+vénic-szil
+vénicfa
+vérfű
+vérfű-hangyaboglárka
+vérharmatfű
+vérszopóka
+vérállató fű
+vérállatófű
+vézna kutyatej
+vízi bors
+vízi menta
+vízi torma
+vízibors
+vízitök
+vörhenyes fecske
+vörös fenyő
+vörös termésű hüvelyes kúszónövénynek
+zanótboglárka
+zeller
+zelnice
+zelnice meggy
+zsibavirág
+zsidócseresznye
+zsombéksás
+zsálya
+zöld citrom
+zöld disznóparéj
+zöld juhar
+zöld juhar atorna
+zöldike
+ágác
+ágácifa
+ákác csipke
+álszikfű
+ánizs
+árnő
+árvácska
+édes
+édesgyökér
+édeskömény
+érfű
+ínnyújtófű
+ír moha
+órafű
+óriás- pézsma
+óriás-szürkebagoly
+ökörnyelv
+ökörszem
+ördögborda
+ördögborda gyökér
+ördögbors
+ördögcsípte-fű
+ördögfog
+ördögméze
+ördögoldal
+ördögszőlő
+örökzöld
+ötujjú-fű
+úritök
+útifű
+útifű mag
+útifűlevél
+üre zab
+üröm
+üvegfű
+üvegszárú nenyúljhozzám
+Őszi vérfű
+ősz csillaga
+őszibarack
+őszike
