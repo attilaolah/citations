@@ -1,6 +1,5 @@
 """Pytest tests for name-pairs validation."""
 
-import argparse
 import os
 import sys
 from pathlib import Path
@@ -18,7 +17,7 @@ def pairs() -> dict[str, list[str]]:
     Returns:
         Parsed mapping from latin key to hungarian names.
     """
-    return PAIRS_ADAPTER.validate_json(Path(_required_env("PAIRS_PATH")).read_bytes())
+    return PAIRS_ADAPTER.validate_json(Path(os.environ["PAIRS_PATH"]).read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -44,7 +43,7 @@ def samples() -> dict[str, list[str]]:
     Returns:
         Parsed samples for pair tests.
     """
-    samples_path = Path(_required_env("SAMPLES_PATH"))
+    samples_path = Path(os.environ["SAMPLES_PATH"])
     return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
 
 
@@ -61,40 +60,5 @@ def test_expected_pairs_present(samples: dict[str, list[str]], indexed_pairs: di
             ), f"Missing extracted pair: {latin_name} = {hungarian_name}"
 
 
-def _parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--pairs", required=True)
-    parser.add_argument("--samples", required=True)
-    return parser.parse_args(argv)
-
-
-def _required_env(name: str) -> str:
-    value = os.environ.get(name)
-    if value is None:
-        msg = f"Missing required environment variable: {name}"
-        raise RuntimeError(msg)
-    return value
-
-
-def _main(argv: list[str]) -> int:
-    args = _parse_args(argv)
-
-    previous_pairs = os.environ.get("PAIRS_PATH")
-    previous_samples = os.environ.get("SAMPLES_PATH")
-    try:
-        os.environ["PAIRS_PATH"] = args.pairs
-        os.environ["SAMPLES_PATH"] = args.samples
-        return pytest.main([__file__])
-    finally:
-        if previous_pairs is None:
-            os.environ.pop("PAIRS_PATH", None)
-        else:
-            os.environ["PAIRS_PATH"] = previous_pairs
-        if previous_samples is None:
-            os.environ.pop("SAMPLES_PATH", None)
-        else:
-            os.environ["SAMPLES_PATH"] = previous_samples
-
-
 if __name__ == "__main__":
-    raise SystemExit(_main(sys.argv[1:]))
+    raise SystemExit(pytest.main(sys.argv[1:]))

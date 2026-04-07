@@ -5,15 +5,13 @@ def name_pairs_test(name, src, samples, **kwargs):
         name = name,
         srcs = ["//tools/extract:name_pairs_test.py"],
         main = "//tools/extract:name_pairs_test.py",
-        args = [
-            "--pairs",
-            "$(location %s)" % src,
-            "--samples",
-            "$(location %s)" % samples,
-        ],
         data = [
             src,
             samples,
         ],
+        env = {
+            "PAIRS_PATH": "$(location %s)" % src,
+            "SAMPLES_PATH": "$(location %s)" % samples,
+        },
         **kwargs
     )
