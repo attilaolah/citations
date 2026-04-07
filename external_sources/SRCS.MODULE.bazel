@@ -7,6 +7,9 @@ sources.external_source(
     url = "https://www.tuja.hu/magyar_novenynevek.htm",
 )
 
+# TODO: Rendeletek!
+# https://jogkodex.hu/jsz/2015_66_fm_rendelet_7905131
+
 # The table rows on this page are not deterministically ordered, so the output hash may vary.
 sources.external_source(
     name = "plant_names_in_hungarian",
