@@ -47,7 +47,7 @@ ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES = {
 ]
 
 sources.external_source(
-    name = "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
+    name = "gyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     ipfs_cid = "QmbW85pMCZCsjYco472s33fQz7nYzDjySdwADZjc2wnPuQ",
     sha256 = "9c618ab34fc948c2f79321fa92d0cf6ec8430ee1aea1857c0dec769a4fb11219",
     updated_on = "2026-04-07",
@@ -114,9 +114,9 @@ sources.external_source(
 
 use_repo(
     sources,
-    "dyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     "fajfelismeres_fas_2021",
     "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek",
+    "gyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig",
     "invazios_novenyfajok_magyarorszagon",
     "kepes_zengolegyhatarozo",
     "melleklet_felmert_novenyek_h2_tervlap",
