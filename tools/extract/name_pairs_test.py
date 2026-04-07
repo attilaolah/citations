@@ -17,7 +17,7 @@ def pairs() -> dict[str, list[str]]:
     Returns:
         Parsed mapping from latin key to hungarian names.
     """
-    return PAIRS_ADAPTER.validate_json(Path(os.environ["PAIRS_PATH"]).read_bytes())
+    return PAIRS_ADAPTER.validate_json(Path(os.environ["PAIRS"]).read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -43,7 +43,7 @@ def samples() -> dict[str, list[str]]:
     Returns:
         Parsed samples for pair tests.
     """
-    samples_path = Path(os.environ["SAMPLES_PATH"])
+    samples_path = Path(os.environ["SAMPLES"])
     return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
 
 
