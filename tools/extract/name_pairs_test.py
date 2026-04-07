@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from pydantic import BaseModel, TypeAdapter, ValidationError
+from pydantic import TypeAdapter
 
 PAIRS_ADAPTER: TypeAdapter[dict[str, list[str]]] = TypeAdapter(dict[str, list[str]])
 GNPARSER_OUTPUT_ADAPTER: TypeAdapter[dict[str, object]] = TypeAdapter(dict[str, object])
@@ -16,16 +16,6 @@ MODE_ENV_VAR = "NAME_PAIRS_TEST_MODE"
 PAIRS_PATH_ENV_VAR = "NAME_PAIRS_TEST_PAIRS_PATH"
 SAMPLES_PATH_ENV_VAR = "NAME_PAIRS_TEST_SAMPLES_PATH"
 GNPARSER_PATH_ENV_VAR = "NAME_PAIRS_TEST_GNPARSER_PATH"
-
-
-class PairSamples(BaseModel):
-    """Validation samples for extracted name pairs."""
-
-    expected: dict[str, list[str]]
-    exact: bool = False
-
-
-SAMPLES_ADAPTER: TypeAdapter[PairSamples] = TypeAdapter(PairSamples)
 
 
 def _index_casefolded(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
@@ -73,7 +63,7 @@ def indexed_pairs(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
 
 
 @pytest.fixture(scope="session")
-def samples(mode: str) -> PairSamples | None:
+def samples(mode: str) -> dict[str, list[str]] | None:
     """Provide expected samples for pairs mode.
 
     Returns:
@@ -83,11 +73,7 @@ def samples(mode: str) -> PairSamples | None:
         return None
 
     samples_path = Path(_required_env(SAMPLES_PATH_ENV_VAR))
-    content = samples_path.read_bytes()
-    try:
-        return SAMPLES_ADAPTER.validate_json(content)
-    except ValidationError:
-        return PairSamples(expected=PAIRS_ADAPTER.validate_json(content), exact=False)
+    return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -104,44 +90,22 @@ def gnparser_bin(mode: str) -> Path | None:
 
 def test_expected_pairs_present(
     mode: str,
-    samples: PairSamples | None,
+    samples: dict[str, list[str]] | None,
     indexed_pairs: dict[str, set[str]],
 ) -> None:
     """Validate that configured expected pairs are present."""
     if mode != "pairs" or samples is None:
         return
 
-    for latin_name in sorted(samples.expected):
+    for latin_name in sorted(samples):
         latin_casefold = latin_name.casefold()
         assert latin_casefold in indexed_pairs, f"Missing extracted key: {latin_name}"
 
-        for hungarian_name in sorted(samples.expected[latin_name]):
+        for hungarian_name in sorted(samples[latin_name]):
             hungarian_casefold = hungarian_name.casefold()
             assert (
                 hungarian_casefold in indexed_pairs[latin_casefold]
             ), f"Missing extracted pair: {latin_name} = {hungarian_name}"
-
-
-def test_expected_pairs_exact(
-    mode: str,
-    samples: PairSamples | None,
-    indexed_pairs: dict[str, set[str]],
-) -> None:
-    """Validate exact values when exact mode is enabled."""
-    if mode != "pairs" or samples is None:
-        return
-    if not samples.exact:
-        return
-
-    for latin_name in sorted(samples.expected):
-        latin_casefold = latin_name.casefold()
-        expected_values = {value.casefold() for value in samples.expected[latin_name]}
-        actual_values = indexed_pairs.get(latin_casefold)
-        assert actual_values is not None, f"Missing extracted key: {latin_name}"
-        assert actual_values == expected_values, (
-            f"Unexpected values for key {latin_name}: "
-            f"expected={sorted(expected_values)}, actual={sorted(actual_values)}"
-        )
 
 
 def test_gnparser_matches_all_keys(

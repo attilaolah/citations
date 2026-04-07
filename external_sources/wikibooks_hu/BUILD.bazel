@@ -2,16 +2,16 @@ load("//tools/extract:extract_pairs.bzl", "name_pairs")
 
 exports_files([
     "SRCS.MODULE.bazel",
-    "tests/latin_magyarorszagon_vedett_allatok_pairs_test.samples.json",
-    "tests/novenyek_magyar_latin_nepies_a_pairs_test.samples.json",
-    "tests/novenyek_magyar_latin_nepies_oe_pairs_test.samples.json",
-    "tests/novenyek_magyar_latin_nepies_x_y_pairs_test.samples.json",
+    "tests/latin_magyarorszagon_vedett_allatok.samples.json",
+    "tests/novenyek_magyar_latin_nepies_a.samples.json",
+    "tests/novenyek_magyar_latin_nepies_oe.samples.json",
+    "tests/novenyek_magyar_latin_nepies_x_y.samples.json",
 ])
 
 name_pairs(
     name = "latin_magyarorszagon_vedett_allatok_pairs",
     src = "@latin_magyarorszagon_vedett_allatok//file",
-    samples = ":tests/latin_magyarorszagon_vedett_allatok_pairs_test.samples.json",
+    samples = ":tests/latin_magyarorszagon_vedett_allatok.samples.json",
     tool = "//tools/extract/wikibooks_hu:latin_magyarorszagon_vedett_allatok",
 )
 
@@ -50,7 +50,7 @@ _NOVENYEK_LETTER_SUFFIXES = [
     name_pairs(
         name = "novenyek_magyar_latin_nepies_" + suffix + "_pairs",
         src = "@novenyek_magyar_latin_nepies_" + suffix + "//file",
-        samples = ":tests/novenyek_magyar_latin_nepies_" + suffix + "_pairs_test.samples.json" if suffix in [
+        samples = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".samples.json" if suffix in [
             "a",
             "oe",
             "x_y",

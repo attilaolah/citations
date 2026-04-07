@@ -1,8 +1,5 @@
 {
-  "expected": {
-    "Carabus zawadszkii": [
-      "Zempléni futrinka"
-    ]
-  },
-  "exact": true
+  "Carabus zawadszkii": [
+    "Zempléni futrinka"
+  ]
 }
