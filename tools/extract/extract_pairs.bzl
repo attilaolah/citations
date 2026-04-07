@@ -1,3 +1,6 @@
+load("//tools/extract:name_pairs_gnparser_test.bzl", "name_pairs_gnparser_test")
+load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
+
 def _extract_pairs_impl(ctx):
     src = ctx.file.src
     python_bin = ctx.file._python
@@ -21,7 +24,7 @@ def _extract_pairs_impl(ctx):
 
     return DefaultInfo(files = depset([out]))
 
-name_pairs = rule(
+_name_pairs = rule(
     implementation = _extract_pairs_impl,
     attrs = {
         "src": attr.label(
@@ -40,3 +43,23 @@ name_pairs = rule(
         ),
     },
 )
+
+def name_pairs(name, src, tool, samples = None, **kwargs):
+    _name_pairs(
+        name = name,
+        src = src,
+        tool = tool,
+        **kwargs
+    )
+
+    name_pairs_gnparser_test(
+        name = name + "_gnparser_test",
+        src = ":" + name,
+    )
+
+    if samples != None:
+        name_pairs_test(
+            name = name + "_test",
+            src = ":" + name,
+            samples = samples,
+        )
