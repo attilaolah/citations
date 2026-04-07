@@ -1,9 +1,9 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
 sources.external_source(
     name = "magyar_novenynevek",
-    ipfs_cid = "QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
-    sha256 = "c43e20b8173caa7dd6eb60c85f8ec03cf3c9d3a30ad55e01b4eb9155800a0e1d",
-    updated_on = "2026-04-05",
+    ipfs_cid = "QmeWekdaPeqNvJxzrtXAPbbKqWT9VY9bD8h1HjbBN9V3k4",
+    sha256 = "b23325c6060352f2444b65a243e71500ebf3215da4794cd20d5f75e1e358b727",
+    updated_on = "2026-04-07",
     url = "https://www.tuja.hu/magyar_novenynevek.htm",
 )
 
