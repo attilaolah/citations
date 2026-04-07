@@ -16,9 +16,9 @@ def name_pairs_completeness_test(name, clean, global_names, ignore = None, **kwa
         main = "//tools/extract:name_pairs_completeness_test.py",
         data = data,
         env = {
-            "NAME_PAIRS_COMPLETENESS_CLEAN_PATH": "$(location %s)" % clean,
-            "NAME_PAIRS_COMPLETENESS_GLOBAL_NAMES_PATH": "$(location %s)" % global_names,
-            "NAME_PAIRS_COMPLETENESS_IGNORE_PATH": ignore_path,
+            "CLEAN_PATH": "$(location %s)" % clean,
+            "GLOBAL_NAMES_PATH": "$(location %s)" % global_names,
+            "IGNORE_PATH": ignore_path,
         },
         **kwargs
     )

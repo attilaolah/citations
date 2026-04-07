@@ -18,7 +18,7 @@ def pairs() -> dict[str, list[str]]:
     Returns:
         Parsed mapping from latin key to hungarian names.
     """
-    return PAIRS_ADAPTER.validate_json(Path(_required_env("NAME_PAIRS_TEST_PAIRS_PATH")).read_bytes())
+    return PAIRS_ADAPTER.validate_json(Path(_required_env("PAIRS_PATH")).read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -44,14 +44,11 @@ def samples() -> dict[str, list[str]]:
     Returns:
         Parsed samples for pair tests.
     """
-    samples_path = Path(_required_env("NAME_PAIRS_TEST_SAMPLES_PATH"))
+    samples_path = Path(_required_env("SAMPLES_PATH"))
     return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
 
 
-def test_expected_pairs_present(
-    samples: dict[str, list[str]],
-    indexed_pairs: dict[str, set[str]],
-) -> None:
+def test_expected_pairs_present(samples: dict[str, list[str]], indexed_pairs: dict[str, set[str]]) -> None:
     """Validate that configured expected pairs are present."""
     for latin_name in sorted(samples):
         latin_casefold = latin_name.casefold()
@@ -82,21 +79,21 @@ def _required_env(name: str) -> str:
 def _main(argv: list[str]) -> int:
     args = _parse_args(argv)
 
-    previous_pairs = os.environ.get("NAME_PAIRS_TEST_PAIRS_PATH")
-    previous_samples = os.environ.get("NAME_PAIRS_TEST_SAMPLES_PATH")
+    previous_pairs = os.environ.get("PAIRS_PATH")
+    previous_samples = os.environ.get("SAMPLES_PATH")
     try:
-        os.environ["NAME_PAIRS_TEST_PAIRS_PATH"] = args.pairs
-        os.environ["NAME_PAIRS_TEST_SAMPLES_PATH"] = args.samples
+        os.environ["PAIRS_PATH"] = args.pairs
+        os.environ["SAMPLES_PATH"] = args.samples
         return pytest.main([__file__])
     finally:
         if previous_pairs is None:
-            os.environ.pop("NAME_PAIRS_TEST_PAIRS_PATH", None)
+            os.environ.pop("PAIRS_PATH", None)
         else:
-            os.environ["NAME_PAIRS_TEST_PAIRS_PATH"] = previous_pairs
+            os.environ["PAIRS_PATH"] = previous_pairs
         if previous_samples is None:
-            os.environ.pop("NAME_PAIRS_TEST_SAMPLES_PATH", None)
+            os.environ.pop("SAMPLES_PATH", None)
         else:
-            os.environ["NAME_PAIRS_TEST_SAMPLES_PATH"] = previous_samples
+            os.environ["SAMPLES_PATH"] = previous_samples
 
 
 if __name__ == "__main__":

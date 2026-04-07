@@ -31,7 +31,7 @@ def clean_entries() -> list[CleanName]:
     Returns:
         Parsed cleaned entries.
     """
-    clean_path = Path(os.environ["NAME_PAIRS_COMPLETENESS_CLEAN_PATH"])
+    clean_path = Path(os.environ["CLEAN_PATH"])
     return CLEAN_ADAPTER.validate_json(clean_path.read_bytes())
 
 
@@ -42,7 +42,7 @@ def global_name_entries() -> list[GlobalName]:
     Returns:
         Parsed gnfinder entries.
     """
-    global_names_path = Path(os.environ["NAME_PAIRS_COMPLETENESS_GLOBAL_NAMES_PATH"])
+    global_names_path = Path(os.environ["GLOBAL_NAMES_PATH"])
     return GLOBAL_NAMES_ADAPTER.validate_json(global_names_path.read_bytes())
 
 
@@ -53,7 +53,7 @@ def ignored_names() -> set[str]:
     Returns:
         Case-sensitive set of ignored names.
     """
-    value = os.environ["NAME_PAIRS_COMPLETENESS_IGNORE_PATH"]
+    value = os.environ["IGNORE_PATH"]
     if not value:
         return set()
 
