@@ -5,12 +5,19 @@ import json
 import operator
 import re
 import unicodedata
+from itertools import starmap
 from pathlib import Path
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
 LATIN_PAREN_TEXT_RE = re.compile(r"''\s*\(\s*([^()\[\]]+)\s*\)\s*''")
 LATIN_PHRASE_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [A-Za-z][A-Za-z-]+){1,3}\b")
+RANKED_LATIN_PHRASE_RE = re.compile(
+    r"\b[A-Z][A-Za-z-]+ [a-z][a-z-]+ (?:subsp|subsp\.|ssp|ssp\.|var|var\.|f|f\.) [a-z][a-z-]+\b",
+)
+PAREN_GENUS_SYNONYM_RE = re.compile(r"\b([A-Z][A-Za-z-]+)\s*\(([A-Z][A-Za-z-]+)\)\s*([a-z][A-Za-z-]+)\b")
+GENERIC_PAREN_RE = re.compile(r"\(([^)]{2,})\)")
+MALFORMED_LINK_OPEN_RE = re.compile(r"\[\[([^\]|]+)")
 ASCII_TOKEN_RE = re.compile(r"[A-Za-z]+(?:-[A-Za-z]+)*")
 LATIN_RANK_MARKERS = {"subsp", "subsp.", "ssp", "ssp.", "var", "var.", "f", "f.", "cf", "cf."}
 DASH_SPLIT_RE = re.compile(r"(?<!\w)[\u2013-](?!\w)", re.UNICODE)
@@ -23,10 +30,16 @@ NON_NAME_TAIL_TOKENS = {
     "fűszer",
     "védett",
 }
+NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "fructus", "herba", "radix", "semen"}
+FORBIDDEN_LATIN_LAST_TOKENS = {"flos", "radix"}
+LATIN_SEPARATOR_TOKENS = {"es", "illetve", "syn", "vagy", "és"}
 
 
 def _strip_markup(text: str) -> str:
     cleaned = text
+    cleaned = cleaned.replace("[[[", "[[").replace("]]]", "]]")
+    cleaned = re.sub(r"\(\[\[([^\]|()]+)\)", r"([[\1]])", cleaned)
+    cleaned = re.sub(r"\(([^()\[\]|]+)\]\]", r"([[\1]])", cleaned)
     cleaned = re.sub(r"<ref[^>]*>.*?</ref>", " ", cleaned, flags=re.IGNORECASE | re.DOTALL)
     cleaned = re.sub(r"<[^>]+>", " ", cleaned)
     cleaned = cleaned.replace("'''", " ")
@@ -43,7 +56,10 @@ def _link_value(target: str, label: str) -> str:
 
 
 def _is_latin_like(value: str) -> bool:
-    candidate = " ".join(value.split()).strip().strip(".")
+    normalized = _normalize_latin_candidate(value)
+    if normalized is None:
+        return False
+    candidate = " ".join(normalized.split()).strip().strip(".")
     if not candidate:
         return False
     parts = candidate.split()
@@ -55,29 +71,134 @@ def _is_latin_like(value: str) -> bool:
         if part.casefold() in LATIN_RANK_MARKERS:
             continue
         part_ascii = "".join(
-            char
-            for char in unicodedata.normalize("NFKD", part.casefold())
-            if not unicodedata.combining(char)
+            char for char in unicodedata.normalize("NFKD", part.casefold()) if not unicodedata.combining(char)
         )
         if ASCII_TOKEN_RE.fullmatch(part_ascii) is None:
             return False
     return True
 
 
-def _first_latin_in_line(line: str) -> str | None:
+def _ascii_fold(value: str) -> str:
+    return "".join(char for char in unicodedata.normalize("NFKD", value) if not unicodedata.combining(char))
+
+
+def _tokenize_latin_candidate(raw: str) -> list[str]:
+    cleaned = _strip_markup(raw)
+    cleaned = re.sub(r"[\[\]{}|()]", " ", cleaned)
+    cleaned = " ".join(cleaned.split())
+    if not cleaned:
+        return []
+    tokens = [token.strip(".,;:!?\"'`") for token in cleaned.split()]
+    return [token for token in tokens if token]
+
+
+def _find_genus_index(tokens: list[str]) -> int:
+    for index, token in enumerate(tokens):
+        if re.fullmatch(r"[A-Z][a-z-]+", token):
+            return index
+    return -1
+
+
+def _append_latin_token(latin_tokens: list[str], token: str) -> bool:
+    appended = False
+
+    if re.fullmatch(r"[A-Z][a-z-]{3,}", token) and len(latin_tokens) == 1:
+        latin_tokens.append(token.casefold())
+        appended = True
+    else:
+        if re.fullmatch(r"[A-Z][a-z-]+\.?", token) and len(latin_tokens) >= MIN_LATIN_PARTS:
+            return False
+        token_folded_ascii = _ascii_fold(token.casefold())
+        if token_folded_ascii in LATIN_SEPARATOR_TOKENS:
+            return False
+        if re.fullmatch(r"[a-z-]+", token_folded_ascii) is None and token_folded_ascii not in LATIN_RANK_MARKERS:
+            return False
+
+        if token_folded_ascii in LATIN_RANK_MARKERS:
+            latin_tokens.append(token_folded_ascii if token.endswith(".") else token_folded_ascii.removesuffix("."))
+            appended = True
+        elif token_folded_ascii in NON_ORGANISM_SUFFIXES:
+            appended = False
+        elif ASCII_TOKEN_RE.fullmatch(token_folded_ascii) and token_folded_ascii[0].islower():
+            latin_tokens.append(token_folded_ascii)
+            appended = True
+
+    return appended
+
+
+def _normalize_latin_candidate(raw: str) -> str | None:
+    tokens = _tokenize_latin_candidate(raw)
+    if not tokens:
+        return None
+
+    genus_index = _find_genus_index(tokens)
+    if genus_index < 0:
+        return None
+
+    latin_tokens = [tokens[genus_index]]
+    for token in tokens[genus_index + 1 :]:
+        if not _append_latin_token(latin_tokens, token):
+            break
+
+    if len(latin_tokens) < MIN_LATIN_PARTS:
+        return None
+    if latin_tokens[-1].casefold() in FORBIDDEN_LATIN_LAST_TOKENS:
+        return None
+    return " ".join(latin_tokens)
+
+
+def _collect_normalized_candidates(values: list[str]) -> list[str]:
     candidates: list[str] = []
+    for value in values:
+        normalized = _normalize_latin_candidate(value)
+        if normalized:
+            candidates.append(normalized)
+    return candidates
 
-    for target, label in LATIN_PAREN_LINK_RE.findall(line):
-        value = _link_value(target, label)
-        candidates.append(value)
 
-    candidates.extend(" ".join(value.split()) for value in LATIN_PAREN_TEXT_RE.findall(line))
-    candidates.extend(LATIN_PHRASE_RE.findall(_strip_markup(LINK_RE.sub(" ", line))))
+def _expand_parenthetical_genus_synonyms(values: list[str]) -> list[str]:
+    expanded: list[str] = []
+    for value in values:
+        match = PAREN_GENUS_SYNONYM_RE.fullmatch(" ".join(value.split()))
+        if match is None:
+            continue
+        outer_genus, inner_genus, species = match.groups()
+        expanded.extend([f"{outer_genus} {species}", f"{inner_genus} {species}"])
+    return expanded
 
-    for candidate in candidates:
-        if _is_latin_like(candidate):
-            return candidate
-    return None
+
+def _dedupe(values: list[str]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        out.append(value)
+    return out
+
+
+def _latin_candidates_in_line(line: str) -> list[str]:
+    link_values = list(starmap(_link_value, LATIN_PAREN_LINK_RE.findall(line)))
+    link_values += _expand_parenthetical_genus_synonyms(link_values)
+    text_values = LATIN_PAREN_TEXT_RE.findall(line)
+    generic_values = GENERIC_PAREN_RE.findall(line)
+    malformed_values = MALFORMED_LINK_OPEN_RE.findall(line)
+    phrase_values = LATIN_PHRASE_RE.findall(_strip_markup(LINK_RE.sub(" ", line)))
+    ranked_phrase_values = RANKED_LATIN_PHRASE_RE.findall(_strip_markup(LINK_RE.sub(" ", line)))
+    paren_genus_synonyms: list[str] = []
+    for outer_genus, inner_genus, species in PAREN_GENUS_SYNONYM_RE.findall(_strip_markup(LINK_RE.sub(" ", line))):
+        paren_genus_synonyms.extend([f"{outer_genus} {species}", f"{inner_genus} {species}"])
+    combined = (
+        _collect_normalized_candidates(link_values)
+        + _collect_normalized_candidates(text_values)
+        + _collect_normalized_candidates(generic_values)
+        + _collect_normalized_candidates(malformed_values)
+        + _collect_normalized_candidates(phrase_values)
+        + _collect_normalized_candidates(ranked_phrase_values)
+        + _collect_normalized_candidates(paren_genus_synonyms)
+    )
+    return _dedupe(combined)
 
 
 def _is_novenyek_letter_link(target: str) -> bool:
@@ -129,13 +250,26 @@ def _names_from_tail(tail: str) -> list[str]:
 def _latin_parenthetical_matches(line: str) -> list[tuple[int, int, str]]:
     matches: list[tuple[int, int, str]] = []
     for match in LATIN_PAREN_LINK_RE.finditer(line):
-        latin = _link_value(match.group(1), match.group(2))
-        matches.append((match.start(), match.end(), latin))
+        latin = _normalize_latin_candidate(_link_value(match.group(1), match.group(2)))
+        if latin:
+            matches.append((match.start(), match.end(), latin))
     for match in LATIN_PAREN_TEXT_RE.finditer(line):
-        latin = " ".join(match.group(1).split())
-        matches.append((match.start(), match.end(), latin))
+        latin = _normalize_latin_candidate(match.group(1))
+        if latin:
+            matches.append((match.start(), match.end(), latin))
+    for match in GENERIC_PAREN_RE.finditer(line):
+        latin = _normalize_latin_candidate(match.group(1))
+        if latin:
+            matches.append((match.start(), match.end(), latin))
     matches.sort(key=operator.itemgetter(0))
-    return matches
+    out: list[tuple[int, int, str]] = []
+    seen: set[tuple[int, int, str]] = set()
+    for item in matches:
+        if item in seen:
+            continue
+        seen.add(item)
+        out.append(item)
+    return out
 
 
 def _add_pairs_from_latin_parenthetical_matches(
@@ -182,8 +316,8 @@ def _add_pair_from_fallback(
     tail_link_names: list[str],
     mapping: dict[str, set[str]],
 ) -> None:
-    latin = _first_latin_in_line(line)
-    if latin is None:
+    latin_values = _latin_candidates_in_line(line)
+    if not latin_values:
         return
 
     head_names = _names_from_links(head, letter_links_only=False, exclude_latin_like=False)
@@ -194,7 +328,9 @@ def _add_pair_from_fallback(
     if (not values) and head_names:
         values.update(head_names)
     if values:
-        mapping.setdefault(latin, set()).update(values)
+        for latin in latin_values:
+            if _is_latin_like(latin):
+                mapping.setdefault(latin, set()).update(values)
 
 
 def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
@@ -211,13 +347,12 @@ def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
         tail_plain_names = _names_from_tail(tail)
         tail_link_names = _names_from_links(tail, letter_links_only=True, exclude_latin_like=False)
 
-        if _add_pairs_from_latin_parenthetical_matches(
+        _add_pairs_from_latin_parenthetical_matches(
             line,
             tail_plain_names=tail_plain_names,
             tail_link_names=tail_link_names,
             mapping=mapping,
-        ):
-            continue
+        )
 
         _add_pair_from_fallback(
             line,

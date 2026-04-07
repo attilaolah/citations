@@ -32,9 +32,12 @@ GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(
         ",": " ",
     },
 )
+REF_RE = re.compile(r"<ref[^>]*>.*?</ref>", flags=re.IGNORECASE | re.DOTALL)
 ASCII_UPPER_WORD_RE = re.compile(r"[A-Z][A-Za-z-]+")
 ASCII_LOWER_WORD_RE = re.compile(r"[a-z][a-z-]*")
 LATIN_RANK_MARKERS = {"subsp", "subsp.", "ssp", "ssp.", "var", "var.", "f", "f.", "cf", "cf."}
+NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "fructus", "herba", "radix", "semen", "semina"}
+NON_LATIN_EPITHET_TOKENS = {"kinai", "mezei"}
 MIN_LATIN_PARTS = 2
 
 
@@ -51,19 +54,22 @@ def _is_scientific_name(value: str) -> bool:
     parts = candidate.split()
     if len(parts) < MIN_LATIN_PARTS:
         return False
-
     if ASCII_UPPER_WORD_RE.fullmatch(parts[0]) is None:
         return False
 
+    valid = True
     for part in parts[1:]:
         part_folded = part.casefold()
+        if part_folded in NON_ORGANISM_SUFFIXES or part_folded in NON_LATIN_EPITHET_TOKENS:
+            valid = False
+            break
         if part_folded in LATIN_RANK_MARKERS:
             continue
         part_ascii = _strip_diacritics(part_folded)
         if ASCII_LOWER_WORD_RE.fullmatch(part_ascii) is None:
-            return False
-
-    return True
+            valid = False
+            break
+    return valid
 
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:
@@ -77,6 +83,7 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
 def _main(argv: list[str]) -> int:
     args = _parse_args(argv)
     src_text = Path(args.input).read_text(encoding="utf-8", errors="replace")
+    src_text = REF_RE.sub(" ", src_text)
     normalized_text = src_text.translate(GNFINDER_BOUNDARY_PUNCTUATION)
 
     with tempfile.NamedTemporaryFile(
