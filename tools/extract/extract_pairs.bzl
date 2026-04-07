@@ -1,4 +1,4 @@
-load("//tools/extract:name_pairs_gnparser_test.bzl", "name_pairs_gnparser_test")
+load("//tools/extract:name_pairs_clean.bzl", "name_pairs_clean")
 load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
 
 def _extract_pairs_impl(ctx):
@@ -52,8 +52,8 @@ def name_pairs(name, src, tool, samples = None, **kwargs):
         **kwargs
     )
 
-    name_pairs_gnparser_test(
-        name = name + "_gnparser_test",
+    name_pairs_clean(
+        name = name + "_clean",
         src = ":" + name,
     )
 

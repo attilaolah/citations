@@ -6,8 +6,6 @@ def name_pairs_test(name, src, samples, **kwargs):
         srcs = ["//tools/extract:name_pairs_test.py"],
         main = "//tools/extract:name_pairs_test.py",
         args = [
-            "--mode",
-            "pairs",
             "--pairs",
             "$(location %s)" % src,
             "--samples",
