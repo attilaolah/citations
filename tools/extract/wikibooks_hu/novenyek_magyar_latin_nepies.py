@@ -39,7 +39,7 @@ NON_NAME_TAIL_MARKERS = {
 NON_NAME_LAST_TOKEN_SUFFIXES = {
     "novenynek",
 }
-NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "fructus", "herba", "radix", "semen"}
+NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "folium", "fructus", "herba", "radix", "semen"}
 FORBIDDEN_LATIN_LAST_TOKENS = {"flos", "radix"}
 LATIN_SEPARATOR_TOKENS = {"es", "illetve", "syn", "vagy", "és"}
 WORD_TOKEN_RE = re.compile(r"^[^\W\d_]+(?:-[^\W\d_]+)*$", re.UNICODE)
@@ -66,7 +66,7 @@ HYPHENATED_OR_RE = re.compile(
     flags=re.IGNORECASE | re.UNICODE,
 )
 PLANT_SUFFIXES = ("fa",)
-COMPOUND_HEAD_SUFFIXES = ("fenyő", "fű", "gyökér", "levél", "madárlép", "pipacs", "virág")
+COMPOUND_HEAD_SUFFIXES = ("fenyő", "fű", "gyökér", "hagyma", "levél", "madárlép", "pipacs", "virág")
 SEGMENT_SHARED_HEADS = {"jegenye", "fenyő"}
 PREFIX_CARRY_ADJECTIVES = {"fekete"}
 PREFIX_CARRY_PARTS = 2
@@ -614,6 +614,10 @@ def _is_non_organism_latin_phrase(value: str) -> bool:
     return last_ascii in NON_ORGANISM_SUFFIXES
 
 
+def _contains_non_organism_parenthetical(line: str) -> bool:
+    return any(_is_non_organism_latin_phrase(value) for value in GENERIC_PAREN_RE.findall(line))
+
+
 def _filter_vernacular_values(latin: str, values: set[str]) -> set[str]:
     latin_folded = latin.casefold()
     filtered: set[str] = set()
@@ -672,6 +676,10 @@ def _add_pairs_from_latin_parenthetical_matches(
     if not latin_matches:
         return False
 
+    has_non_organism_latin = _contains_non_organism_parenthetical(line) or any(
+        _is_non_organism_latin_phrase(latin)
+        for _, _, latin in latin_matches
+    )
     previous_end = 0
     previous_names: list[str] = []
     for start, end, latin in latin_matches:
@@ -683,10 +691,15 @@ def _add_pairs_from_latin_parenthetical_matches(
         if not _is_latin_like(latin):
             previous_end = end
             continue
+        if _is_non_organism_latin_phrase(latin):
+            previous_end = end
+            continue
 
-        values: set[str] = set(tail_link_names)
+        values: set[str] = set()
+        if not has_non_organism_latin:
+            values.update(tail_link_names)
         values.update(segment_names or previous_names)
-        if tail_plain_names:
+        if tail_plain_names and not has_non_organism_latin:
             values.update(tail_plain_names)
             if segment_names:
                 values.add(segment_names[0])
@@ -739,20 +752,21 @@ def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
         tail_plain_names = _names_from_tail(tail)
         tail_link_names = _names_from_links(tail, letter_links_only=True, exclude_latin_like=False)
 
-        _add_pairs_from_latin_parenthetical_matches(
+        handled_parenthetical = _add_pairs_from_latin_parenthetical_matches(
             line,
             tail_plain_names=tail_plain_names,
             tail_link_names=tail_link_names,
             mapping=mapping,
         )
 
-        _add_pair_from_fallback(
-            line,
-            head=head,
-            tail_plain_names=tail_plain_names,
-            tail_link_names=tail_link_names,
-            mapping=mapping,
-        )
+        if not handled_parenthetical:
+            _add_pair_from_fallback(
+                line,
+                head=head,
+                tail_plain_names=tail_plain_names,
+                tail_link_names=tail_link_names,
+                mapping=mapping,
+            )
 
     return mapping
 

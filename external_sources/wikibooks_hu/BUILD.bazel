@@ -12,6 +12,7 @@ exports_files([
     "tests/novenyek_magyar_latin_nepies_h.samples.json",
     "tests/novenyek_magyar_latin_nepies_o.samples.json",
     "tests/novenyek_magyar_latin_nepies_oe.samples.json",
+    "tests/novenyek_magyar_latin_nepies_t.samples.json",
     "tests/novenyek_magyar_latin_nepies_x_y.samples.json",
 ])
 
@@ -67,6 +68,7 @@ _NOVENYEK_LETTER_SUFFIXES = [
             "h",
             "o",
             "oe",
+            "t",
             "x_y",
         ] else None,
         tool = "//tools/extract/wikibooks_hu:novenyek_magyar_latin_nepies",
