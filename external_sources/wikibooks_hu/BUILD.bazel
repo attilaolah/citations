@@ -10,6 +10,7 @@ exports_files([
     "tests/novenyek_magyar_latin_nepies_e.samples.json",
     "tests/novenyek_magyar_latin_nepies_g.samples.json",
     "tests/novenyek_magyar_latin_nepies_h.samples.json",
+    "tests/novenyek_magyar_latin_nepies_o.samples.json",
     "tests/novenyek_magyar_latin_nepies_oe.samples.json",
     "tests/novenyek_magyar_latin_nepies_x_y.samples.json",
 ])
@@ -64,6 +65,7 @@ _NOVENYEK_LETTER_SUFFIXES = [
             "e",
             "g",
             "h",
+            "o",
             "oe",
             "x_y",
         ] else None,

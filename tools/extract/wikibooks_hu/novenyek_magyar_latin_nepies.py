@@ -32,6 +32,13 @@ NON_NAME_TAIL_TOKENS = {
     "fűszer",
     "védett",
 }
+NON_NAME_TAIL_MARKERS = {
+    " neve ",
+    " nevű ",
+}
+NON_NAME_LAST_TOKEN_SUFFIXES = {
+    "novenynek",
+}
 NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "fructus", "herba", "radix", "semen"}
 FORBIDDEN_LATIN_LAST_TOKENS = {"flos", "radix"}
 LATIN_SEPARATOR_TOKENS = {"es", "illetve", "syn", "vagy", "és"}
@@ -573,6 +580,8 @@ def _infer_head_from_single_token(token: str) -> str | None:
 
 def _is_acceptable_vernacular(value: str) -> bool:
     folded_tokens = re.findall(r"[^\W\d_]+", _ascii_fold(value.casefold()), flags=re.UNICODE)
+    lowered = f" {_ascii_fold(value.casefold())} "
+    last_token = folded_tokens[-1] if folded_tokens else ""
     return (
         bool(value)
         and (re.search(r"[^\W\d_]", value, flags=re.UNICODE) is not None)
@@ -580,9 +589,19 @@ def _is_acceptable_vernacular(value: str) -> bool:
         and (re.search(r"[()]", value, flags=re.UNICODE) is None)
         and (re.search(r"[\u2013-]\s*$", value, flags=re.UNICODE) is None)
         and (not _is_latin_like(value))
+        and (not _is_title_case_foreign_phrase(value))
         and not any(token in NON_ORGANISM_SUFFIXES for token in folded_tokens)
+        and not any(last_token.endswith(suffix) for suffix in NON_NAME_LAST_TOKEN_SUFFIXES)
         and value.casefold() not in NON_NAME_TAIL_TOKENS
+        and not any(marker in lowered for marker in NON_NAME_TAIL_MARKERS)
     )
+
+
+def _is_title_case_foreign_phrase(value: str) -> bool:
+    tokens = value.split()
+    if len(tokens) < MIN_LATIN_PARTS:
+        return False
+    return all(re.fullmatch(r"[A-Z][a-z]+", token) is not None for token in tokens)
 
 
 def _is_non_organism_latin_phrase(value: str) -> bool:

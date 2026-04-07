@@ -69,24 +69,26 @@ def test_homonyms_are_known(
     clean_entries_by_file: dict[str, list[CleanEntry]],
 ) -> None:
     """Fail if a non-whitelisted HU vernacular name maps to multiple scientific names."""
-    by_vernacular: dict[str, set[str]] = defaultdict(set)
-    for entries in clean_entries_by_file.values():
+    by_vernacular: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    for source_path, entries in clean_entries_by_file.items():
         for entry in entries:
             vernacular = entry.vernacular
             if not vernacular:
                 continue
             for name in vernacular.get("hu", []):
-                by_vernacular[_name_key(name)].add(entry.normalized)
+                by_vernacular[_name_key(name)][entry.normalized].add(source_path)
 
     unexpected = {
-        vernacular: scientific_names
-        for vernacular, scientific_names in by_vernacular.items()
-        if len(scientific_names) > 1 and vernacular not in known_homonyms
+        vernacular: scientific_to_files
+        for vernacular, scientific_to_files in by_vernacular.items()
+        if len(scientific_to_files) > 1 and vernacular not in known_homonyms
     }
-    details = [
-        f"{vernacular} ({len(scientific_names)}): {', '.join(sorted(scientific_names))}"
-        for vernacular, scientific_names in sorted(unexpected.items())
-    ]
+    details: list[str] = []
+    for vernacular, scientific_to_files in sorted(unexpected.items()):
+        details.append(f"{vernacular} ({len(scientific_to_files)}):")
+        for scientific_name, paths in sorted(scientific_to_files.items()):
+            details.append(f"  - {scientific_name}")
+            details.extend(f"    - {path}" for path in sorted(paths))
     assert not details, "Unexpected homonyms in Hungarian vernacular names:\n" + "\n".join(details)
 
 
