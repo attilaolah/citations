@@ -10,6 +10,7 @@ from pathlib import Path
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
+LATIN_PAREN_LINK_BROKEN_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*''")
 LATIN_PAREN_TEXT_RE = re.compile(r"''\s*\(\s*([^()\[\]]+)\s*\)\s*''")
 LATIN_PHRASE_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [A-Za-z][A-Za-z-]+){1,3}\b")
 RANKED_LATIN_PHRASE_RE = re.compile(
@@ -17,7 +18,6 @@ RANKED_LATIN_PHRASE_RE = re.compile(
 )
 PAREN_GENUS_SYNONYM_RE = re.compile(r"\b([A-Z][A-Za-z-]+)\s*\(([A-Z][A-Za-z-]+)\)\s*([a-z][A-Za-z-]+)\b")
 GENERIC_PAREN_RE = re.compile(r"\(([^)]{2,})\)")
-MALFORMED_LINK_OPEN_RE = re.compile(r"\[\[([^\]|]+)")
 ASCII_TOKEN_RE = re.compile(r"[A-Za-z]+(?:-[A-Za-z]+)*")
 LATIN_RANK_MARKERS = {"subsp", "subsp.", "ssp", "ssp.", "var", "var.", "f", "f.", "cf", "cf."}
 DASH_SPLIT_RE = re.compile(r"(?<!\w)[\u2013-](?!\w)", re.UNICODE)
@@ -180,10 +180,10 @@ def _dedupe(values: list[str]) -> list[str]:
 
 def _latin_candidates_in_line(line: str) -> list[str]:
     link_values = list(starmap(_link_value, LATIN_PAREN_LINK_RE.findall(line)))
+    link_values.extend(starmap(_link_value, LATIN_PAREN_LINK_BROKEN_RE.findall(line)))
     link_values += _expand_parenthetical_genus_synonyms(link_values)
     text_values = LATIN_PAREN_TEXT_RE.findall(line)
     generic_values = GENERIC_PAREN_RE.findall(line)
-    malformed_values = MALFORMED_LINK_OPEN_RE.findall(line)
     phrase_values = LATIN_PHRASE_RE.findall(_strip_markup(LINK_RE.sub(" ", line)))
     ranked_phrase_values = RANKED_LATIN_PHRASE_RE.findall(_strip_markup(LINK_RE.sub(" ", line)))
     paren_genus_synonyms: list[str] = []
@@ -193,7 +193,6 @@ def _latin_candidates_in_line(line: str) -> list[str]:
         _collect_normalized_candidates(link_values)
         + _collect_normalized_candidates(text_values)
         + _collect_normalized_candidates(generic_values)
-        + _collect_normalized_candidates(malformed_values)
         + _collect_normalized_candidates(phrase_values)
         + _collect_normalized_candidates(ranked_phrase_values)
         + _collect_normalized_candidates(paren_genus_synonyms)
@@ -247,12 +246,44 @@ def _names_from_tail(tail: str) -> list[str]:
     return names
 
 
-def _latin_parenthetical_matches(line: str) -> list[tuple[int, int, str]]:
-    matches: list[tuple[int, int, str]] = []
-    for match in LATIN_PAREN_LINK_RE.finditer(line):
+def _is_non_organism_latin_phrase(value: str) -> bool:
+    tokens = _tokenize_latin_candidate(value)
+    if len(tokens) < MIN_LATIN_PARTS:
+        return False
+    if re.fullmatch(r"[A-Z][a-z-]+", tokens[0]) is None:
+        return False
+    last_ascii = _ascii_fold(tokens[-1].casefold())
+    return last_ascii in NON_ORGANISM_SUFFIXES
+
+
+def _filter_vernacular_values(latin: str, values: set[str]) -> set[str]:
+    latin_folded = latin.casefold()
+    filtered: set[str] = set()
+    for value in values:
+        if _is_non_organism_latin_phrase(value):
+            continue
+        normalized = _normalize_latin_candidate(value)
+        if normalized is not None and normalized.casefold() == latin_folded:
+            continue
+        filtered.add(value)
+    return filtered
+
+
+def _append_link_matches(
+    line: str,
+    regex: re.Pattern[str],
+    matches: list[tuple[int, int, str]],
+) -> None:
+    for match in regex.finditer(line):
         latin = _normalize_latin_candidate(_link_value(match.group(1), match.group(2)))
         if latin:
             matches.append((match.start(), match.end(), latin))
+
+
+def _latin_parenthetical_matches(line: str) -> list[tuple[int, int, str]]:
+    matches: list[tuple[int, int, str]] = []
+    _append_link_matches(line, LATIN_PAREN_LINK_RE, matches)
+    _append_link_matches(line, LATIN_PAREN_LINK_BROKEN_RE, matches)
     for match in LATIN_PAREN_TEXT_RE.finditer(line):
         latin = _normalize_latin_candidate(match.group(1))
         if latin:
@@ -301,6 +332,7 @@ def _add_pairs_from_latin_parenthetical_matches(
             values.update(tail_plain_names)
             if segment_names:
                 values.add(segment_names[0])
+        values = _filter_vernacular_values(latin, values)
         if values:
             mapping.setdefault(latin, set()).update(values)
 
@@ -330,7 +362,9 @@ def _add_pair_from_fallback(
     if values:
         for latin in latin_values:
             if _is_latin_like(latin):
-                mapping.setdefault(latin, set()).update(values)
+                filtered_values = _filter_vernacular_values(latin, values)
+                if filtered_values:
+                    mapping.setdefault(latin, set()).update(filtered_values)
 
 
 def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:

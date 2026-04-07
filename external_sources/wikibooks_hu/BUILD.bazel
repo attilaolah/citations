@@ -52,6 +52,7 @@ _NOVENYEK_LETTER_SUFFIXES = [
         src = "@novenyek_magyar_latin_nepies_" + suffix + "//file",
         samples = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".samples.json" if suffix in [
             "a",
+            "b",
             "oe",
             "x_y",
         ] else None,

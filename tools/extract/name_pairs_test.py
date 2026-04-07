@@ -48,16 +48,16 @@ def samples() -> dict[str, list[str]]:
 
 
 def test_expected_pairs_present(samples: dict[str, list[str]], indexed_pairs: dict[str, set[str]]) -> None:
-    """Validate that configured expected pairs are present."""
+    """Validate that configured expected pairs match exactly."""
     for latin_name in sorted(samples):
         latin_casefold = latin_name.casefold()
         assert latin_casefold in indexed_pairs, f"Missing extracted key: {latin_name}"
-
-        for hungarian_name in sorted(samples[latin_name]):
-            hungarian_casefold = hungarian_name.casefold()
-            assert (
-                hungarian_casefold in indexed_pairs[latin_casefold]
-            ), f"Missing extracted pair: {latin_name} = {hungarian_name}"
+        expected = {hungarian_name.casefold() for hungarian_name in samples[latin_name]}
+        actual = indexed_pairs[latin_casefold]
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
+        assert not missing, f"Missing extracted names for {latin_name}: {missing}"
+        assert not extra, f"Unexpected extracted names for {latin_name}: {extra}"
 
 
 if __name__ == "__main__":
