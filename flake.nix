@@ -12,16 +12,16 @@
     systems,
     ...
   }: let
-    pythonOverlay = import ./nix/overlays/python.nix;
+    overlay = import ./nix/overlays/python.nix;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
-      flake.overlays.default = pythonOverlay;
+      flake.overlays.default = overlay;
 
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [pythonOverlay];
+          overlays = [overlay];
         };
       in {
         formatter = pkgs.alejandra;
