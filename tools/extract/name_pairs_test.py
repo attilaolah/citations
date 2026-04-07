@@ -9,11 +9,25 @@ import pytest
 from pydantic import TypeAdapter
 
 PAIRS_ADAPTER = TypeAdapter(dict[str, list[str]])
-PAIRS_PATH_ENV_VAR = "NAME_PAIRS_TEST_PAIRS_PATH"
-SAMPLES_PATH_ENV_VAR = "NAME_PAIRS_TEST_SAMPLES_PATH"
 
 
-def _index_casefolded(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
+@pytest.fixture(scope="session")
+def pairs() -> dict[str, list[str]]:
+    """Provide extracted pairs data.
+
+    Returns:
+        Parsed mapping from latin key to hungarian names.
+    """
+    return PAIRS_ADAPTER.validate_json(Path(_required_env("NAME_PAIRS_TEST_PAIRS_PATH")).read_bytes())
+
+
+@pytest.fixture(scope="session")
+def indexed_pairs(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
+    """Provide casefolded pair index.
+
+    Returns:
+        Case-insensitive lookup map.
+    """
     index: dict[str, set[str]] = {}
     for latin_name, values in pairs.items():
         latin_casefold = latin_name.casefold()
@@ -24,33 +38,13 @@ def _index_casefolded(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
 
 
 @pytest.fixture(scope="session")
-def pairs() -> dict[str, list[str]]:
-    """Provide extracted pairs data.
-
-    Returns:
-        Parsed mapping from latin key to hungarian names.
-    """
-    return PAIRS_ADAPTER.validate_json(Path(_required_env(PAIRS_PATH_ENV_VAR)).read_bytes())
-
-
-@pytest.fixture(scope="session")
-def indexed_pairs(pairs: dict[str, list[str]]) -> dict[str, set[str]]:
-    """Provide casefolded pair index.
-
-    Returns:
-        Case-insensitive lookup map.
-    """
-    return _index_casefolded(pairs)
-
-
-@pytest.fixture(scope="session")
 def samples() -> dict[str, list[str]]:
     """Provide expected samples for pairs mode.
 
     Returns:
         Parsed samples for pair tests.
     """
-    samples_path = Path(_required_env(SAMPLES_PATH_ENV_VAR))
+    samples_path = Path(_required_env("NAME_PAIRS_TEST_SAMPLES_PATH"))
     return PAIRS_ADAPTER.validate_json(samples_path.read_bytes())
 
 
@@ -88,21 +82,21 @@ def _required_env(name: str) -> str:
 def _main(argv: list[str]) -> int:
     args = _parse_args(argv)
 
-    previous_pairs = os.environ.get(PAIRS_PATH_ENV_VAR)
-    previous_samples = os.environ.get(SAMPLES_PATH_ENV_VAR)
+    previous_pairs = os.environ.get("NAME_PAIRS_TEST_PAIRS_PATH")
+    previous_samples = os.environ.get("NAME_PAIRS_TEST_SAMPLES_PATH")
     try:
-        os.environ[PAIRS_PATH_ENV_VAR] = args.pairs
-        os.environ[SAMPLES_PATH_ENV_VAR] = args.samples
+        os.environ["NAME_PAIRS_TEST_PAIRS_PATH"] = args.pairs
+        os.environ["NAME_PAIRS_TEST_SAMPLES_PATH"] = args.samples
         return pytest.main([__file__])
     finally:
         if previous_pairs is None:
-            os.environ.pop(PAIRS_PATH_ENV_VAR, None)
+            os.environ.pop("NAME_PAIRS_TEST_PAIRS_PATH", None)
         else:
-            os.environ[PAIRS_PATH_ENV_VAR] = previous_pairs
+            os.environ["NAME_PAIRS_TEST_PAIRS_PATH"] = previous_pairs
         if previous_samples is None:
-            os.environ.pop(SAMPLES_PATH_ENV_VAR, None)
+            os.environ.pop("NAME_PAIRS_TEST_SAMPLES_PATH", None)
         else:
-            os.environ[SAMPLES_PATH_ENV_VAR] = previous_samples
+            os.environ["NAME_PAIRS_TEST_SAMPLES_PATH"] = previous_samples
 
 
 if __name__ == "__main__":

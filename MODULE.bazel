@@ -31,6 +31,12 @@ nix_pkg.expr(
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
+    name = "gnfinder",
+    attr = "gnfinder",
+    build_file = "//nix:gnfinder.bazel",
+    repo = "@nixpkgs",
+)
+nix_pkg.attr(
     name = "gnparser",
     attr = "gnparser",
     build_file = "//nix:gnparser.bazel",
@@ -48,7 +54,7 @@ nix_pkg.attr(
     build_file = "//nix:python.bazel",
     repo = "@nixpkgs",
 )
-use_repo(nix_pkg, "docling", "docling_parse", "gnparser", "libreoffice", "python")
+use_repo(nix_pkg, "docling", "docling_parse", "gnfinder", "gnparser", "libreoffice", "python")
 
 register_toolchains("//tools/python:python_3_14_toolchain")
 

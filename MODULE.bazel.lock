@@ -1065,7 +1065,7 @@
     "@@rules_nixpkgs_core+//extensions:package.bzl%nix_pkg": {
       "general": {
         "bzlTransitiveDigest": "2alEQC7q9PgrArc8ZeI662VmDHLGfuswqnzBJvVDnmg=",
-        "usagesDigest": "ys22CdYLeOBZEWqIUGpr485yVKLoVH15rMsPK7Em94U=",
+        "usagesDigest": "q93W3bSR0jFFjpNiON36UE5l+EZ4UDAd2zpV6yHTVDk=",
         "recordedInputs": [
           "REPO_MAPPING:,nixpkgs rules_nixpkgs_core++nix_repo+nixpkgs",
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
@@ -1081,6 +1081,22 @@
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
               "build_file": "@@//nix:docling.bazel",
+              "build_file_content": "",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
+          },
+          "gnfinder": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "gnfinder",
+              "attribute_path": "gnfinder",
+              "nix_file_deps": {},
+              "nix_file_content": "",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file": "@@//nix:gnfinder.bazel",
               "build_file_content": "",
               "nixopts": [],
               "quiet": false,
@@ -1154,6 +1170,7 @@
         "moduleExtensionMetadata": {
           "explicitRootModuleDirectDeps": [
             "docling",
+            "gnfinder",
             "gnparser",
             "libreoffice",
             "python",

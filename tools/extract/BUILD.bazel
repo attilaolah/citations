@@ -3,11 +3,22 @@ load("@rules_python//python:defs.bzl", "py_binary")
 exports_files(
     [
         "extract_pairs.bzl",
+        "global_names.bzl",
+        "global_names.py",
         "name_pairs_clean.bzl",
         "name_pairs_clean.py",
+        "name_pairs_completeness_test.bzl",
+        "name_pairs_completeness_test.py",
         "name_pairs_test.py",
         "name_pairs_test.bzl",
     ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "global_names_tool",
+    srcs = ["global_names.py"],
+    main = "global_names.py",
     visibility = ["//visibility:public"],
 )
 

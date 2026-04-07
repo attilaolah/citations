@@ -8,8 +8,18 @@ from pathlib import Path
 from lxml import html
 
 ANCHOR_XPATH = "//a[@hreflang='hu' and starts-with(@href, '/node/')]"
-PAIR_RE = re.compile(r"^(?P<hungarian>.+?)\s*\((?P<latin>[^()]+)\)\s*$")
-LATIN_RE = re.compile(r"[A-Z][a-z-]+(?: [a-z][a-z-]+){0,3}")
+PAIR_RE = re.compile(r"^(?P<hungarian>.+?)\s*\((?P<latin>.+)\)\s*$")
+LATIN_RE = re.compile(r"(?P<latin>[A-Z][a-z-]+(?: [a-z][a-z-]+){1,3})")
+PARENS_RE = re.compile(r"\([^)]*\)")
+
+
+def _extract_latin_name(raw_latin: str) -> str | None:
+    normalized = " ".join(raw_latin.split())
+    without_parenthetical = " ".join(PARENS_RE.sub(" ", normalized).split())
+    match = LATIN_RE.search(without_parenthetical)
+    if match is None:
+        return None
+    return match.group("latin")
 
 
 def _extract_pairs(content: bytes) -> dict[str, set[str]]:
@@ -23,10 +33,10 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
             continue
 
         hungarian = match.group("hungarian").strip()
-        latin = " ".join(match.group("latin").split())
+        latin = _extract_latin_name(match.group("latin"))
         if not hungarian:
             continue
-        if LATIN_RE.fullmatch(latin) is None:
+        if latin is None:
             continue
 
         mapping.setdefault(latin, set()).add(hungarian)

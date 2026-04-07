@@ -10,7 +10,12 @@ SAMPLES = [
     for page in range(pages)
 ]
 
-exports_files(SAMPLES + [
+IGNORES = {
+    "fokozottan_vedett_izeltlabuak_0_pairs": "tests/fokozottan_vedett_izeltlabuak_0.ignore.txt",
+    "fokozottan_vedett_izeltlabuak_1_pairs": "tests/fokozottan_vedett_izeltlabuak_1.ignore.txt",
+}
+
+exports_files(SAMPLES + list(IGNORES.values()) + [
     "SRCS.MODULE.bazel",
 ])
 
@@ -18,6 +23,7 @@ exports_files(SAMPLES + [
     name_pairs(
         name = "%s_%d_pairs" % (name, page),
         src = "@%s_%d//file" % (name, page),
+        ignore = IGNORES.get("%s_%d_pairs" % (name, page)),
         samples = SAMPLES[i],
         tool = "//tools/extract:enfo_hu",
     )
