@@ -1,17 +1,18 @@
 load("@rules_python//python:defs.bzl", "py_test")
 
 def name_pairs_test(name, src, samples, **kwargs):
+      main = "//tools/extract:name_pairs_test.py"
     py_test(
         name = name,
-        srcs = ["//tools/extract:name_pairs_test.py"],
-        main = "//tools/extract:name_pairs_test.py",
+        srcs = [main],
+        main = main,
         data = [
             src,
             samples,
         ],
         env = {
-            "PAIRS_PATH": "$(location %s)" % src,
-            "SAMPLES_PATH": "$(location %s)" % samples,
+            "PAIRS_PATH": "$(rootpath %s)" % src,
+            "SAMPLES_PATH": "$(rootpath %s)" % samples,
         },
         **kwargs
     )
