@@ -33,6 +33,18 @@ NON_NAME_TAIL_TOKENS = {
 NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "fructus", "herba", "radix", "semen"}
 FORBIDDEN_LATIN_LAST_TOKENS = {"flos", "radix"}
 LATIN_SEPARATOR_TOKENS = {"es", "illetve", "syn", "vagy", "és"}
+WORD_TOKEN_RE = re.compile(r"^[^\W\d_]+(?:-[^\W\d_]+)*$", re.UNICODE)
+PAIR_WITH_HEAD_RE = re.compile(
+    r"^\s*(?P<left>[^\W\d_]+(?:-[^\W\d_]+)*)\s+vagy\s+"
+    r"(?P<alt>[^\W\d_]+(?:-[^\W\d_]+)*)\s+(?P<head>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
+    flags=re.IGNORECASE | re.UNICODE,
+)
+PAIR_OR_RE = re.compile(
+    r"^\s*(?P<left>[^\W\d_]+(?:-[^\W\d_]+)*)\s+vagy\s+(?P<right>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
+    flags=re.IGNORECASE | re.UNICODE,
+)
+PLANT_SUFFIXES = ("fa",)
+LEVENSHTEIN_MAX_DISTANCE = 2
 
 
 def _strip_markup(text: str) -> str:
@@ -53,6 +65,10 @@ def _strip_markup(text: str) -> str:
 def _link_value(target: str, label: str) -> str:
     raw = label or target.rsplit("/", 1)[-1]
     return " ".join(raw.strip().strip("|").split())
+
+
+def _replace_links_with_values(text: str) -> str:
+    return LINK_RE.sub(lambda match: f" {_link_value(match.group(1), match.group(2))} ", text)
 
 
 def _is_latin_like(value: str) -> bool:
@@ -230,20 +246,108 @@ def _names_from_links(line: str, *, letter_links_only: bool, exclude_latin_like:
 
 def _names_from_tail(tail: str) -> list[str]:
     tail = re.sub(r"<ref[^>]*>.*?</ref>", " ", tail, flags=re.IGNORECASE | re.DOTALL)
-    tail = _strip_markup(LINK_RE.sub(" ", tail))
-    names: list[str] = []
-    for chunk in re.split(r"[,;]", tail):
-        for part in OR_SPLIT_RE.split(chunk):
-            value = " ".join(part.split()).strip(" .:!?()[]{}-'\"")
-            # Ignore punctuation-only fragments from malformed wiki markup.
-            if (
-                value
-                and re.search(r"[^\W\d_]", value, flags=re.UNICODE)
-                and (not _is_latin_like(value))
-                and value.casefold() not in NON_NAME_TAIL_TOKENS
-            ):
-                names.append(value)
+    tail = _strip_markup(_replace_links_with_values(tail))
+    chunks = [part for part in (_clean_tail_fragment(part) for part in re.split(r"[,;]", tail)) if part]
+    grouped_names, consumed_indexes = _expand_prefix_grouping(chunks)
+    names = list(grouped_names)
+    for index, chunk in enumerate(chunks):
+        if index in consumed_indexes:
+            continue
+        names.extend(_names_from_chunk(chunk))
     return names
+
+
+def _clean_tail_fragment(value: str) -> str:
+    cleaned = " ".join(value.split()).strip(" .:!?()[]{}-'\"")
+    return re.sub(r"^(?:fokozottan\s+)?védett!?\s*[-\u2013]\s*", "", cleaned, flags=re.IGNORECASE)
+
+
+def _expand_prefix_grouping(chunks: list[str]) -> tuple[list[str], set[int]]:
+    names: list[str] = []
+    consumed_indexes: set[int] = set()
+    for index in range(len(chunks) - 1):
+        if index in consumed_indexes or (index + 1) in consumed_indexes:
+            continue
+        prefix = chunks[index]
+        if not _is_single_word(prefix):
+            continue
+        pair_match = PAIR_WITH_HEAD_RE.fullmatch(chunks[index + 1])
+        if pair_match is None:
+            continue
+        left = pair_match.group("left")
+        alt = pair_match.group("alt")
+        head = pair_match.group("head")
+        names.extend([f"{prefix} {head}", f"{left} {head}", f"{alt} {head}"])
+        consumed_indexes.update({index, index + 1})
+    return names, consumed_indexes
+
+
+def _names_from_chunk(chunk: str) -> list[str]:
+    pair_match = PAIR_OR_RE.fullmatch(chunk)
+    if pair_match is not None:
+        maybe_expanded = _expand_vagy_pair_suffix(pair_match.group("left"), pair_match.group("right"))
+        if maybe_expanded is not None:
+            return maybe_expanded
+
+    names: list[str] = []
+    for part in OR_SPLIT_RE.split(chunk):
+        value = _clean_tail_fragment(part)
+        if _is_acceptable_vernacular(value):
+            names.append(value)
+    return names
+
+
+def _is_single_word(value: str) -> bool:
+    return WORD_TOKEN_RE.fullmatch(value) is not None
+
+
+def _levenshtein_distance(left: str, right: str) -> int:
+    if left == right:
+        return 0
+    if not left:
+        return len(right)
+    if not right:
+        return len(left)
+
+    previous = list(range(len(right) + 1))
+    for i, left_char in enumerate(left, start=1):
+        current = [i]
+        for j, right_char in enumerate(right, start=1):
+            cost = 0 if left_char == right_char else 1
+            current.append(min(current[-1] + 1, previous[j] + 1, previous[j - 1] + cost))
+        previous = current
+    return previous[-1]
+
+
+def _expand_vagy_pair_suffix(left: str, right: str) -> list[str] | None:
+    left_clean = _clean_tail_fragment(left)
+    right_clean = _clean_tail_fragment(right)
+    if not _is_single_word(left_clean) or not _is_single_word(right_clean):
+        return None
+
+    left_folded = _ascii_fold(left_clean.casefold())
+    right_folded = _ascii_fold(right_clean.casefold())
+    for suffix in PLANT_SUFFIXES:
+        if right_folded.endswith(suffix) and not left_folded.endswith(suffix):
+            right_stem = right_folded.removesuffix(suffix)
+            if right_stem and _levenshtein_distance(left_folded, right_stem) <= LEVENSHTEIN_MAX_DISTANCE:
+                return [left_clean + right_clean[-len(suffix) :], right_clean]
+        if left_folded.endswith(suffix) and not right_folded.endswith(suffix):
+            left_stem = left_folded.removesuffix(suffix)
+            if left_stem and _levenshtein_distance(right_folded, left_stem) <= LEVENSHTEIN_MAX_DISTANCE:
+                return [left_clean, right_clean + left_clean[-len(suffix) :]]
+    return None
+
+
+def _is_acceptable_vernacular(value: str) -> bool:
+    folded_tokens = re.findall(r"[^\W\d_]+", _ascii_fold(value.casefold()), flags=re.UNICODE)
+    return (
+        bool(value)
+        and (re.search(r"[^\W\d_]", value, flags=re.UNICODE) is not None)
+        and (not _is_latin_like(value))
+        and not any(token in NON_ORGANISM_SUFFIXES for token in folded_tokens)
+        and value.casefold() not in NON_NAME_TAIL_TOKENS
+    )
 
 
 def _is_non_organism_latin_phrase(value: str) -> bool:
