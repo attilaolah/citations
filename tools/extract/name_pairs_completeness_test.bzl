@@ -7,7 +7,7 @@ def name_pairs_completeness_test(name, clean, global_names, ignore = None, **kwa
     ]
     ignore_path = ""
     if ignore != None:
-        ignore_path = "$(location %s)" % ignore
+        ignore_path = "$(rootpath %s)" % ignore
         data.append(ignore)
 
     py_test(
@@ -16,8 +16,8 @@ def name_pairs_completeness_test(name, clean, global_names, ignore = None, **kwa
         main = "//tools/extract:name_pairs_completeness_test.py",
         data = data,
         env = {
-            "CLEAN_PATH": "$(location %s)" % clean,
-            "GLOBAL_NAMES_PATH": "$(location %s)" % global_names,
+            "CLEAN_PATH": "$(rootpath %s)" % clean,
+            "GLOBAL_NAMES_PATH": "$(rootpath %s)" % global_names,
             "IGNORE_PATH": ignore_path,
         },
         **kwargs
