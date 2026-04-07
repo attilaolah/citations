@@ -78,7 +78,7 @@ COMPOUND_HEAD_SUFFIXES = (
     "pipacs",
     "virág",
 )
-SEGMENT_SHARED_HEADS = {"jegenye", "fenyő"}
+SEGMENT_SHARED_HEADS = {"jegenye", "fenyő", "meggy", "pemetefű"}
 PREFIX_CARRY_ADJECTIVES = {"fekete"}
 PREFIX_CARRY_PARTS = 2
 OR_SPLIT_TWO_NAMES = 2
