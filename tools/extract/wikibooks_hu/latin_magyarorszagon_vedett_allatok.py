@@ -10,7 +10,7 @@ PAREN_RE = re.compile(r"\(([^)]*)\)")
 QUOTE_PAREN_RE = re.compile(r"''\(([^)]*)\)''")
 
 # Examples in this document: Acridoidea, Plecoptera, Insecta, Mantis religiosa
-LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [a-z][a-z-]+){0,2}\b")
+LATIN_TOKEN_RE = re.compile(r"\b[A-Z][a-z-]+(?: [a-z][a-z-]+){0,2}\b")
 MIN_TABLE_CELLS = 2
 MULTI_LINK_CELL = 2
 THREE_CELL_ROW = 3
@@ -44,7 +44,14 @@ def _is_latin_like(value: str) -> bool:
         return False
     if re.search(r"[^A-Za-z -]", candidate):
         return False
-    if candidate[0].islower():
+    parts = candidate.split()
+    if not parts or parts[0][0].islower():
+        return False
+    if len(parts[0]) < 3:
+        return False
+    if not re.fullmatch(r"[A-Z][a-z-]+", parts[0]):
+        return False
+    if any(re.fullmatch(r"[a-z][a-z-]+", part) is None for part in parts[1:]):
         return False
     return LATIN_TOKEN_RE.fullmatch(candidate) is not None
 
