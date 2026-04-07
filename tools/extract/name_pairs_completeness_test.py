@@ -2,6 +2,7 @@
 
 import os
 import sys
+import unicodedata
 from pathlib import Path
 
 import pytest
@@ -67,12 +68,12 @@ def ignored_names() -> set[str]:
 
 
 def _is_word_prefix(candidate: str, names: list[str]) -> bool:
-    candidate_tokens = candidate.casefold().split()
+    candidate_tokens = _fold(candidate).split()
     if not candidate_tokens:
         return False
     candidate_token_count = len(candidate_tokens)
     for name in names:
-        name_tokens = name.casefold().split()
+        name_tokens = _fold(name).split()
         if len(name_tokens) <= candidate_token_count:
             continue
         if name_tokens[:candidate_token_count] == candidate_tokens:
@@ -87,7 +88,7 @@ def _exemption_reason(
     vernacular_names: set[str],
     vernacular_name_list: list[str],
 ) -> str | None:
-    folded = name.casefold()
+    folded = _fold(name)
     if folded in normalized_names:
         return "present as normalized"
     if _is_word_prefix(name, normalized_name_list):
@@ -99,6 +100,11 @@ def _exemption_reason(
     return None
 
 
+def _fold(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value.casefold())
+    return "".join(char for char in normalized if not unicodedata.combining(char))
+
+
 def test_names_are_covered(
     clean_entries: list[CleanName],
     global_name_entries: list[GlobalName],
@@ -106,7 +112,7 @@ def test_names_are_covered(
 ) -> None:
     """Ensure every gnfinder name is represented in cleaned normalized names."""
     normalized_name_list = [entry.normalized for entry in clean_entries]
-    normalized = {value.casefold() for value in normalized_name_list}
+    normalized = {_fold(value) for value in normalized_name_list}
 
     vernacular_name_list: list[str] = []
     for entry in clean_entries:
@@ -117,7 +123,7 @@ def test_names_are_covered(
                 verbatim = value.get("verbatim")
                 if verbatim:
                     vernacular_name_list.append(verbatim)
-    vernacular = {value.casefold() for value in vernacular_name_list}
+    vernacular = {_fold(value) for value in vernacular_name_list}
 
     global_names = sorted({entry.name for entry in global_name_entries})
     missing = sorted(
@@ -139,13 +145,13 @@ def test_names_are_covered(
     )
     assert not missing, "Names found by gnfinder but missing from cleaned output:\n" + "\n".join(missing)
 
-    global_names_folded = {name.casefold() for name in global_names}
+    global_names_folded = {_fold(name) for name in global_names}
     unnecessary_ignores = sorted(
         {
             ignored
             for ignored in ignored_names
             if (
-                ignored.casefold() not in global_names_folded
+                _fold(ignored) not in global_names_folded
                 or _exemption_reason(
                     ignored,
                     normalized,
@@ -160,7 +166,7 @@ def test_names_are_covered(
     assert (
         not unnecessary_ignores
     ), "Ignore entries are unnecessary (not found in gnfinder output, or already covered):\n" + "\n".join(
-        unnecessary_ignores
+        unnecessary_ignores,
     )
 
 

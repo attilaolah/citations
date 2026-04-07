@@ -2,8 +2,11 @@
 
 import argparse
 import json
+import re
 import subprocess
 import sys
+import tempfile
+import unicodedata
 from pathlib import Path
 
 from pydantic import BaseModel, TypeAdapter
@@ -17,6 +20,50 @@ class GNFinderCompactResult(BaseModel):
 
 GLOBAL_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
 GNPFINDER_COMPACT_ADAPTER = TypeAdapter(GNFinderCompactResult)
+GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(
+    {
+        "{": " ",
+        "}": " ",
+        "[": " ",
+        "]": " ",
+        "(": " ",
+        ")": " ",
+        "/": " ",
+        ",": " ",
+    },
+)
+ASCII_UPPER_WORD_RE = re.compile(r"[A-Z][A-Za-z-]+")
+ASCII_LOWER_WORD_RE = re.compile(r"[a-z][a-z-]*")
+LATIN_RANK_MARKERS = {"subsp", "subsp.", "ssp", "ssp.", "var", "var.", "f", "f.", "cf", "cf."}
+MIN_LATIN_PARTS = 2
+
+
+def _strip_diacritics(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    return "".join(char for char in normalized if not unicodedata.combining(char))
+
+
+def _is_scientific_name(value: str) -> bool:
+    candidate = " ".join(value.split())
+    if not candidate:
+        return False
+
+    parts = candidate.split()
+    if len(parts) < MIN_LATIN_PARTS:
+        return False
+
+    if ASCII_UPPER_WORD_RE.fullmatch(parts[0]) is None:
+        return False
+
+    for part in parts[1:]:
+        part_folded = part.casefold()
+        if part_folded in LATIN_RANK_MARKERS:
+            continue
+        part_ascii = _strip_diacritics(part_folded)
+        if ASCII_LOWER_WORD_RE.fullmatch(part_ascii) is None:
+            return False
+
+    return True
 
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:
@@ -29,19 +76,35 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
 
 def _main(argv: list[str]) -> int:
     args = _parse_args(argv)
+    src_text = Path(args.input).read_text(encoding="utf-8", errors="replace")
+    normalized_text = src_text.translate(GNFINDER_BOUNDARY_PUNCTUATION)
 
-    proc = subprocess.run(
-        [args.gnfinder, "--format", "compact", args.input],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        prefix="gnfinder_input_",
+        suffix=".txt",
+        delete=False,
+    ) as temp_file:
+        temp_file.write(normalized_text)
+        normalized_input_path = temp_file.name
+
+    try:
+        proc = subprocess.run(
+            [args.gnfinder, "--format", "compact", "--utf8-input", normalized_input_path],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    finally:
+        Path(normalized_input_path).unlink(missing_ok=True)
     if proc.returncode != 0:
         msg = f"gnfinder failed for input {args.input}: {proc.stderr.strip()}"
         raise RuntimeError(msg)
 
     parsed = GNPFINDER_COMPACT_ADAPTER.validate_json(proc.stdout)
-    names = GLOBAL_NAMES_ADAPTER.validate_python(parsed.names)
+    filtered_names = [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))]
+    names = GLOBAL_NAMES_ADAPTER.validate_python(filtered_names)
     Path(args.output).write_text(
         json.dumps(names, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

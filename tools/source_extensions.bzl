@@ -1,5 +1,3 @@
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
-
 _BUILD = """\
 package(default_visibility = ["//visibility:public"])
 
@@ -25,15 +23,6 @@ _WIKIBOOKS_HU_RAW_URL_BASE = "https://hu.wikibooks.org/w/index.php?title="
 
 def _ipfs_mirror_urls(ipfs_cid):
     return ["https://%s/ipfs/%s" % (gateway, ipfs_cid) for gateway in _IPFS_GATEWAYS]
-
-def _downloaded_file_path(url):
-    url_without_fragment = url.split("#")[0]
-    url_without_query = url_without_fragment.split("?")[0]
-    path = url_without_query.rsplit("/", 1)[-1]
-    ext = path.rsplit(".", 1)[-1].lower() if "." in path else ""
-    if ext:
-        return "downloaded.%s" % ext
-    return "downloaded"
 
 def _wikibooks_hu_raw_url(title):
     return _WIKIBOOKS_HU_RAW_URL_BASE + title + "&action=raw"
@@ -88,11 +77,10 @@ def _sources_impl(module_ctx):
             source_urls[external_source.url] = None
         for wikibooks_hu_source in module.tags.wikibooks_hu_source:
             url = _wikibooks_hu_raw_url(wikibooks_hu_source.title)
-            http_file(
+            _xz_source_repo(
                 name = wikibooks_hu_source.name,
                 urls = _ipfs_mirror_urls(wikibooks_hu_source.ipfs_cid),
                 sha256 = wikibooks_hu_source.sha256,
-                downloaded_file_path = _downloaded_file_path(url),
             )
             source_urls[url] = None
 

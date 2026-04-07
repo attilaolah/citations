@@ -110,6 +110,9 @@ sources.external_source(
     url = "https://real.mtak.hu/27860/1/1031_3181_5_PB_u.pdf",
 )
 
+## TODO:
+# https://mek.oszk.hu/07700/07707/07707.pdf
+
 [use_repo(sources, ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES[cid]) for cid, _, _ in ALKALMAZOTT_NOVENYTAN_PUBLICATIONS]
 
 use_repo(
