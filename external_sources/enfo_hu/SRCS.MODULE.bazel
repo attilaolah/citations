@@ -1,5 +1,7 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
 
+URL = "https://enfo.hu/keptar/%d?page=%d" # % (id, page)
+
 PAGES = {
     ("fokozottan_vedett_izeltlabuak", 8058): [
         ("QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM", "9aa21f63f555197021af53cdee84e1a6057749088ab1b0acdffb0df9fe522d39"),
@@ -13,7 +15,7 @@ PAGES = {
         ipfs_cid = cid,
         sha256 = sha256,
         updated_on = "2026-04-06",
-        url = "https://enfo.hu/keptar/%d?page=%d" % (id, page),
+        url = URL % (id, page),
     )
     for page, (cid, sha256) in enumerate(contents)
 ] for (name, id), contents in PAGES.items()]
