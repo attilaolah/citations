@@ -66,7 +66,18 @@ HYPHENATED_OR_RE = re.compile(
     flags=re.IGNORECASE | re.UNICODE,
 )
 PLANT_SUFFIXES = ("fa",)
-COMPOUND_HEAD_SUFFIXES = ("fenyő", "fű", "gyökér", "hagyma", "levél", "madárlép", "pipacs", "virág")
+COMPOUND_HEAD_SUFFIXES = (
+    "bodza",
+    "borostyán",
+    "fenyő",
+    "fű",
+    "gyökér",
+    "hagyma",
+    "levél",
+    "madárlép",
+    "pipacs",
+    "virág",
+)
 SEGMENT_SHARED_HEADS = {"jegenye", "fenyő"}
 PREFIX_CARRY_ADJECTIVES = {"fekete"}
 PREFIX_CARRY_PARTS = 2
@@ -362,11 +373,18 @@ def _names_from_chunk(chunk: str) -> list[str]:
         if maybe_compound is not None:
             return maybe_compound
 
+    return _names_from_split_chunk(chunk)
+
+
+def _names_from_split_chunk(chunk: str) -> list[str]:
     names: list[str] = []
     for part in OR_SPLIT_RE.split(chunk):
         value = _clean_tail_fragment(part)
         if _is_acceptable_vernacular(value):
             names.append(value)
+    expanded_single_word = _expand_single_word_with_compound_head(names)
+    if expanded_single_word is not None:
+        return expanded_single_word
     expanded = _expand_split_or_with_shared_head(names)
     if expanded is not None:
         return expanded
@@ -511,6 +529,20 @@ def _expand_split_or_with_shared_head(names: list[str]) -> list[str] | None:
     if not _is_single_word(head):
         return None
     return [" ".join([*left_tokens, head]), names[1]]
+
+
+def _expand_single_word_with_compound_head(names: list[str]) -> list[str] | None:
+    if len(names) != OR_SPLIT_TWO_NAMES:
+        return None
+    left, right = names
+    if (not _is_single_word(left)) or _is_single_word(right):
+        return None
+
+    right_tokens = right.split()
+    head = right_tokens[-1]
+    if _ascii_fold(head.casefold()) not in (_ascii_fold(suffix.casefold()) for suffix in COMPOUND_HEAD_SUFFIXES):
+        return None
+    return [f"{left} {head}", right]
 
 
 def _expand_segment_shared_head(chunks: list[str]) -> tuple[list[str], set[int]]:
@@ -677,8 +709,7 @@ def _add_pairs_from_latin_parenthetical_matches(
         return False
 
     has_non_organism_latin = _contains_non_organism_parenthetical(line) or any(
-        _is_non_organism_latin_phrase(latin)
-        for _, _, latin in latin_matches
+        _is_non_organism_latin_phrase(latin) for _, _, latin in latin_matches
     )
     previous_end = 0
     previous_names: list[str] = []
