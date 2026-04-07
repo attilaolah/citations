@@ -193,11 +193,59 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "J/+INCorS3G5O485igsfocx8LRwjRWiAmYw3MksL23g=",
-        "usagesDigest": "CcGTUul1ID/5rnHMZuNTSJMcgZXbSATcd9jTMj+hrWs=",
+        "usagesDigest": "sW/H+dC0sUQ3A6DnUKp8awJPZQRlb7x1GlM5vIbWi6w=",
         "recordedInputs": [
           "REPO_MAPPING:,bazel_tools bazel_tools"
         ],
         "generatedRepoSpecs": {
+          "fokozottan_vedett_izeltlabuak_0": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM",
+                "https://gateway.pinata.cloud/ipfs/QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM",
+                "https://dweb.link/ipfs/QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM"
+              ],
+              "sha256": "9aa21f63f555197021af53cdee84e1a6057749088ab1b0acdffb0df9fe522d39",
+              "downloaded_file_path": "downloaded"
+            }
+          },
+          "fokozottan_vedett_izeltlabuak_1": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy",
+                "https://gateway.pinata.cloud/ipfs/QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy",
+                "https://dweb.link/ipfs/QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy"
+              ],
+              "sha256": "8f71c7c6db40ff65aa25f70cb4fd37dbbdb1548884ece935549099fde9a1dac9",
+              "downloaded_file_path": "downloaded"
+            }
+          },
+          "magyar_novenynevek": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
+                "https://gateway.pinata.cloud/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
+                "https://dweb.link/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd"
+              ],
+              "sha256": "c43e20b8173caa7dd6eb60c85f8ec03cf3c9d3a30ad55e01b4eb9155800a0e1d",
+              "downloaded_file_path": "downloaded.htm"
+            }
+          },
+          "plant_names_in_hungarian_html": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "urls": [
+                "https://ipfs.io/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+                "https://gateway.pinata.cloud/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+                "https://dweb.link/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH"
+              ],
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "downloaded_file_path": "downloaded.asp"
+            }
+          },
           "alkalmazott_novenytan_1_2020": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -606,30 +654,6 @@
               "downloaded_file_path": "downloaded.pdf"
             }
           },
-          "magyar_novenynevek": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
-            "attributes": {
-              "urls": [
-                "https://ipfs.io/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
-                "https://gateway.pinata.cloud/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd",
-                "https://dweb.link/ipfs/QmSvWkv67jkUwE2hqSmzf7GaDx4gb1PRMP7bzxhx7wA2Pd"
-              ],
-              "sha256": "c43e20b8173caa7dd6eb60c85f8ec03cf3c9d3a30ad55e01b4eb9155800a0e1d",
-              "downloaded_file_path": "downloaded.htm"
-            }
-          },
-          "plant_names_in_hungarian_html": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
-            "attributes": {
-              "urls": [
-                "https://ipfs.io/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
-                "https://gateway.pinata.cloud/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
-                "https://dweb.link/ipfs/QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH"
-              ],
-              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "downloaded_file_path": "downloaded.asp"
-            }
-          },
           "latin_magyarorszagon_vedett_allatok": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -642,7 +666,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_a": {
+          "novenyek_magyar_latin_nepies_a": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -654,7 +678,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_b": {
+          "novenyek_magyar_latin_nepies_b": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -666,7 +690,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_c": {
+          "novenyek_magyar_latin_nepies_c": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -678,7 +702,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_d": {
+          "novenyek_magyar_latin_nepies_d": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -690,7 +714,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_e": {
+          "novenyek_magyar_latin_nepies_e": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -702,7 +726,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_f": {
+          "novenyek_magyar_latin_nepies_f": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -714,7 +738,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_g": {
+          "novenyek_magyar_latin_nepies_g": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -726,7 +750,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_h": {
+          "novenyek_magyar_latin_nepies_h": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -738,7 +762,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_i": {
+          "novenyek_magyar_latin_nepies_i": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -750,7 +774,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_j": {
+          "novenyek_magyar_latin_nepies_j": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -762,7 +786,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_k": {
+          "novenyek_magyar_latin_nepies_k": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -774,7 +798,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_l": {
+          "novenyek_magyar_latin_nepies_l": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -786,7 +810,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_m": {
+          "novenyek_magyar_latin_nepies_m": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -798,7 +822,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_n": {
+          "novenyek_magyar_latin_nepies_n": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -810,7 +834,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_o": {
+          "novenyek_magyar_latin_nepies_o": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -822,7 +846,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_oe": {
+          "novenyek_magyar_latin_nepies_oe": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -834,7 +858,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_p": {
+          "novenyek_magyar_latin_nepies_p": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -846,7 +870,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_r": {
+          "novenyek_magyar_latin_nepies_r": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -858,7 +882,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_s": {
+          "novenyek_magyar_latin_nepies_s": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -870,7 +894,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_sz": {
+          "novenyek_magyar_latin_nepies_sz": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -882,7 +906,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_t": {
+          "novenyek_magyar_latin_nepies_t": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -894,7 +918,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_u": {
+          "novenyek_magyar_latin_nepies_u": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -906,7 +930,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_ue": {
+          "novenyek_magyar_latin_nepies_ue": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -918,7 +942,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_v": {
+          "novenyek_magyar_latin_nepies_v": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -930,7 +954,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_w": {
+          "novenyek_magyar_latin_nepies_w": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -942,7 +966,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_x_y": {
+          "novenyek_magyar_latin_nepies_x_y": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -954,7 +978,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_z": {
+          "novenyek_magyar_latin_nepies_z": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -966,7 +990,7 @@
               "downloaded_file_path": "downloaded.php"
             }
           },
-          "wikibooks_novenyek_magyar_latin_nepies_zs": {
+          "novenyek_magyar_latin_nepies_zs": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "urls": [
@@ -1041,7 +1065,7 @@
     "@@rules_nixpkgs_core+//extensions:package.bzl%nix_pkg": {
       "general": {
         "bzlTransitiveDigest": "2alEQC7q9PgrArc8ZeI662VmDHLGfuswqnzBJvVDnmg=",
-        "usagesDigest": "cGT3SppdvB5I7NCbuEDQS2uX9jFK8raRCgYpNBfmdNs=",
+        "usagesDigest": "ys22CdYLeOBZEWqIUGpr485yVKLoVH15rMsPK7Em94U=",
         "recordedInputs": [
           "REPO_MAPPING:,nixpkgs rules_nixpkgs_core++nix_repo+nixpkgs",
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
@@ -1095,21 +1119,6 @@
               "fail_not_supported": true
             }
           },
-          "docling_parse": {
-            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
-            "attributes": {
-              "unmangled_name": "docling_parse",
-              "attribute_path": "",
-              "nix_file_deps": {},
-              "nix_file_content": "with import <nixpkgs> {}; python314Packages.\"docling-parse\"",
-              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
-              "repositories": {},
-              "build_file_content": "",
-              "nixopts": [],
-              "quiet": false,
-              "fail_not_supported": true
-            }
-          },
           "python": {
             "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
             "attributes": {
@@ -1125,6 +1134,21 @@
               "quiet": false,
               "fail_not_supported": true
             }
+          },
+          "docling_parse": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "docling_parse",
+              "attribute_path": "",
+              "nix_file_deps": {},
+              "nix_file_content": "with import <nixpkgs> {}; python314Packages.\"docling-parse\"",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file_content": "",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
           }
         },
         "moduleExtensionMetadata": {
@@ -1132,8 +1156,8 @@
             "docling",
             "gnparser",
             "libreoffice",
-            "docling_parse",
-            "python"
+            "python",
+            "docling_parse"
           ],
           "explicitRootModuleDirectDevDeps": [],
           "useAllRepos": "NO",
@@ -1144,7 +1168,7 @@
     "@@rules_nixpkgs_core+//extensions:repository.bzl%nix_repo": {
       "general": {
         "bzlTransitiveDigest": "dTTtWNdwe7E4j77oKh1mHI1qtdxfaVSGSZa1oPf2QjU=",
-        "usagesDigest": "TgZlfzJmk1Qpp/MzqcgPY9aBcFEaqn6AO+zHx9LJBFU=",
+        "usagesDigest": "/zIfuv1os9UXRsdMEz5xCeGNqIkPiXSFrgqtkJZKpRI=",
         "recordedInputs": [
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
         ],

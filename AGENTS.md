@@ -16,6 +16,7 @@
 ## Python
 
 - Use Python `3.14`.
+- Dynamic imports are not allowed.
 - Lint with `ruff check --target-version py314`; apply `--fix --unsafe-fixes` when needed.
 - Run `pyright` on changed Python code.
 - Run `pyupgrade` to adopt the newest syntax it supports.

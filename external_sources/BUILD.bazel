@@ -1,3 +1,43 @@
+load("//tools/extract:extract_pairs.bzl", "name_pairs")
+load("//tools/extract:name_pairs_gnparser_test.bzl", "name_pairs_gnparser_test")
+load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
+
 exports_files([
     "SRCS.MODULE.bazel",
+    "tests/fokozottan_vedett_izeltlabuak_0_pairs_test.samples.json",
+    "tests/fokozottan_vedett_izeltlabuak_1_pairs_test.samples.json",
 ])
+
+_FOKOZOTTAN_VEDETT_IZELTLABUAK_SUFFIXES = [
+    "0",
+    "1",
+]
+
+[
+    name_pairs(
+        name = "fokozottan_vedett_izeltlabuak_" + suffix + "_pairs",
+        src = "@fokozottan_vedett_izeltlabuak_" + suffix + "//file",
+        tool = "//tools/extract/enfo_hu:fokozottan_vedett_izeltlabuak",
+    )
+    for suffix in _FOKOZOTTAN_VEDETT_IZELTLABUAK_SUFFIXES
+]
+
+[
+    name_pairs_gnparser_test(
+        name = "fokozottan_vedett_izeltlabuak_" + suffix + "_pairs_gnparser_test",
+        src = ":fokozottan_vedett_izeltlabuak_" + suffix + "_pairs",
+    )
+    for suffix in _FOKOZOTTAN_VEDETT_IZELTLABUAK_SUFFIXES
+]
+
+name_pairs_test(
+    name = "fokozottan_vedett_izeltlabuak_0_pairs_test",
+    src = ":fokozottan_vedett_izeltlabuak_0_pairs",
+    samples = ":tests/fokozottan_vedett_izeltlabuak_0_pairs_test.samples.json",
+)
+
+name_pairs_test(
+    name = "fokozottan_vedett_izeltlabuak_1_pairs_test",
+    src = ":fokozottan_vedett_izeltlabuak_1_pairs",
+    samples = ":tests/fokozottan_vedett_izeltlabuak_1_pairs_test.samples.json",
+)
