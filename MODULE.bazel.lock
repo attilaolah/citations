@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "E4VJrO2Op5UfXvLs561mr/6oEiWbSuhCRGByIqidfys=",
-        "usagesDigest": "q0DWVyoagXnNfZorlIKBLCa4P5KIQY4b/8K1WSqD3c4=",
+        "usagesDigest": "+lyfbBwqYxdao2MgKipZkii7xPa9Fvv2bWk1ntRlYXM=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
@@ -673,11 +673,11 @@
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
               "urls": [
-                "https://ipfs.io/ipfs/QmdyKZd3Jt6goygVa8KPcMr4r695PkY7EV4qsEaeZDG1ru",
-                "https://gateway.pinata.cloud/ipfs/QmdyKZd3Jt6goygVa8KPcMr4r695PkY7EV4qsEaeZDG1ru",
-                "https://dweb.link/ipfs/QmdyKZd3Jt6goygVa8KPcMr4r695PkY7EV4qsEaeZDG1ru"
+                "https://ipfs.io/ipfs/Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC",
+                "https://gateway.pinata.cloud/ipfs/Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC",
+                "https://dweb.link/ipfs/Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC"
               ],
-              "sha256": "55bdfab55974eeb17fed40a98e146fe06d98afaf8719b589c0965eb92cbb1f3f"
+              "sha256": "235f5cf1b8c363dcd3d85574b96f4d99da9e91c8098463aad5fa5c0f39cbe7e6"
             }
           },
           "novenyek_magyar_latin_nepies_f": {
@@ -794,11 +794,11 @@
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
               "urls": [
-                "https://ipfs.io/ipfs/QmTJGUnVN55rLN2BxbiE1tMugvP6WfEc6BZ9FzGEBEhTGz",
-                "https://gateway.pinata.cloud/ipfs/QmTJGUnVN55rLN2BxbiE1tMugvP6WfEc6BZ9FzGEBEhTGz",
-                "https://dweb.link/ipfs/QmTJGUnVN55rLN2BxbiE1tMugvP6WfEc6BZ9FzGEBEhTGz"
+                "https://ipfs.io/ipfs/QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S",
+                "https://gateway.pinata.cloud/ipfs/QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S",
+                "https://dweb.link/ipfs/QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S"
               ],
-              "sha256": "76b63c4f466e7fdb9cc615dd5674a8e8d18691ef918d3f0854b8c880e93a1319"
+              "sha256": "0d309061b48ece0f958e0d031c53db43dd6d861ec7ed0d16d9f7f8318b0548b9"
             }
           },
           "novenyek_magyar_latin_nepies_p": {
