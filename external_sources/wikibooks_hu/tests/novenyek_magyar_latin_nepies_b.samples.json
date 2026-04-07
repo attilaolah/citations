@@ -1,3 +1,23 @@
 {
-  "Abies balsamea": ["Balzsamfenyő"]
+  "Abies balsamea": [
+    "Balzsamfenyő"
+  ],
+  "Anemone nemorosa": [
+    "áprilisi virág",
+    "berekvirág",
+    "berki kökörcsin",
+    "berki szellőrózsa",
+    "fehér boglárvirág",
+    "fehér húsvét",
+    "fehér kukkvirág",
+    "fehér nyiralja",
+    "fehér pipacs",
+    "kikeleti fű",
+    "patácz",
+    "pipacskökörcsin",
+    "reszketeg",
+    "szellőrózsa",
+    "szélrózsa",
+    "tavaszi pipacs"
+  ]
 }

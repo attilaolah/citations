@@ -7,6 +7,8 @@ from pathlib import Path
 
 from lxml import html
 
+from tools.extract.known_typos import normalize_known_hungarian_typo
+
 LATIN_ALLOWED_RE = re.compile(r"^[A-Za-z .-]+$")
 LATIN_WORD_RE = re.compile(r"^[a-z][a-z-]*$")
 LATIN_GENUS_RE = re.compile(r"^[A-Z][a-z-]+$")
@@ -78,7 +80,7 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
         if len(columns) < MIN_COLUMN_COUNT:
             continue
 
-        hungarian = _normalized_text(columns[1].text_content())
+        hungarian = normalize_known_hungarian_typo(_normalized_text(columns[1].text_content()))
         latin = _normalized_latin(columns[2].text_content())
         if not hungarian or not latin:
             continue

@@ -8,6 +8,8 @@ import unicodedata
 from itertools import starmap
 from pathlib import Path
 
+from tools.extract.known_typos import normalize_known_hungarian_typo
+
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
 LATIN_PAREN_LINK_BROKEN_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*''")
@@ -43,7 +45,24 @@ PAIR_OR_RE = re.compile(
     r"^\s*(?P<left>[^\W\d_]+(?:-[^\W\d_]+)*)\s+vagy\s+(?P<right>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
     flags=re.IGNORECASE | re.UNICODE,
 )
+PAIR_LEFT_OR_ALT_HEAD_RE = re.compile(
+    r"^\s*(?P<left>[^\W\d_]+(?:-[^\W\d_]+)*)\s+vagy\s+"
+    r"(?P<alt>[^\W\d_]+(?:-[^\W\d_]+)*)\s+(?P<head>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
+    flags=re.IGNORECASE | re.UNICODE,
+)
+LEADING_OR_SINGLE_RE = re.compile(
+    r"^\s*vagy\s+(?P<right>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
+    flags=re.IGNORECASE | re.UNICODE,
+)
+HYPHENATED_OR_RE = re.compile(
+    r"^\s*(?P<left>[^\W\d_]+(?:-[^\W\d_]+)*)-\s+vagy\s+(?P<right>[^\W\d_]+(?:-[^\W\d_]+)*)\s*$",
+    flags=re.IGNORECASE | re.UNICODE,
+)
 PLANT_SUFFIXES = ("fa",)
+COMPOUND_HEAD_SUFFIXES = ("fű", "gyökér", "levél", "madárlép", "pipacs", "virág")
+PREFIX_CARRY_ADJECTIVES = {"fekete"}
+PREFIX_CARRY_PARTS = 2
+COMPOUND_PREFIX_ADJECTIVES = ("édes",)
 LEVENSHTEIN_MAX_DISTANCE = 2
 
 
@@ -72,6 +91,9 @@ def _replace_links_with_values(text: str) -> str:
 
 
 def _is_latin_like(value: str) -> bool:
+    raw_tokens = _tokenize_latin_candidate(value)
+    if not _raw_tokens_have_ascii_species(raw_tokens):
+        return False
     normalized = _normalize_latin_candidate(value)
     if normalized is None:
         return False
@@ -79,19 +101,19 @@ def _is_latin_like(value: str) -> bool:
     if not candidate:
         return False
     parts = candidate.split()
-    if len(parts) < MIN_LATIN_PARTS:
+    if len(parts) < MIN_LATIN_PARTS or parts[0][0].islower() or (ASCII_TOKEN_RE.fullmatch(parts[0]) is None):
         return False
-    if parts[0][0].islower() or (ASCII_TOKEN_RE.fullmatch(parts[0]) is None):
-        return False
-    for part in parts[1:]:
-        if part.casefold() in LATIN_RANK_MARKERS:
-            continue
-        part_ascii = "".join(
-            char for char in unicodedata.normalize("NFKD", part.casefold()) if not unicodedata.combining(char)
-        )
-        if ASCII_TOKEN_RE.fullmatch(part_ascii) is None:
-            return False
-    return True
+    return all(
+        (part.casefold() in LATIN_RANK_MARKERS) or ((ASCII_TOKEN_RE.fullmatch(part) is not None) and part[0].islower())
+        for part in parts[1:]
+    )
+
+
+def _raw_tokens_have_ascii_species(tokens: list[str]) -> bool:
+    return all(
+        (token.casefold() in LATIN_RANK_MARKERS) or (ASCII_TOKEN_RE.fullmatch(token) is not None)
+        for token in tokens[1:]
+    )
 
 
 def _ascii_fold(value: str) -> str:
@@ -259,7 +281,8 @@ def _names_from_tail(tail: str) -> list[str]:
 
 def _clean_tail_fragment(value: str) -> str:
     cleaned = " ".join(value.split()).strip(" .:!?()[]{}-'\"")
-    return re.sub(r"^(?:fokozottan\s+)?védett!?\s*[-\u2013]\s*", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"^(?:fokozottan\s+)?védett!?\s*[-\u2013]\s*", "", cleaned, flags=re.IGNORECASE)
+    return normalize_known_hungarian_typo(cleaned)
 
 
 def _expand_prefix_grouping(chunks: list[str]) -> tuple[list[str], set[int]]:
@@ -279,15 +302,50 @@ def _expand_prefix_grouping(chunks: list[str]) -> tuple[list[str], set[int]]:
         head = pair_match.group("head")
         names.extend([f"{prefix} {head}", f"{left} {head}", f"{alt} {head}"])
         consumed_indexes.update({index, index + 1})
+
+    for index in range(1, len(chunks)):
+        if index in consumed_indexes:
+            continue
+        expanded = _expand_prefix_carry_pair(chunks[index - 1], chunks[index])
+        if expanded is not None:
+            names.extend(expanded)
+            consumed_indexes.add(index)
+
+        if index in consumed_indexes:
+            continue
+        expanded = _expand_truncated_head_pair(chunks[index - 1], chunks[index])
+        if expanded is not None:
+            names.extend(expanded)
+            consumed_indexes.add(index)
+
     return names, consumed_indexes
 
 
 def _names_from_chunk(chunk: str) -> list[str]:
+    left_or_head_match = PAIR_LEFT_OR_ALT_HEAD_RE.fullmatch(chunk)
+    if left_or_head_match is not None:
+        return [
+            f"{left_or_head_match.group('left')} {left_or_head_match.group('head')}",
+            f"{left_or_head_match.group('alt')} {left_or_head_match.group('head')}",
+        ]
+
+    hyphenated_match = HYPHENATED_OR_RE.fullmatch(chunk)
+    if hyphenated_match is not None:
+        maybe_hyphenated = _expand_hyphenated_or(
+            hyphenated_match.group("left"),
+            hyphenated_match.group("right"),
+        )
+        if maybe_hyphenated is not None:
+            return maybe_hyphenated
+
     pair_match = PAIR_OR_RE.fullmatch(chunk)
     if pair_match is not None:
         maybe_expanded = _expand_vagy_pair_suffix(pair_match.group("left"), pair_match.group("right"))
         if maybe_expanded is not None:
             return maybe_expanded
+        maybe_compound = _expand_left_or_compound_head(pair_match.group("left"), pair_match.group("right"))
+        if maybe_compound is not None:
+            return maybe_compound
 
     names: list[str] = []
     for part in OR_SPLIT_RE.split(chunk):
@@ -339,11 +397,96 @@ def _expand_vagy_pair_suffix(left: str, right: str) -> list[str] | None:
     return None
 
 
+def _expand_hyphenated_or(left: str, right: str) -> list[str] | None:
+    left_clean = _clean_tail_fragment(left)
+    right_clean = _clean_tail_fragment(right)
+    if (not _is_single_word(left_clean)) or (not _is_single_word(right_clean)):
+        return None
+
+    right_folded = _ascii_fold(right_clean.casefold())
+    for prefix in COMPOUND_PREFIX_ADJECTIVES:
+        prefix_folded = _ascii_fold(prefix.casefold())
+        if not right_folded.startswith(prefix_folded):
+            continue
+
+        suffix = right_clean[len(prefix) :]
+        if (not suffix) or (_is_single_word(suffix) is False):
+            continue
+
+        separator = " " if left_clean.casefold().endswith("i") else ""
+        return [left_clean + separator + suffix, right_clean]
+
+    return None
+
+
+def _expand_left_or_compound_head(left: str, right: str) -> list[str] | None:
+    left_clean = _clean_tail_fragment(left)
+    right_clean = _clean_tail_fragment(right)
+    if (not _is_single_word(left_clean)) or (not _is_single_word(right_clean)):
+        return None
+
+    right_folded = _ascii_fold(right_clean.casefold())
+    for suffix in COMPOUND_HEAD_SUFFIXES:
+        suffix_folded = _ascii_fold(suffix.casefold())
+        if (not right_folded.endswith(suffix_folded)) or (right_folded == suffix_folded):
+            continue
+        separator = " " if left_clean.casefold().endswith("i") else ""
+        return [left_clean + separator + right_clean[-len(suffix) :], right_clean]
+
+    return None
+
+
+def _expand_prefix_carry_pair(previous: str, current: str) -> list[str] | None:
+    previous_tokens = previous.split()
+    if len(previous_tokens) != PREFIX_CARRY_PARTS:
+        return None
+
+    prefix = previous_tokens[0]
+    if _ascii_fold(prefix.casefold()) not in PREFIX_CARRY_ADJECTIVES:
+        return None
+
+    pair_match = PAIR_OR_RE.fullmatch(current)
+    if pair_match is None:
+        return None
+
+    left = _clean_tail_fragment(pair_match.group("left"))
+    right = _clean_tail_fragment(pair_match.group("right"))
+    if (not _is_single_word(left)) or (not _is_single_word(right)):
+        return None
+
+    return [f"{prefix} {left}", f"{prefix} {right}"]
+
+
+def _expand_truncated_head_pair(previous: str, current: str) -> list[str] | None:
+    leading_or = LEADING_OR_SINGLE_RE.fullmatch(current)
+    if leading_or is None:
+        return None
+
+    previous_clean = _clean_tail_fragment(previous)
+    right = _clean_tail_fragment(leading_or.group("right"))
+    if (not _is_single_word(previous_clean)) or (not _is_single_word(right)):
+        return None
+
+    previous_folded = _ascii_fold(previous_clean.casefold())
+    for suffix in COMPOUND_HEAD_SUFFIXES:
+        if not previous_folded.endswith(_ascii_fold(suffix)):
+            continue
+        stem_len = len(previous_clean) - len(suffix)
+        if stem_len <= 0:
+            return None
+        return [previous_clean[:stem_len] + right]
+
+    return None
+
+
 def _is_acceptable_vernacular(value: str) -> bool:
     folded_tokens = re.findall(r"[^\W\d_]+", _ascii_fold(value.casefold()), flags=re.UNICODE)
     return (
         bool(value)
         and (re.search(r"[^\W\d_]", value, flags=re.UNICODE) is not None)
+        and (re.search(r"\s[\u2013-]\s", value, flags=re.UNICODE) is None)
+        and (re.search(r"[()]", value, flags=re.UNICODE) is None)
+        and (re.search(r"[\u2013-]\s*$", value, flags=re.UNICODE) is None)
         and (not _is_latin_like(value))
         and not any(token in NON_ORGANISM_SUFFIXES for token in folded_tokens)
         and value.casefold() not in NON_NAME_TAIL_TOKENS

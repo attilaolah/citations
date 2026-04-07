@@ -9,7 +9,10 @@ py_binary(
 
 py_binary(
     name = "novenyek_magyar_latin_nepies",
-    srcs = ["novenyek_magyar_latin_nepies.py"],
+    srcs = [
+        "novenyek_magyar_latin_nepies.py",
+        "//tools/extract:known_typos.py",
+    ],
     main = "novenyek_magyar_latin_nepies.py",
     visibility = ["//visibility:public"],
 )

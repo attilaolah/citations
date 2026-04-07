@@ -112,6 +112,7 @@ sources.external_source(
 
 ## TODO:
 # https://mek.oszk.hu/07700/07707/07707.pdf
+# https://www.mezogazdasagikonyvtar.hu/assets/digitarchiv/NAGYLAKI-Novenytani-szotar_1942_OCR.pdf
 
 [use_repo(sources, ALKALMAZOTT_NOVENYTAN_PUBLICATION_NAMES[cid]) for cid, _, _ in ALKALMAZOTT_NOVENYTAN_PUBLICATIONS]
 

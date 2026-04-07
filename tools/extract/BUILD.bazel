@@ -5,6 +5,7 @@ exports_files(
         "extract_pairs.bzl",
         "global_names.bzl",
         "global_names.py",
+        "known_typos.py",
         "name_pairs_clean.bzl",
         "name_pairs_clean.py",
         "name_pairs_completeness_test.bzl",
@@ -38,7 +39,10 @@ py_binary(
 
 py_binary(
     name = "plant_names_in_hungarian",
-    srcs = ["plant_names_in_hungarian.py"],
+    srcs = [
+        "known_typos.py",
+        "plant_names_in_hungarian.py",
+    ],
     main = "plant_names_in_hungarian.py",
     visibility = ["//visibility:public"],
 )
