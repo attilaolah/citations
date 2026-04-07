@@ -1,0 +1,26 @@
+load("//tools/extract:extract_pairs.bzl", "name_pairs")
+
+PAGES = {
+    "fokozottan_vedett_izeltlabuak": 2,
+}
+
+SAMPLES = [
+    "tests/%s_%d.samples.json" % (name, page)
+    for (name, pages) in PAGES.items()
+    for page in range(pages)
+]
+
+exports_files(SAMPLES + [
+    "SRCS.MODULE.bazel",
+])
+
+[
+    name_pairs(
+        name = "%s_%d_pairs" % (name, page),
+        src = "@%s_%d//file" % (name, page),
+        samples = SAMPLES[i],
+        tool = "//tools/extract:enfo_hu",
+    )
+    for name, pages in PAGES.items()
+    for i, page in enumerate(range(pages))
+]

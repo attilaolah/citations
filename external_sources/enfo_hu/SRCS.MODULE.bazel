@@ -1,0 +1,24 @@
+sources = use_extension("//tools:source_extensions.bzl", "sources")
+
+PAGES = {
+    ("fokozottan_vedett_izeltlabuak", 8058): [
+        ("QmNNJVqDaLvwxD4xRWqnP29MPYJ1Hvspvjkn7NoLNJ1GKM", "9aa21f63f555197021af53cdee84e1a6057749088ab1b0acdffb0df9fe522d39"),
+        ("QmXhxWkFKHxYBAUuhevoiDNQ8UK3XHbe3wbJvDoETUEesy", "8f71c7c6db40ff65aa25f70cb4fd37dbbdb1548884ece935549099fde9a1dac9"),
+    ],
+}
+
+[[
+    sources.external_source(
+        name = "%s_%d" % (name, page),
+        ipfs_cid = cid,
+        sha256 = sha256,
+        updated_on = "2026-04-06",
+        url = "https://enfo.hu/keptar/%d?page=%d" % (id, page),
+    )
+    for page, (cid, sha256) in enumerate(contents)
+] for (name, id), contents in PAGES.items()]
+
+[
+    [use_repo(sources, "%s_%d" % (name, page)) for page in range(len(contents))]
+    for (name, id), contents in PAGES.items()
+]

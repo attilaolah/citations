@@ -53,5 +53,6 @@ use_repo(nix_pkg, "docling", "docling_parse", "gnparser", "libreoffice", "python
 register_toolchains("//tools/python:python_3_14_toolchain")
 
 include("//external_sources:SRCS.MODULE.bazel")
+include("//external_sources/enfo_hu:SRCS.MODULE.bazel")
 include("//external_sources/publications:SRCS.MODULE.bazel")
 include("//external_sources/wikibooks_hu:SRCS.MODULE.bazel")

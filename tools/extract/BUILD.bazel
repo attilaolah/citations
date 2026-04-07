@@ -1,3 +1,5 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
 exports_files(
     [
         "extract_pairs.bzl",
@@ -6,4 +8,11 @@ exports_files(
         "name_pairs_test.bzl",
     ],
     visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "enfo_hu",
+    srcs = ["enfo_hu.py"],
+    main = "enfo_hu.py",
+    visibility = ["//external_sources/enfo_hu:__pkg__"],
 )
