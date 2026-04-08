@@ -1,3 +1,5 @@
+"""Macros and rules for extracting, cleaning, and testing name-pair datasets."""
+
 load("//tools/extract:global_names.bzl", "global_names")
 load("//tools/extract:name_pairs_clean.bzl", "name_pairs_clean")
 load("//tools/extract:name_pairs_completeness_test.bzl", "name_pairs_completeness_test")
@@ -47,6 +49,16 @@ _name_pairs = rule(
 )
 
 def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
+    """Build extraction output and companion validation targets for one source file.
+
+    Args:
+      name: Base name for generated targets.
+      src: Label of the source input file to process.
+      tool: Executable label used to extract raw name pairs.
+      samples: Optional sample fixture label for `name_pairs_test`.
+      ignore: Optional ignore-list label for completeness checks.
+      **kwargs: Extra attributes forwarded to the underlying extraction rule.
+    """
     _name_pairs(
         name = name,
         src = src,

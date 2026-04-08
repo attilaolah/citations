@@ -1,3 +1,5 @@
+"""Macro for sample-based validation tests over extracted name-pair outputs."""
+
 load("@rules_python//python:defs.bzl", "py_test")
 
 def name_pairs_test(name, src, samples, **kwargs):

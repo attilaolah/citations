@@ -1,3 +1,5 @@
+"""Rule for cleaning extracted name pairs with gnparser-backed normalization."""
+
 def _name_pairs_clean_impl(ctx):
     src = ctx.file.src
     python_bin = ctx.file._python

@@ -1,3 +1,5 @@
+"""Macro for validating known homonyms against cleaned name-pair artifacts."""
+
 load("@rules_python//python:defs.bzl", "py_test")
 
 def known_homonyms_test(name, clean_jsons, known_homonyms, **kwargs):

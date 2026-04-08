@@ -1,3 +1,5 @@
+"""Bzlmod extension for external source repositories and URL manifests."""
+
 _BUILD = """\
 package(default_visibility = ["//visibility:public"])
 

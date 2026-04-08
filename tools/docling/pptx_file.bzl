@@ -1,3 +1,5 @@
+"""Rule for converting legacy PPT files to PPTX via LibreOffice."""
+
 def _pptx_file_impl(ctx):
     src = ctx.file.src
     out = ctx.actions.declare_file(ctx.label.name + ".pptx")

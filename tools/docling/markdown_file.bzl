@@ -1,3 +1,5 @@
+"""Rule for extracting normalized Markdown from document files via Docling."""
+
 load("//tools/docling/models:models.bzl", "ModelsInfo")
 
 def _markdown_file_impl(ctx):

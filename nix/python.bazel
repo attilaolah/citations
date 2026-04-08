@@ -1,3 +1,5 @@
+"""Exposes Python executables from the Nix-provisioned toolchain."""
+
 package(default_visibility = ["//visibility:public"])
 
 exports_files([

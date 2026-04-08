@@ -1,3 +1,5 @@
+"""Exposes the gnfinder binary from the Nix-provisioned toolchain."""
+
 package(default_visibility = ["//visibility:public"])
 
 exports_files(["bin/gnfinder"])

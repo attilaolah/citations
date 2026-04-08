@@ -1,3 +1,5 @@
+"""Rule for building a DuckDB database from Catalogue of Life exports."""
+
 def _col_name_db_impl(ctx):
     name_usage = ctx.file.name_usage
     duckdb_bin = ctx.file._duckdb

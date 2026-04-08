@@ -1,6 +1,17 @@
+"""Macro for testing cleaned name pairs against globally extracted names."""
+
 load("@rules_python//python:defs.bzl", "py_test")
 
 def name_pairs_completeness_test(name, clean, global_names, ignore = None, **kwargs):
+    """Defines a py_test that checks cleaned pairs cover expected global names.
+
+    Args:
+      name: Name of the generated test target.
+      clean: Label for the cleaned name-pairs artifact.
+      global_names: Label for the extracted global-names artifact.
+      ignore: Optional label with names that should be ignored.
+      **kwargs: Extra attributes forwarded to the underlying py_test.
+    """
     data = [
         clean,
         global_names,

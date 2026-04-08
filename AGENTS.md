@@ -3,7 +3,7 @@
 ## Formatting
 
 - Format all Nix files with `alejandra`.
-- Check all Bazel files with `buildifier --warnings=all`, then fix issues with `buildifier --warnings=all --lint=fix`.
+- Check all `.bzl`/`.bazel` files with `buildifier --lint=warn --warnings=all`, then fix issues with `buildifier --warnings=all --lint=fix`.
 - Format Markdown files with `prettier`.
 - Format Python files with `black` (not `ruff format`).
 

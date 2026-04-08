@@ -1,3 +1,5 @@
+"""Rule for extracting global scientific names from source publication content."""
+
 def _global_names_impl(ctx):
     src = ctx.file.src
     gnfinder = ctx.file.gnfinder

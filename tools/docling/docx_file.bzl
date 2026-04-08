@@ -1,3 +1,5 @@
+"""Rule for converting legacy DOC files to DOCX via LibreOffice."""
+
 def _docx_file_impl(ctx):
     src = ctx.file.src
     out = ctx.actions.declare_file(ctx.label.name + ".docx")

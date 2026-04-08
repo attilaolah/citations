@@ -1,3 +1,5 @@
+"""Rule for downloading and exposing Docling model artifacts for builds."""
+
 ModelsInfo = provider(
     doc = "Directory containing Docling model artifacts.",
     fields = {
