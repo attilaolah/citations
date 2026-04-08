@@ -1,9 +1,8 @@
-load("@rules_python//python:defs.bzl", "py_runtime", "py_runtime_pair")
+load("@rules_python//python:defs.bzl", "py_library", "py_runtime", "py_runtime_pair")
 
 py_runtime(
     name = "python_3_14_runtime",
     interpreter = "@python//:bin/python",
-    python_version = "PY3",
 )
 
 py_runtime_pair(
@@ -15,5 +14,12 @@ toolchain(
     name = "python_3_14_toolchain",
     toolchain = ":python_3_14_runtime_pair",
     toolchain_type = "@rules_python//python:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "nix_site_packages",
+    data = ["@python//:site_packages_files"],
+    imports = ["rules_nixpkgs_core++nix_pkg+python/lib/python3.14/site-packages"],
     visibility = ["//visibility:public"],
 )

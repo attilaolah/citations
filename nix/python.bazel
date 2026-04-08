@@ -7,3 +7,8 @@ exports_files([
     "bin/python3",
     "bin/pytest",
 ])
+
+filegroup(
+    name = "site_packages_files",
+    srcs = glob(["lib/python3.14/site-packages/**"]),
+)

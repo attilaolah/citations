@@ -5,9 +5,12 @@ description = "Citations of scientific and vernacular names"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+  "duckdb-engine",
+  "levenshtein",
   "lxml",
   "pydantic",
   "pytest",
+  "sqlalchemy",
 ]
 
 [tool.black]

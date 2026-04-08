@@ -1,8 +1,29 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
 exports_files(
     [
         "col_db.bzl",
         "import.sql.tpl",
+        "lookup.py",
+        "lookup_test.py",
         "schema.sql",
     ],
     visibility = ["//external_sources/col:__pkg__"],
+)
+
+py_library(
+    name = "lookup",
+    srcs = ["lookup.py"],
+    visibility = ["//visibility:public"],
+    deps = ["//tools/python:nix_site_packages"],
+)
+
+py_test(
+    name = "lookup_test",
+    srcs = ["lookup_test.py"],
+    main = "lookup_test.py",
+    deps = [
+        ":lookup",
+        "//tools/python:nix_site_packages",
+    ],
 )
