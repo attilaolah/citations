@@ -27,7 +27,10 @@ py_binary(
 
 py_binary(
     name = "name_pairs_clean_tool",
-    srcs = ["name_pairs_clean.py"],
+    srcs = [
+        "known_typos.py",
+        "name_pairs_clean.py",
+    ],
     main = "name_pairs_clean.py",
     visibility = ["//visibility:public"],
 )

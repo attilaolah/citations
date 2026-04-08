@@ -8,6 +8,8 @@ from pathlib import Path
 import pytest
 from pydantic import BaseModel, TypeAdapter
 
+from tools.extract.known_typos import normalize_hungarian_light_canonical
+
 
 class VernacularName(BaseModel):
     """Vernacular value emitted by the clean pairs pipeline."""
@@ -31,7 +33,7 @@ def _load_known_homonyms(path: Path) -> set[str]:
     for raw_line in path.read_text(encoding="utf-8").splitlines():
         stripped = raw_line.split("#", 1)[0].strip()
         if stripped:
-            known.add(stripped)
+            known.add(normalize_hungarian_light_canonical(stripped))
     return known
 
 
@@ -43,7 +45,11 @@ def _clean_paths() -> list[Path]:
 
 
 def _name_key(name: VernacularName) -> str:
-    return name.canonical or name.verbatim
+    return normalize_hungarian_light_canonical(name.canonical or name.verbatim)
+
+
+def _is_valid_homonym_name(name: str) -> bool:
+    return ("." not in name) and (":" not in name)
 
 
 @pytest.fixture(scope="session")
@@ -76,7 +82,10 @@ def test_homonyms_are_known(
             if not vernacular:
                 continue
             for name in vernacular.get("hu", []):
-                by_vernacular[_name_key(name)][entry.normalized].add(source_path)
+                vernacular_name = _name_key(name)
+                if not _is_valid_homonym_name(vernacular_name):
+                    continue
+                by_vernacular[vernacular_name][entry.normalized].add(source_path)
 
     unexpected = {
         vernacular: scientific_to_files
@@ -90,6 +99,14 @@ def test_homonyms_are_known(
             details.append(f"  - {scientific_name}")
             details.extend(f"    - {path}" for path in sorted(paths))
     assert not details, "Unexpected homonyms in Hungarian vernacular names:\n" + "\n".join(details)
+
+    actual_homonyms = {
+        vernacular for vernacular, scientific_to_files in by_vernacular.items() if len(scientific_to_files) > 1
+    }
+    unnecessary = sorted(known_homonyms - actual_homonyms)
+    assert not unnecessary, "Known homonyms file contains unnecessary entries (not homonyms anymore):\n" + "\n".join(
+        unnecessary,
+    )
 
 
 if __name__ == "__main__":

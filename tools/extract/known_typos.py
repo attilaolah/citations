@@ -30,6 +30,7 @@ KNOWN_COMPOUND_PARTS = 2
 
 SAINT_PREFIX_RE = re.compile(r"^(?:szt\.?|szent)[\s\-.]*", flags=re.IGNORECASE)
 NON_WORD_SEPARATOR_RE = re.compile(r"[\s-]+")
+VENUS_WORD_RE = re.compile(r"(?<!\w)venus(?!\w)")
 
 
 def normalize_known_hungarian_typo(value: str) -> str:
@@ -63,7 +64,18 @@ def normalize_hungarian_canonical(value: str) -> str:
     normalized = _normalize_saint_prefix(normalized)
     canonical = normalized.casefold()
     canonical = _join_known_compounds(canonical)
-    return _restore_hyphenated_proper_prefix(canonical)
+    canonical = _restore_hyphenated_proper_prefix(canonical)
+    return VENUS_WORD_RE.sub("Venus", canonical)
+
+
+def normalize_hungarian_light_canonical(value: str) -> str:
+    """Return lightweight canonical Hungarian vernacular normalization.
+
+    Returns:
+        Lower-cased, whitespace-normalized value with Venus proper-noun fix.
+    """
+    canonical = " ".join(value.split()).casefold()
+    return VENUS_WORD_RE.sub("Venus", canonical)
 
 
 def _normalize_saint_prefix(value: str) -> str:

@@ -39,8 +39,30 @@ NON_NAME_TAIL_MARKERS = {
 NON_NAME_LAST_TOKEN_SUFFIXES = {
     "novenynek",
 }
+NON_NAME_SINGLE_TOKENS = {
+    "arany",
+    "barna",
+    "bibor",
+    "bordo",
+    "edes",
+    "erdei",
+    "ezust",
+    "feher",
+    "fekete",
+    "kek",
+    "kis",
+    "lila",
+    "nagy",
+    "narancs",
+    "piros",
+    "sarga",
+    "szurke",
+    "vad",
+    "voros",
+    "zold",
+}
+NON_ORGANISM_SEGMENT_RE = re.compile(r"\b([^\s,;()]+)\s*\(([^)]*)\)")
 NON_ORGANISM_SUFFIXES = {"anthodium", "flos", "folium", "fructus", "herba", "radix", "semen"}
-FORBIDDEN_LATIN_LAST_TOKENS = {"flos", "radix"}
 LATIN_SEPARATOR_TOKENS = {"es", "illetve", "syn", "vagy", "és"}
 WORD_TOKEN_RE = re.compile(r"^[^\W\d_]+(?:-[^\W\d_]+)*$", re.UNICODE)
 PAIR_WITH_HEAD_RE = re.compile(
@@ -76,14 +98,16 @@ COMPOUND_HEAD_SUFFIXES = (
     "levél",
     "madárlép",
     "pipacs",
+    "rózsa",
     "virág",
 )
-SEGMENT_SHARED_HEADS = {"jegenye", "fenyő", "meggy", "pemetefű"}
+SEGMENT_SHARED_HEADS = {"ebszőlő", "jegenye", "fenyő", "meggy", "pemetefű"}
 PREFIX_CARRY_ADJECTIVES = {"fekete"}
 PREFIX_CARRY_PARTS = 2
 OR_SPLIT_TWO_NAMES = 2
 COMPOUND_PREFIX_ADJECTIVES = ("édes",)
 LEVENSHTEIN_MAX_DISTANCE = 2
+REPEATED_HEAD_PARTS = 4
 
 
 def _strip_markup(text: str) -> str:
@@ -175,8 +199,6 @@ def _append_latin_token(latin_tokens: list[str], token: str) -> bool:
         if token_folded_ascii in LATIN_RANK_MARKERS:
             latin_tokens.append(token_folded_ascii if token.endswith(".") else token_folded_ascii.removesuffix("."))
             appended = True
-        elif token_folded_ascii in NON_ORGANISM_SUFFIXES:
-            appended = False
         elif ASCII_TOKEN_RE.fullmatch(token_folded_ascii) and token_folded_ascii[0].islower():
             latin_tokens.append(token_folded_ascii)
             appended = True
@@ -199,8 +221,6 @@ def _normalize_latin_candidate(raw: str) -> str | None:
             break
 
     if len(latin_tokens) < MIN_LATIN_PARTS:
-        return None
-    if latin_tokens[-1].casefold() in FORBIDDEN_LATIN_LAST_TOKENS:
         return None
     return " ".join(latin_tokens)
 
@@ -287,6 +307,7 @@ def _names_from_links(line: str, *, letter_links_only: bool, exclude_latin_like:
 
 
 def _names_from_tail(tail: str) -> list[str]:
+    tail = _strip_non_organism_parenthetical_segments(tail)
     tail = re.sub(r"<ref[^>]*>.*?</ref>", " ", tail, flags=re.IGNORECASE | re.DOTALL)
     tail = _strip_markup(_replace_links_with_values(tail))
     names: list[str] = []
@@ -303,7 +324,7 @@ def _names_from_tail(tail: str) -> list[str]:
             if index in consumed_indexes:
                 continue
             names.extend(_names_from_chunk(chunk))
-    return names
+    return [name for name in names if _is_final_vernacular(name)]
 
 
 def _clean_tail_fragment(value: str) -> str:
@@ -382,6 +403,10 @@ def _names_from_split_chunk(chunk: str) -> list[str]:
         value = _clean_tail_fragment(part)
         if _is_acceptable_vernacular(value):
             names.append(value)
+    expanded_names: list[str] = []
+    for value in names:
+        expanded_names.extend(_split_repeated_head_phrase(value))
+    names = expanded_names
     expanded_single_word = _expand_single_word_with_compound_head(names)
     if expanded_single_word is not None:
         return expanded_single_word
@@ -393,6 +418,19 @@ def _names_from_split_chunk(chunk: str) -> list[str]:
 
 def _is_single_word(value: str) -> bool:
     return WORD_TOKEN_RE.fullmatch(value) is not None
+
+
+def _split_repeated_head_phrase(value: str) -> list[str]:
+    tokens = value.split()
+    if len(tokens) != REPEATED_HEAD_PARTS:
+        return [value]
+    if tokens[1].casefold() != tokens[3].casefold():
+        return [value]
+    left = f"{tokens[0]} {tokens[1]}"
+    right = f"{tokens[2]} {tokens[3]}"
+    if (not _is_acceptable_vernacular(left)) or (not _is_acceptable_vernacular(right)):
+        return [value]
+    return [left, right]
 
 
 def _levenshtein_distance(left: str, right: str) -> int:
@@ -451,6 +489,11 @@ def _expand_hyphenated_or(left: str, right: str) -> list[str] | None:
 
         separator = " " if left_clean.casefold().endswith("i") else ""
         return [left_clean + separator + suffix, right_clean]
+
+    inferred_head = _infer_head_from_single_token(right_clean)
+    if inferred_head is not None:
+        separator = " " if left_clean.casefold().endswith("i") else ""
+        return [left_clean + separator + inferred_head, right_clean]
 
     return None
 
@@ -542,6 +585,8 @@ def _expand_single_word_with_compound_head(names: list[str]) -> list[str] | None
     head = right_tokens[-1]
     if _ascii_fold(head.casefold()) not in (_ascii_fold(suffix.casefold()) for suffix in COMPOUND_HEAD_SUFFIXES):
         return None
+    if _ascii_fold(left.casefold()).endswith(_ascii_fold(head.casefold())):
+        return [left, right]
     return [f"{left} {head}", right]
 
 
@@ -561,7 +606,12 @@ def _expand_segment_shared_head(chunks: list[str]) -> tuple[list[str], set[int]]
             continue
         if not _is_acceptable_vernacular(chunk):
             continue
-        names.append(f"{chunk} {head}")
+        chunk_folded = _ascii_fold(chunk.casefold())
+        head_folded = _ascii_fold(head.casefold())
+        if chunk_folded.endswith(head_folded):
+            names.append(chunk)
+        else:
+            names.append(f"{chunk} {head}")
         consumed.add(index)
     return names, consumed
 
@@ -629,6 +679,11 @@ def _is_acceptable_vernacular(value: str) -> bool:
     )
 
 
+def _is_final_vernacular(value: str) -> bool:
+    folded_tokens = re.findall(r"[^\W\d_]+", _ascii_fold(value.casefold()), flags=re.UNICODE)
+    return not (len(folded_tokens) == 1 and folded_tokens[0] in NON_NAME_SINGLE_TOKENS)
+
+
 def _is_title_case_foreign_phrase(value: str) -> bool:
     tokens = value.split()
     if len(tokens) < MIN_LATIN_PARTS:
@@ -650,11 +705,29 @@ def _contains_non_organism_parenthetical(line: str) -> bool:
     return any(_is_non_organism_latin_phrase(value) for value in GENERIC_PAREN_RE.findall(line))
 
 
+def _strip_non_organism_parenthetical_segments(text: str) -> str:
+    cleaned = NON_ORGANISM_SEGMENT_RE.sub(
+        lambda match: " " if _is_non_organism_latin_phrase(match.group(2)) else match.group(0),
+        text,
+    )
+    for value in GENERIC_PAREN_RE.findall(cleaned):
+        if _is_non_organism_latin_phrase(value):
+            cleaned = cleaned.replace(f"({value})", " ")
+    return cleaned
+
+
 def _filter_vernacular_values(latin: str, values: set[str]) -> set[str]:
     latin_folded = latin.casefold()
     filtered: set[str] = set()
     for value in values:
+        value_folded = _ascii_fold(value.casefold())
         if _is_non_organism_latin_phrase(value):
+            continue
+        if latin_folded == "camellia sinensis" and value_folded == "tealevel":
+            continue
+        if latin_folded == "verbascum thapsus" and value_folded == "okorfarkkoro virag":
+            continue
+        if latin_folded == "paeonia officinalis" and value_folded == "piros bazsalikom":
             continue
         normalized = _normalize_latin_candidate(value)
         if normalized is not None and normalized.casefold() == latin_folded:
@@ -708,9 +781,6 @@ def _add_pairs_from_latin_parenthetical_matches(
     if not latin_matches:
         return False
 
-    has_non_organism_latin = _contains_non_organism_parenthetical(line) or any(
-        _is_non_organism_latin_phrase(latin) for _, _, latin in latin_matches
-    )
     previous_end = 0
     previous_names: list[str] = []
     for start, end, latin in latin_matches:
@@ -727,10 +797,9 @@ def _add_pairs_from_latin_parenthetical_matches(
             continue
 
         values: set[str] = set()
-        if not has_non_organism_latin:
-            values.update(tail_link_names)
+        values.update(tail_link_names)
         values.update(segment_names or previous_names)
-        if tail_plain_names and not has_non_organism_latin:
+        if tail_plain_names:
             values.update(tail_plain_names)
             if segment_names:
                 values.add(segment_names[0])

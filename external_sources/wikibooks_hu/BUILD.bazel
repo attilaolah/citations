@@ -18,6 +18,19 @@ exports_files([
     "tests/novenyek_magyar_latin_nepies_s.samples.json",
     "tests/novenyek_magyar_latin_nepies_t.samples.json",
     "tests/novenyek_magyar_latin_nepies_x_y.samples.json",
+    "tests/novenyek_magyar_latin_nepies_a.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_b.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_c.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_f.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_g.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_h.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_k.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_m.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_o.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_r.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_s.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_sz.ignore.txt",
+    "tests/novenyek_magyar_latin_nepies_v.ignore.txt",
 ])
 
 name_pairs(
@@ -62,6 +75,21 @@ _NOVENYEK_LETTER_SUFFIXES = [
     name_pairs(
         name = "novenyek_magyar_latin_nepies_" + suffix + "_pairs",
         src = "@novenyek_magyar_latin_nepies_" + suffix + "//file",
+        ignore = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".ignore.txt" if suffix in [
+            "a",
+            "b",
+            "c",
+            "f",
+            "g",
+            "h",
+            "k",
+            "m",
+            "o",
+            "r",
+            "s",
+            "sz",
+            "v",
+        ] else None,
         samples = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".samples.json" if suffix in [
             "a",
             "b",

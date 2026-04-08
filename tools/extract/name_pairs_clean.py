@@ -9,6 +9,8 @@ from pathlib import Path
 
 from pydantic import BaseModel, TypeAdapter
 
+from tools.extract.known_typos import normalize_hungarian_light_canonical
+
 
 class VernacularName(BaseModel):
     """Vernacular entry from extractor output."""
@@ -72,12 +74,18 @@ def _normalized_vernacular_output(vernaculars: list[str | VernacularName]) -> li
     values: list[dict[str, str]] = []
     for value in vernaculars:
         if isinstance(value, str):
-            values.append({"canonical": value, "verbatim": value})
+            values.append(
+                {
+                    "canonical": normalize_hungarian_light_canonical(value),
+                    "verbatim": value,
+                },
+            )
             continue
 
+        canonical_input = value.canonical or value.verbatim
         values.append(
             {
-                "canonical": value.canonical or value.verbatim,
+                "canonical": normalize_hungarian_light_canonical(canonical_input),
                 "verbatim": value.verbatim,
             },
         )
