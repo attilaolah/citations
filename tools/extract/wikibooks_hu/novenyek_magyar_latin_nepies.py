@@ -8,6 +8,8 @@ import unicodedata
 from itertools import starmap
 from pathlib import Path
 
+from Levenshtein import distance as levenshtein_distance
+
 from tools.extract.known_typos import normalize_hungarian_canonical
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
@@ -433,24 +435,6 @@ def _split_repeated_head_phrase(value: str) -> list[str]:
     return [left, right]
 
 
-def _levenshtein_distance(left: str, right: str) -> int:
-    if left == right:
-        return 0
-    if not left:
-        return len(right)
-    if not right:
-        return len(left)
-
-    previous = list(range(len(right) + 1))
-    for i, left_char in enumerate(left, start=1):
-        current = [i]
-        for j, right_char in enumerate(right, start=1):
-            cost = 0 if left_char == right_char else 1
-            current.append(min(current[-1] + 1, previous[j] + 1, previous[j - 1] + cost))
-        previous = current
-    return previous[-1]
-
-
 def _expand_vagy_pair_suffix(left: str, right: str) -> list[str] | None:
     left_clean = _clean_tail_fragment(left)
     right_clean = _clean_tail_fragment(right)
@@ -462,11 +446,11 @@ def _expand_vagy_pair_suffix(left: str, right: str) -> list[str] | None:
     for suffix in PLANT_SUFFIXES:
         if right_folded.endswith(suffix) and not left_folded.endswith(suffix):
             right_stem = right_folded.removesuffix(suffix)
-            if right_stem and _levenshtein_distance(left_folded, right_stem) <= LEVENSHTEIN_MAX_DISTANCE:
+            if right_stem and levenshtein_distance(left_folded, right_stem) <= LEVENSHTEIN_MAX_DISTANCE:
                 return [left_clean + right_clean[-len(suffix) :], right_clean]
         if left_folded.endswith(suffix) and not right_folded.endswith(suffix):
             left_stem = left_folded.removesuffix(suffix)
-            if left_stem and _levenshtein_distance(right_folded, left_stem) <= LEVENSHTEIN_MAX_DISTANCE:
+            if left_stem and levenshtein_distance(right_folded, left_stem) <= LEVENSHTEIN_MAX_DISTANCE:
                 return [left_clean, right_clean + left_clean[-len(suffix) :]]
     return None
 
