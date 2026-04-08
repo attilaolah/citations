@@ -28,6 +28,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bazel_9
+            duckdb
             gnfinder
             gnparser
             python
