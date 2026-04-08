@@ -192,8 +192,8 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "E4VJrO2Op5UfXvLs561mr/6oEiWbSuhCRGByIqidfys=",
-        "usagesDigest": "+lyfbBwqYxdao2MgKipZkii7xPa9Fvv2bWk1ntRlYXM=",
+        "bzlTransitiveDigest": "iVYBTNqpHqMXlV7v39sSd38ty83igPLhigWsxUMw08Y=",
+        "usagesDigest": "HtgIBwcJTpSTxqlDsSMI3842YFyR1jmwKYr3PpnTNTg=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
@@ -933,6 +933,16 @@
               "sha256": "90bedf7550beee60593c880a52eafa941ef614fc061af875a7239c07077423a3"
             }
           },
+          "col_2026_02_13_xr_coldp": {
+            "repoRuleId": "@@//tools:source_extensions.bzl%_archive_source_repo",
+            "attributes": {
+              "urls": [
+                "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip"
+              ],
+              "sha256": "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
+              "archive_type": "zip"
+            }
+          },
           "source_urls": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_source_urls_repo",
             "attributes": {
@@ -964,6 +974,7 @@
                 "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan9v_2017.ppt",
                 "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
                 "http://www.melius.hu/gyogy/gyogynov-a-zuj.pdf",
+                "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip",
                 "https://enfo.hu/keptar/8058?page=0",
                 "https://enfo.hu/keptar/8058?page=1",
                 "https://enfo.hu/sites/default/files/nagy szikibagoly.pdf",
@@ -1070,7 +1081,7 @@
     "@@rules_nixpkgs_core+//extensions:package.bzl%nix_pkg": {
       "general": {
         "bzlTransitiveDigest": "2alEQC7q9PgrArc8ZeI662VmDHLGfuswqnzBJvVDnmg=",
-        "usagesDigest": "q93W3bSR0jFFjpNiON36UE5l+EZ4UDAd2zpV6yHTVDk=",
+        "usagesDigest": "LJufA93MfncZlU56ed1GsaslbQ/AUoqpmxZCvE/kq6s=",
         "recordedInputs": [
           "REPO_MAPPING:,nixpkgs rules_nixpkgs_core++nix_repo+nixpkgs",
           "REPO_MAPPING:rules_nixpkgs_core+,bazel_skylib bazel_skylib+"
@@ -1086,6 +1097,22 @@
               "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
               "repositories": {},
               "build_file": "@@//nix:docling.bazel",
+              "build_file_content": "",
+              "nixopts": [],
+              "quiet": false,
+              "fail_not_supported": true
+            }
+          },
+          "duckdb": {
+            "repoRuleId": "@@rules_nixpkgs_core+//:nixpkgs.bzl%_nixpkgs_package",
+            "attributes": {
+              "unmangled_name": "duckdb",
+              "attribute_path": "duckdb",
+              "nix_file_deps": {},
+              "nix_file_content": "",
+              "repository": "@@rules_nixpkgs_core++nix_repo+nixpkgs//:nixpkgs",
+              "repositories": {},
+              "build_file": "@@//nix:duckdb.bazel",
               "build_file_content": "",
               "nixopts": [],
               "quiet": false,
@@ -1175,6 +1202,7 @@
         "moduleExtensionMetadata": {
           "explicitRootModuleDirectDeps": [
             "docling",
+            "duckdb",
             "gnfinder",
             "gnparser",
             "libreoffice",

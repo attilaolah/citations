@@ -1,0 +1,8 @@
+exports_files(
+    [
+        "col_db.bzl",
+        "import.sql.tpl",
+        "schema.sql",
+    ],
+    visibility = ["//visibility:public"],
+)
