@@ -1,6 +1,5 @@
 """Tests for CoL lookup strategy fallbacks."""
 
-import sys
 from typing import TYPE_CHECKING
 
 import pytest
@@ -63,13 +62,3 @@ def test_lookup_branches(session: Session, query: str, expected_id: str | None) 
         return
     assert result is not None
     assert result.id == expected_id
-
-
-def _pytest_args(argv: list[str]) -> list[str]:
-    if any(arg.startswith("--cov") for arg in argv):
-        return ["-p", "pytest_cov", *argv]
-    return argv
-
-
-if __name__ == "__main__":
-    raise SystemExit(pytest.main(_pytest_args(sys.argv[1:])))
