@@ -1,12 +1,17 @@
-sources = use_extension("//tools:source_extensions.bzl", "sources")
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Monthly CoL archive index:
 # https://download.checklistbank.org/col/monthly/
-sources.archive_source(
+http_archive(
     name = "col_xr_coldp",
-    archive_type = "zip",
-    sha256 = "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
-    updated_on = "2026-02-14",
-    url = "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip",
+    build_file_content = """\
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "name_usage",
+    srcs = ["NameUsage.tsv"],
 )
-use_repo(sources, "col_xr_coldp")
+""",
+    sha256 = "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
+    urls = ["https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip"],
+)

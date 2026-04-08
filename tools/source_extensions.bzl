@@ -47,27 +47,6 @@ _xz_source_repo = repository_rule(
     },
 )
 
-def _archive_source_repo_impl(repository_ctx):
-    repository_ctx.download_and_extract(
-        url = repository_ctx.attr.urls,
-        sha256 = repository_ctx.attr.sha256,
-        type = repository_ctx.attr.archive_type,
-        output = "file",
-    )
-    repository_ctx.file(
-        "file/BUILD.bazel",
-        content = _BUILD,
-    )
-
-_archive_source_repo = repository_rule(
-    implementation = _archive_source_repo_impl,
-    attrs = {
-        "archive_type": attr.string(mandatory = True),
-        "sha256": attr.string(mandatory = True),
-        "urls": attr.string_list(mandatory = True),
-    },
-)
-
 def _source_urls_repo_impl(repository_ctx):
     repository_ctx.file(
         "BUILD.bazel",
@@ -104,14 +83,6 @@ def _sources_impl(module_ctx):
                 sha256 = wikibooks_hu_source.sha256,
             )
             source_urls[url] = None
-        for archive_source in module.tags.archive_source:
-            _archive_source_repo(
-                name = archive_source.name,
-                urls = [archive_source.url],
-                sha256 = archive_source.sha256,
-                archive_type = archive_source.archive_type,
-            )
-            source_urls[archive_source.url] = None
 
     _source_urls_repo(
         name = "source_urls",
@@ -138,20 +109,9 @@ _wikibooks_hu_source_tag = tag_class(
     },
 )
 
-_archive_source_tag = tag_class(
-    attrs = {
-        "archive_type": attr.string(mandatory = True),
-        "name": attr.string(mandatory = True),
-        "sha256": attr.string(mandatory = True),
-        "updated_on": attr.string(mandatory = True),
-        "url": attr.string(mandatory = True),
-    },
-)
-
 sources = module_extension(
     implementation = _sources_impl,
     tag_classes = {
-        "archive_source": _archive_source_tag,
         "external_source": _external_source_tag,
         "wikibooks_hu_source": _wikibooks_hu_source_tag,
     },
