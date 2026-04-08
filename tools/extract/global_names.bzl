@@ -3,7 +3,7 @@ def _global_names_impl(ctx):
     gnfinder = ctx.file.gnfinder
     python_bin = ctx.file._python
     extractor = ctx.executable._extractor
-    out = ctx.actions.declare_file(ctx.attr.basename + ".gn.json")
+    out = ctx.actions.declare_file(ctx.attr.basename + ".names.json")
 
     args = ctx.actions.args()
     args.add("--input", src.path)

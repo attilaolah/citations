@@ -3,7 +3,10 @@ def _name_pairs_clean_impl(ctx):
     python_bin = ctx.file._python
     cleaner = ctx.executable._cleaner
     gnparser = ctx.file.gnparser
-    out = ctx.actions.declare_file(ctx.label.name + ".json")
+    basename = ctx.label.name
+    if basename.endswith("_clean"):
+        basename = basename[:-len("_clean")]
+    out = ctx.actions.declare_file(basename + ".clean.json")
 
     args = ctx.actions.args()
     args.add("--input", src.path)
