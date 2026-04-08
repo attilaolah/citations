@@ -1,0 +1,6 @@
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "name_usage",
+    srcs = ["NameUsage.tsv"],
+)

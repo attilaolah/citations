@@ -10,6 +10,7 @@
 ## Bazel
 
 - Prefer native Starlark rules over `genrule`.
+- Prefer `build_file` over `build_file_content`.
 - Keep publication-specific targets in `//external_sources/publications`.
 - Keep Bazel tooling in `//tools` and Nix tooling in `//nix`.
 

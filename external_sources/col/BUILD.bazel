@@ -1,6 +1,9 @@
 load("//tools/col:col_db.bzl", "col_name_db")
 
-exports_files(["SRCS.MODULE.bazel"])
+exports_files([
+    "SRCS.MODULE.bazel",
+    "col_xr_coldp.build",
+])
 
 col_name_db(
     name = "name_index",
