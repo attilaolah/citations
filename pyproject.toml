@@ -10,6 +10,7 @@ dependencies = [
   "lxml",
   "pydantic",
   "pytest",
+  "pytest-cov",
   "sqlalchemy",
 ]
 
