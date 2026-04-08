@@ -81,11 +81,6 @@ FROM resolved r
 LEFT JOIN normalized c
   ON c.id = r.canonical_id;
 
-INSERT INTO col_name_hierarchy (parent_id, child_id)
-SELECT parent_id, id
-FROM col_name_usage
-WHERE parent_id IS NOT NULL AND parent_id <> id;
-
 CREATE INDEX col_name_usage_scientific_name_idx ON col_name_usage(scientific_name);
 CREATE INDEX col_name_usage_canonical_scientific_name_idx ON col_name_usage(canonical_scientific_name);
 CREATE INDEX col_name_usage_canonical_id_idx ON col_name_usage(canonical_id);

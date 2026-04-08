@@ -84,11 +84,3 @@ CREATE TABLE col_name_usage (
   canonical_id VARCHAR NOT NULL CHECK (length(canonical_id) > 0),
   canonical_scientific_name VARCHAR NOT NULL CHECK (length(canonical_scientific_name) > 0)
 );
-
-DROP TABLE IF EXISTS col_name_hierarchy;
-
-CREATE TABLE col_name_hierarchy (
-  parent_id VARCHAR NOT NULL CHECK (length(parent_id) > 0),
-  child_id VARCHAR NOT NULL CHECK (length(child_id) > 0),
-  PRIMARY KEY (parent_id, child_id)
-);
