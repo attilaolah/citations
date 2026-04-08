@@ -7,7 +7,7 @@ py_binary(
         "//tools/extract:known_typos.py",
     ],
     main = "latin_magyarorszagon_vedett_allatok.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources/wikibooks_hu:__pkg__"],
 )
 
 py_binary(
@@ -17,5 +17,5 @@ py_binary(
         "//tools/extract:known_typos.py",
     ],
     main = "novenyek_magyar_latin_nepies.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources/wikibooks_hu:__pkg__"],
 )

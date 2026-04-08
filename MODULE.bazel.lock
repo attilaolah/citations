@@ -192,8 +192,8 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "iVYBTNqpHqMXlV7v39sSd38ty83igPLhigWsxUMw08Y=",
-        "usagesDigest": "w/yB0Chm6vLa/s5teunZgNarXFsHN6eUeT77Siz9uL0=",
+        "bzlTransitiveDigest": "E4VJrO2Op5UfXvLs561mr/6oEiWbSuhCRGByIqidfys=",
+        "usagesDigest": "+lyfbBwqYxdao2MgKipZkii7xPa9Fvv2bWk1ntRlYXM=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
@@ -933,16 +933,6 @@
               "sha256": "90bedf7550beee60593c880a52eafa941ef614fc061af875a7239c07077423a3"
             }
           },
-          "col_xr_coldp": {
-            "repoRuleId": "@@//tools:source_extensions.bzl%_archive_source_repo",
-            "attributes": {
-              "urls": [
-                "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip"
-              ],
-              "sha256": "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
-              "archive_type": "zip"
-            }
-          },
           "source_urls": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_source_urls_repo",
             "attributes": {
@@ -974,7 +964,6 @@
                 "http://nti.emk.uni-sopron.hu/images/Oktatás/Oktatási segédletek/Alkalmazott növénytan/rendszertan9v_2017.ppt",
                 "http://www.megabytedata.com/MB054/getlist.asp?lang=HU&langname=Hungarian",
                 "http://www.melius.hu/gyogy/gyogynov-a-zuj.pdf",
-                "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip",
                 "https://enfo.hu/keptar/8058?page=0",
                 "https://enfo.hu/keptar/8058?page=1",
                 "https://enfo.hu/sites/default/files/nagy szikibagoly.pdf",

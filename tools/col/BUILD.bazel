@@ -4,5 +4,5 @@ exports_files(
         "import.sql.tpl",
         "schema.sql",
     ],
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources/col:__pkg__"],
 )

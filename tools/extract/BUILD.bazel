@@ -22,7 +22,7 @@ py_binary(
     name = "global_names_tool",
     srcs = ["global_names.py"],
     main = "global_names.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources:__subpackages__"],
 )
 
 py_binary(
@@ -32,7 +32,7 @@ py_binary(
         "name_pairs_clean.py",
     ],
     main = "name_pairs_clean.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources:__subpackages__"],
 )
 
 py_binary(
@@ -49,5 +49,5 @@ py_binary(
         "plant_names_in_hungarian.py",
     ],
     main = "plant_names_in_hungarian.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//external_sources:__pkg__"],
 )
