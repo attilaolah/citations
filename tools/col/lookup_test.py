@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-
 from tools.col.lookup import Base, ColNameUsage, create_duckdb_engine, lookup_name
 
 if TYPE_CHECKING:
@@ -52,8 +51,8 @@ def session() -> Generator[Session]:
         ("Fungus alba", "first-last-1"),
         ("Achillea asplenifolia", "stem-1"),
         ("Actea spicata", "lev-1"),
-        ("   ", None),
         ("Nope neverfoundii", None),
+        ("   ", None),
     ],
 )
 def test_lookup_branches(session: Session, query: str, expected_id: str | None) -> None:
