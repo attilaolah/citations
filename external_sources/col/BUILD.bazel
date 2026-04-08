@@ -4,5 +4,5 @@ exports_files(["SRCS.MODULE.bazel"])
 
 col_name_db(
     name = "name_index",
-    name_usage = "@col_2026_02_13_xr_coldp//file:NameUsage.tsv",
+    name_usage = "@col_xr_coldp//file:NameUsage.tsv",
 )

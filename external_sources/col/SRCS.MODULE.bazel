@@ -1,9 +1,12 @@
 sources = use_extension("//tools:source_extensions.bzl", "sources")
+
+# Monthly CoL archive index:
+# https://download.checklistbank.org/col/monthly/
 sources.archive_source(
-    name = "col_2026_02_13_xr_coldp",
+    name = "col_xr_coldp",
     archive_type = "zip",
     sha256 = "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
     updated_on = "2026-02-14",
     url = "https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip",
 )
-use_repo(sources, "col_2026_02_13_xr_coldp")
+use_repo(sources, "col_xr_coldp")

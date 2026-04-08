@@ -193,7 +193,7 @@
     "//tools:source_extensions.bzl%sources": {
       "general": {
         "bzlTransitiveDigest": "iVYBTNqpHqMXlV7v39sSd38ty83igPLhigWsxUMw08Y=",
-        "usagesDigest": "HtgIBwcJTpSTxqlDsSMI3842YFyR1jmwKYr3PpnTNTg=",
+        "usagesDigest": "w/yB0Chm6vLa/s5teunZgNarXFsHN6eUeT77Siz9uL0=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
@@ -933,7 +933,7 @@
               "sha256": "90bedf7550beee60593c880a52eafa941ef614fc061af875a7239c07077423a3"
             }
           },
-          "col_2026_02_13_xr_coldp": {
+          "col_xr_coldp": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_archive_source_repo",
             "attributes": {
               "urls": [
