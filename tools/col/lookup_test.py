@@ -6,7 +6,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from tools.col.lookup import Base, ColNameUsage, lookup_name
+from tools.col.lookup import Base, ColNameUsage, create_duckdb_engine, lookup_name
 
 if TYPE_CHECKING:
     from collections.abc import Generator
@@ -46,11 +46,13 @@ def session() -> Generator[Session]:
     ("query", "expected_id"),
     [
         ("Pinus sylvestris", "exact-1"),
+        ("Pinus", "exact-1"),
         ("Carabus hungaricus", "subgen-1"),
         ("Mentha piperita", "last-1"),
         ("Fungus alba", "first-last-1"),
         ("Achillea asplenifolia", "stem-1"),
         ("Actea spicata", "lev-1"),
+        ("   ", None),
         ("Nope neverfoundii", None),
     ],
 )
@@ -62,3 +64,13 @@ def test_lookup_branches(session: Session, query: str, expected_id: str | None) 
         return
     assert result is not None
     assert result.id == expected_id
+
+
+def test_create_duckdb_engine() -> None:
+    """Create an engine for a local database path."""
+    db_path = "lookup-test.duckdb"
+    engine = create_duckdb_engine(db_path)
+    try:
+        assert str(engine.url).endswith(db_path)
+    finally:
+        engine.dispose()

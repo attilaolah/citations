@@ -124,8 +124,6 @@ def _word_match_clause(words: list[str]) -> ColumnElement[bool]:
     for word in words:
         escaped_word = escape(word)
         clauses.append(func.regexp_matches(ColNameUsage.scientific_name, rf"(^| ){escaped_word}( |$)"))
-    if not clauses:
-        return func.false()
     clause = clauses[0]
     for extra in clauses[1:]:
         clause = or_(clause, extra)
@@ -134,8 +132,6 @@ def _word_match_clause(words: list[str]) -> ColumnElement[bool]:
 
 def _lookup_by_levenshtein(session: Session, query: str) -> LookupResult | None:
     words = [word for word in query.split() if word]
-    if not words:
-        return None
     statement = select(ColNameUsage).where(_word_match_clause(words))
     rows = list(session.execute(statement).scalars())
     if not rows:
