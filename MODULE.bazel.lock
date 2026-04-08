@@ -192,13 +192,15 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "E4VJrO2Op5UfXvLs561mr/6oEiWbSuhCRGByIqidfys=",
+        "bzlTransitiveDigest": "Mx1yCc5gq/YR4OSudZR8QxbtpqV2FndZuotDVQZqH5I=",
         "usagesDigest": "aqpKtD3cyf+eCfq3dKExSJbc2PIzP+Pr+IUXti1CSHA=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmeWekdaPeqNvJxzrtXAPbbKqWT9VY9bD8h1HjbBN9V3k4",
+              "extension": ".htm",
               "urls": [
                 "https://ipfs.io/ipfs/QmeWekdaPeqNvJxzrtXAPbbKqWT9VY9bD8h1HjbBN9V3k4",
                 "https://gateway.pinata.cloud/ipfs/QmeWekdaPeqNvJxzrtXAPbbKqWT9VY9bD8h1HjbBN9V3k4",
@@ -210,6 +212,8 @@
           "plant_names_in_hungarian": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmQgBsgognjNQFznf2BeSrfNJfVcPTZZz3esG1qBdkBRsL",
+              "extension": ".asp",
               "urls": [
                 "https://ipfs.io/ipfs/QmQgBsgognjNQFznf2BeSrfNJfVcPTZZz3esG1qBdkBRsL",
                 "https://gateway.pinata.cloud/ipfs/QmQgBsgognjNQFznf2BeSrfNJfVcPTZZz3esG1qBdkBRsL",
@@ -221,6 +225,8 @@
           "fokozottan_vedett_izeltlabuak_0": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmS6xSyjmZCwBCCnf9womxaCjg3JsBeayqcvRJLNNJ87wN",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmS6xSyjmZCwBCCnf9womxaCjg3JsBeayqcvRJLNNJ87wN",
                 "https://gateway.pinata.cloud/ipfs/QmS6xSyjmZCwBCCnf9womxaCjg3JsBeayqcvRJLNNJ87wN",
@@ -232,6 +238,8 @@
           "fokozottan_vedett_izeltlabuak_1": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qmd6KM9tGLsFfJxXStgw7poPP1KnmgAvQUjCevTqKh3hkq",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/Qmd6KM9tGLsFfJxXStgw7poPP1KnmgAvQUjCevTqKh3hkq",
                 "https://gateway.pinata.cloud/ipfs/Qmd6KM9tGLsFfJxXStgw7poPP1KnmgAvQUjCevTqKh3hkq",
@@ -243,6 +251,8 @@
           "alkalmazott_novenytan_1_2020": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmeUd9wEKMPhP3YMxvHvZwfyegtt2F9EqSzNpYoLSX98tP",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmeUd9wEKMPhP3YMxvHvZwfyegtt2F9EqSzNpYoLSX98tP",
                 "https://gateway.pinata.cloud/ipfs/QmeUd9wEKMPhP3YMxvHvZwfyegtt2F9EqSzNpYoLSX98tP",
@@ -254,6 +264,8 @@
           "alkalmazott_novenytan_2_2020": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmPv3A1WN9QhzCsdsGcTs2PhqxgUgRKUX1HAmPLED1Pwhq",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmPv3A1WN9QhzCsdsGcTs2PhqxgUgRKUX1HAmPLED1Pwhq",
                 "https://gateway.pinata.cloud/ipfs/QmPv3A1WN9QhzCsdsGcTs2PhqxgUgRKUX1HAmPLED1Pwhq",
@@ -265,6 +277,8 @@
           "alkalmazott_novenytan_3_2020": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmUGFTRfDwZVTzZUCJM4zHeMqo9nE83KgYk5tVC591KTTV",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmUGFTRfDwZVTzZUCJM4zHeMqo9nE83KgYk5tVC591KTTV",
                 "https://gateway.pinata.cloud/ipfs/QmUGFTRfDwZVTzZUCJM4zHeMqo9nE83KgYk5tVC591KTTV",
@@ -276,6 +290,8 @@
           "alkalmazott_novenytan_4_2020": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmP93Cj4pmyhyqBdEFVLnoHtr7EzSiDpfPQ8q6wWgR97QT",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmP93Cj4pmyhyqBdEFVLnoHtr7EzSiDpfPQ8q6wWgR97QT",
                 "https://gateway.pinata.cloud/ipfs/QmP93Cj4pmyhyqBdEFVLnoHtr7EzSiDpfPQ8q6wWgR97QT",
@@ -287,6 +303,8 @@
           "alkalmazott_novenytan_5_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmdENfAK8pz2StGtgvJkBUzTvUA45vAB2nh9Apn3L2Uo9T",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmdENfAK8pz2StGtgvJkBUzTvUA45vAB2nh9Apn3L2Uo9T",
                 "https://gateway.pinata.cloud/ipfs/QmdENfAK8pz2StGtgvJkBUzTvUA45vAB2nh9Apn3L2Uo9T",
@@ -298,6 +316,8 @@
           "alkalmazott_novenytan_6_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRejtRR3WbQRfT7tH8PfrLcuDNXs4eXFeCQdNPrdeZU2G",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRejtRR3WbQRfT7tH8PfrLcuDNXs4eXFeCQdNPrdeZU2G",
                 "https://gateway.pinata.cloud/ipfs/QmRejtRR3WbQRfT7tH8PfrLcuDNXs4eXFeCQdNPrdeZU2G",
@@ -309,6 +329,8 @@
           "alkalmazott_novenytan_7_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qme7nBg7ouoHc4NEggzkakm8aMRxWZSDBSffVSj5XyRcHH",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/Qme7nBg7ouoHc4NEggzkakm8aMRxWZSDBSffVSj5XyRcHH",
                 "https://gateway.pinata.cloud/ipfs/Qme7nBg7ouoHc4NEggzkakm8aMRxWZSDBSffVSj5XyRcHH",
@@ -320,6 +342,8 @@
           "alkalmazott_novenytan_8_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTGWBefXfjfubCqun8hXXRkgb8btDJRD4qnvcKbfftZiN",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmTGWBefXfjfubCqun8hXXRkgb8btDJRD4qnvcKbfftZiN",
                 "https://gateway.pinata.cloud/ipfs/QmTGWBefXfjfubCqun8hXXRkgb8btDJRD4qnvcKbfftZiN",
@@ -331,6 +355,8 @@
           "alkalmazott_novenytan_9_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRwa6F1qZB7dt1hwma6rhjVh16JjZnRXSFfQJX5E5ovBT",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRwa6F1qZB7dt1hwma6rhjVh16JjZnRXSFfQJX5E5ovBT",
                 "https://gateway.pinata.cloud/ipfs/QmRwa6F1qZB7dt1hwma6rhjVh16JjZnRXSFfQJX5E5ovBT",
@@ -342,6 +368,8 @@
           "alkalmazott_novenytan_10_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmVWG1Z1STA15GYDye32yrrXxUbFnavvvb91C6TtHdYb2M",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmVWG1Z1STA15GYDye32yrrXxUbFnavvvb91C6TtHdYb2M",
                 "https://gateway.pinata.cloud/ipfs/QmVWG1Z1STA15GYDye32yrrXxUbFnavvvb91C6TtHdYb2M",
@@ -353,6 +381,8 @@
           "alkalmazott_novenytan_11_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmSEZd92Cr9s92UysdRatsTdjoBsQ8DTZDo2NgygPHWCA6",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmSEZd92Cr9s92UysdRatsTdjoBsQ8DTZDo2NgygPHWCA6",
                 "https://gateway.pinata.cloud/ipfs/QmSEZd92Cr9s92UysdRatsTdjoBsQ8DTZDo2NgygPHWCA6",
@@ -364,6 +394,8 @@
           "alkalmazott_novenytan_12_2019": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmbtegeLLPsvCbfCmK8EgsuVYZszVSexf1YnWzQTSXwKcJ",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmbtegeLLPsvCbfCmK8EgsuVYZszVSexf1YnWzQTSXwKcJ",
                 "https://gateway.pinata.cloud/ipfs/QmbtegeLLPsvCbfCmK8EgsuVYZszVSexf1YnWzQTSXwKcJ",
@@ -375,6 +407,8 @@
           "novenytani_jegyzet_fajleirasok": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmbRkj3pFEQcD7KgvJGCtbwyRe2YYsTAUdoQMcdWThxu7p",
+              "extension": ".doc",
               "urls": [
                 "https://ipfs.io/ipfs/QmbRkj3pFEQcD7KgvJGCtbwyRe2YYsTAUdoQMcdWThxu7p",
                 "https://gateway.pinata.cloud/ipfs/QmbRkj3pFEQcD7KgvJGCtbwyRe2YYsTAUdoQMcdWThxu7p",
@@ -386,6 +420,8 @@
           "novenytan_jegyzet_elmeleti_resz": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTHcL1jo25yCy4BSSiAWo2H1Z2ESQkPRGy1hf8QPitZZP",
+              "extension": ".doc",
               "urls": [
                 "https://ipfs.io/ipfs/QmTHcL1jo25yCy4BSSiAWo2H1Z2ESQkPRGy1hf8QPitZZP",
                 "https://gateway.pinata.cloud/ipfs/QmTHcL1jo25yCy4BSSiAWo2H1Z2ESQkPRGy1hf8QPitZZP",
@@ -397,6 +433,8 @@
           "rendszertan1v_2021": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmYkzAgSvbLjw8mKDVcefHKXEG97XhDxkBjsc2B2udRcC6",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmYkzAgSvbLjw8mKDVcefHKXEG97XhDxkBjsc2B2udRcC6",
                 "https://gateway.pinata.cloud/ipfs/QmYkzAgSvbLjw8mKDVcefHKXEG97XhDxkBjsc2B2udRcC6",
@@ -408,6 +446,8 @@
           "rendszertan2v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmXKCd1irsXacbQL7AYvGdyJrxw9BoQ7ojFUAiMmNto1G8",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmXKCd1irsXacbQL7AYvGdyJrxw9BoQ7ojFUAiMmNto1G8",
                 "https://gateway.pinata.cloud/ipfs/QmXKCd1irsXacbQL7AYvGdyJrxw9BoQ7ojFUAiMmNto1G8",
@@ -419,6 +459,8 @@
           "rendszertan3v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmW2sDJrRYwmWVa4KdzeKQHoRvfzi6muHLF19aaW1QtXYR",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmW2sDJrRYwmWVa4KdzeKQHoRvfzi6muHLF19aaW1QtXYR",
                 "https://gateway.pinata.cloud/ipfs/QmW2sDJrRYwmWVa4KdzeKQHoRvfzi6muHLF19aaW1QtXYR",
@@ -430,6 +472,8 @@
           "rendszertan4v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmQskn3PDeCLFrvgprcynhdEhiM41TFic7xHd7KBXzSCCL",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmQskn3PDeCLFrvgprcynhdEhiM41TFic7xHd7KBXzSCCL",
                 "https://gateway.pinata.cloud/ipfs/QmQskn3PDeCLFrvgprcynhdEhiM41TFic7xHd7KBXzSCCL",
@@ -441,6 +485,8 @@
           "rendszertan5v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmccLw271iTm43KGyDcZ4WhHqECqWumHip6m8X2n3tNqSD",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmccLw271iTm43KGyDcZ4WhHqECqWumHip6m8X2n3tNqSD",
                 "https://gateway.pinata.cloud/ipfs/QmccLw271iTm43KGyDcZ4WhHqECqWumHip6m8X2n3tNqSD",
@@ -452,6 +498,8 @@
           "rendszertan6v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmWJToXcxeAaujbqPRaa1euM17pWkWqYGuxNDxN6mJqZMv",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmWJToXcxeAaujbqPRaa1euM17pWkWqYGuxNDxN6mJqZMv",
                 "https://gateway.pinata.cloud/ipfs/QmWJToXcxeAaujbqPRaa1euM17pWkWqYGuxNDxN6mJqZMv",
@@ -463,6 +511,8 @@
           "rendszertan7v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmbTCTcGGxQgVg2U4bDi296k8GE8JiaptuLBE55JGDaAkG",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmbTCTcGGxQgVg2U4bDi296k8GE8JiaptuLBE55JGDaAkG",
                 "https://gateway.pinata.cloud/ipfs/QmbTCTcGGxQgVg2U4bDi296k8GE8JiaptuLBE55JGDaAkG",
@@ -474,6 +524,8 @@
           "rendszertan8v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmQTvunxCBH4fvL66WyHBpVmRp5Y1zdSBcNNgSzk4b7MdH",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmQTvunxCBH4fvL66WyHBpVmRp5Y1zdSBcNNgSzk4b7MdH",
                 "https://gateway.pinata.cloud/ipfs/QmQTvunxCBH4fvL66WyHBpVmRp5Y1zdSBcNNgSzk4b7MdH",
@@ -485,6 +537,8 @@
           "rendszertan9v_2017": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmceZayN2r1W5UnF4rKeJrn1wG6MapHVi6cWbyfUJ4btx2",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmceZayN2r1W5UnF4rKeJrn1wG6MapHVi6cWbyfUJ4btx2",
                 "https://gateway.pinata.cloud/ipfs/QmceZayN2r1W5UnF4rKeJrn1wG6MapHVi6cWbyfUJ4btx2",
@@ -496,6 +550,8 @@
           "rendszertan10v_2017": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmXXq98bDX6ZdDCaMT5Xh8QADWLGdnYUArbT2iHuYL5d2W",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmXXq98bDX6ZdDCaMT5Xh8QADWLGdnYUArbT2iHuYL5d2W",
                 "https://gateway.pinata.cloud/ipfs/QmXXq98bDX6ZdDCaMT5Xh8QADWLGdnYUArbT2iHuYL5d2W",
@@ -507,6 +563,8 @@
           "rendszertan11v_2017": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTxXVU6hbREMtmAsQobjUyEPidfpnfwj9V2R1raG3ksFs",
+              "extension": ".ppt",
               "urls": [
                 "https://ipfs.io/ipfs/QmTxXVU6hbREMtmAsQobjUyEPidfpnfwj9V2R1raG3ksFs",
                 "https://gateway.pinata.cloud/ipfs/QmTxXVU6hbREMtmAsQobjUyEPidfpnfwj9V2R1raG3ksFs",
@@ -518,6 +576,8 @@
           "gyogynovenyek_es_elelmiszernovenyek_a_tol_z_ig": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmbW85pMCZCsjYco472s33fQz7nYzDjySdwADZjc2wnPuQ",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmbW85pMCZCsjYco472s33fQz7nYzDjySdwADZjc2wnPuQ",
                 "https://gateway.pinata.cloud/ipfs/QmbW85pMCZCsjYco472s33fQz7nYzDjySdwADZjc2wnPuQ",
@@ -529,6 +589,8 @@
           "fajfelismeres_fas_2021": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmPzgaicQP9LzvPDTgMDEygBQzqU3maa47A8HJipGNUeQa",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmPzgaicQP9LzvPDTgMDEygBQzqU3maa47A8HJipGNUeQa",
                 "https://gateway.pinata.cloud/ipfs/QmPzgaicQP9LzvPDTgMDEygBQzqU3maa47A8HJipGNUeQa",
@@ -540,6 +602,8 @@
           "fasitasra_novenytelepitesre_javasolt_oshonos_novenyek": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qme6DsAtv4EYSNkNCm4J8Am4pB9VHQMK8zPHPiHkwbWnKd",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/Qme6DsAtv4EYSNkNCm4J8Am4pB9VHQMK8zPHPiHkwbWnKd",
                 "https://gateway.pinata.cloud/ipfs/Qme6DsAtv4EYSNkNCm4J8Am4pB9VHQMK8zPHPiHkwbWnKd",
@@ -551,6 +615,8 @@
           "invazios_novenyfajok_magyarorszagon": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmSffSQrWmZcLVzwRuvmHbRueLoTmrxW2ZDUs8vMEvosN7",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmSffSQrWmZcLVzwRuvmHbRueLoTmrxW2ZDUs8vMEvosN7",
                 "https://gateway.pinata.cloud/ipfs/QmSffSQrWmZcLVzwRuvmHbRueLoTmrxW2ZDUs8vMEvosN7",
@@ -562,6 +628,8 @@
           "kepes_zengolegyhatarozo": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmWgcZzGAr2Ko21ndepk4LokAEh4Rn5immQBEsgnb9Mxtc",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmWgcZzGAr2Ko21ndepk4LokAEh4Rn5immQBEsgnb9Mxtc",
                 "https://gateway.pinata.cloud/ipfs/QmWgcZzGAr2Ko21ndepk4LokAEh4Rn5immQBEsgnb9Mxtc",
@@ -573,6 +641,8 @@
           "melleklet_felmert_novenyek_h2_tervlap": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmNNrG22ycZHZe5XE2kMLxeLEgzYtWJYBvPrGNZBePYFvX",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmNNrG22ycZHZe5XE2kMLxeLEgzYtWJYBvPrGNZBePYFvX",
                 "https://gateway.pinata.cloud/ipfs/QmNNrG22ycZHZe5XE2kMLxeLEgzYtWJYBvPrGNZBePYFvX",
@@ -584,6 +654,8 @@
           "nagy_szikibagoly": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmYEhVDJ3gjpStmRWYreMg9NwinEiEPiZzkVPav7seqqfE",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmYEhVDJ3gjpStmRWYreMg9NwinEiEPiZzkVPav7seqqfE",
                 "https://gateway.pinata.cloud/ipfs/QmYEhVDJ3gjpStmRWYreMg9NwinEiEPiZzkVPav7seqqfE",
@@ -595,6 +667,8 @@
           "novenytani_ismeretek": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qmf9y6KeVqw7qSstLGsMgY84JCQRRnuefBVLrwQEyRPwhn",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/Qmf9y6KeVqw7qSstLGsMgY84JCQRRnuefBVLrwQEyRPwhn",
                 "https://gateway.pinata.cloud/ipfs/Qmf9y6KeVqw7qSstLGsMgY84JCQRRnuefBVLrwQEyRPwhn",
@@ -606,6 +680,8 @@
           "wild_plants_used_for_food": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmQgPbkwwqWyTLu1ppBmZ1du69vWv8jcy3a4Qg6Gu32dfT",
+              "extension": ".pdf",
               "urls": [
                 "https://ipfs.io/ipfs/QmQgPbkwwqWyTLu1ppBmZ1du69vWv8jcy3a4Qg6Gu32dfT",
                 "https://gateway.pinata.cloud/ipfs/QmQgPbkwwqWyTLu1ppBmZ1du69vWv8jcy3a4Qg6Gu32dfT",
@@ -617,6 +693,8 @@
           "latin_magyarorszagon_vedett_allatok": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmVQcCEf9DBBXDAHxS7wSCVZTbNCTThf8ovsBu3Lsat4bM",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmVQcCEf9DBBXDAHxS7wSCVZTbNCTThf8ovsBu3Lsat4bM",
                 "https://gateway.pinata.cloud/ipfs/QmVQcCEf9DBBXDAHxS7wSCVZTbNCTThf8ovsBu3Lsat4bM",
@@ -628,6 +706,8 @@
           "novenyek_magyar_latin_nepies_a": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTjoWhWPQhaLrL3K8fWTEDmuKZq1nzGDpt3DQoav9vz5F",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmTjoWhWPQhaLrL3K8fWTEDmuKZq1nzGDpt3DQoav9vz5F",
                 "https://gateway.pinata.cloud/ipfs/QmTjoWhWPQhaLrL3K8fWTEDmuKZq1nzGDpt3DQoav9vz5F",
@@ -639,6 +719,8 @@
           "novenyek_magyar_latin_nepies_b": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qmbs46ybr1gWdnr59JJnmx7Lru4LuXGKJNpDJivcnXNut7",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/Qmbs46ybr1gWdnr59JJnmx7Lru4LuXGKJNpDJivcnXNut7",
                 "https://gateway.pinata.cloud/ipfs/Qmbs46ybr1gWdnr59JJnmx7Lru4LuXGKJNpDJivcnXNut7",
@@ -650,6 +732,8 @@
           "novenyek_magyar_latin_nepies_c": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTFiVRciaR4FHPv5Wp6UpNSNponxPW165eCBZnbtYqmkN",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmTFiVRciaR4FHPv5Wp6UpNSNponxPW165eCBZnbtYqmkN",
                 "https://gateway.pinata.cloud/ipfs/QmTFiVRciaR4FHPv5Wp6UpNSNponxPW165eCBZnbtYqmkN",
@@ -661,6 +745,8 @@
           "novenyek_magyar_latin_nepies_d": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRdWzBroNo5QrGaCvfZFbSmQtL7MhxoK9m4inybXRvcDc",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRdWzBroNo5QrGaCvfZFbSmQtL7MhxoK9m4inybXRvcDc",
                 "https://gateway.pinata.cloud/ipfs/QmRdWzBroNo5QrGaCvfZFbSmQtL7MhxoK9m4inybXRvcDc",
@@ -672,6 +758,8 @@
           "novenyek_magyar_latin_nepies_e": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC",
                 "https://gateway.pinata.cloud/ipfs/Qmeqhc4TxsBXDXdhTHN27Vn1kCrKNzjK5yvUijKFu579gC",
@@ -683,6 +771,8 @@
           "novenyek_magyar_latin_nepies_f": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmT6S9KuGXAhwkbAo1qsKfsDS5qsamrjkMqWdrBaRXqFVF",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmT6S9KuGXAhwkbAo1qsKfsDS5qsamrjkMqWdrBaRXqFVF",
                 "https://gateway.pinata.cloud/ipfs/QmT6S9KuGXAhwkbAo1qsKfsDS5qsamrjkMqWdrBaRXqFVF",
@@ -694,6 +784,8 @@
           "novenyek_magyar_latin_nepies_g": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmPLHfYuQNCGwu1UTLuz8nnoK1tteNuHxjX51dHLddgy1x",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmPLHfYuQNCGwu1UTLuz8nnoK1tteNuHxjX51dHLddgy1x",
                 "https://gateway.pinata.cloud/ipfs/QmPLHfYuQNCGwu1UTLuz8nnoK1tteNuHxjX51dHLddgy1x",
@@ -705,6 +797,8 @@
           "novenyek_magyar_latin_nepies_h": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRijs5gBhbydsJj5mGyMqZJmVsWjikZWhhhae2WPkJ4Fw",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRijs5gBhbydsJj5mGyMqZJmVsWjikZWhhhae2WPkJ4Fw",
                 "https://gateway.pinata.cloud/ipfs/QmRijs5gBhbydsJj5mGyMqZJmVsWjikZWhhhae2WPkJ4Fw",
@@ -716,6 +810,8 @@
           "novenyek_magyar_latin_nepies_i": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmQtT2p1FQ2Rbqrt64JswuZDU722UN3cn163tKTbgBmpXt",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmQtT2p1FQ2Rbqrt64JswuZDU722UN3cn163tKTbgBmpXt",
                 "https://gateway.pinata.cloud/ipfs/QmQtT2p1FQ2Rbqrt64JswuZDU722UN3cn163tKTbgBmpXt",
@@ -727,6 +823,8 @@
           "novenyek_magyar_latin_nepies_j": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRsAnvjFhhBB5AkAGj8gGbCkG7qqJTVKsaJvNQvb4Dtk9",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRsAnvjFhhBB5AkAGj8gGbCkG7qqJTVKsaJvNQvb4Dtk9",
                 "https://gateway.pinata.cloud/ipfs/QmRsAnvjFhhBB5AkAGj8gGbCkG7qqJTVKsaJvNQvb4Dtk9",
@@ -738,6 +836,8 @@
           "novenyek_magyar_latin_nepies_k": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmfTWKDkeR6Lhn5wC7ukp2xUxJa7NVdpNHi8nqFvJWXmqB",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmfTWKDkeR6Lhn5wC7ukp2xUxJa7NVdpNHi8nqFvJWXmqB",
                 "https://gateway.pinata.cloud/ipfs/QmfTWKDkeR6Lhn5wC7ukp2xUxJa7NVdpNHi8nqFvJWXmqB",
@@ -749,6 +849,8 @@
           "novenyek_magyar_latin_nepies_l": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmWDFmjTmLmCovykr6ScBB5AGMsA3DsqxBWu2kgsHNAek6",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmWDFmjTmLmCovykr6ScBB5AGMsA3DsqxBWu2kgsHNAek6",
                 "https://gateway.pinata.cloud/ipfs/QmWDFmjTmLmCovykr6ScBB5AGMsA3DsqxBWu2kgsHNAek6",
@@ -760,6 +862,8 @@
           "novenyek_magyar_latin_nepies_m": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmYPAZbZUH4jHGGYb8PUqURnWVLHsvK6ZywXEtPmgoPbnb",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmYPAZbZUH4jHGGYb8PUqURnWVLHsvK6ZywXEtPmgoPbnb",
                 "https://gateway.pinata.cloud/ipfs/QmYPAZbZUH4jHGGYb8PUqURnWVLHsvK6ZywXEtPmgoPbnb",
@@ -771,6 +875,8 @@
           "novenyek_magyar_latin_nepies_n": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmStgzwb8sib955xotLr1ZT7kX2FaotCscV5W5EiQ33XvM",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmStgzwb8sib955xotLr1ZT7kX2FaotCscV5W5EiQ33XvM",
                 "https://gateway.pinata.cloud/ipfs/QmStgzwb8sib955xotLr1ZT7kX2FaotCscV5W5EiQ33XvM",
@@ -782,6 +888,8 @@
           "novenyek_magyar_latin_nepies_o": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmXanaRzFi4FM6qXpTpi1VjeU7n7wyNZu3ZEvLRCBWJTtZ",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmXanaRzFi4FM6qXpTpi1VjeU7n7wyNZu3ZEvLRCBWJTtZ",
                 "https://gateway.pinata.cloud/ipfs/QmXanaRzFi4FM6qXpTpi1VjeU7n7wyNZu3ZEvLRCBWJTtZ",
@@ -793,6 +901,8 @@
           "novenyek_magyar_latin_nepies_oe": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S",
                 "https://gateway.pinata.cloud/ipfs/QmZVsVKKe7pKNaCGdxnirQGGXQ34bGJiF3gULEr3rz9k4S",
@@ -804,6 +914,8 @@
           "novenyek_magyar_latin_nepies_p": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmVkrzdfBR6guHUiMJzXYZDKyTX3chrfig78dqVG9mk4nD",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmVkrzdfBR6guHUiMJzXYZDKyTX3chrfig78dqVG9mk4nD",
                 "https://gateway.pinata.cloud/ipfs/QmVkrzdfBR6guHUiMJzXYZDKyTX3chrfig78dqVG9mk4nD",
@@ -815,6 +927,8 @@
           "novenyek_magyar_latin_nepies_r": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmcBBaWr7PNmairP2wkgTnxV1L4jk1iqBX7chFoF1mXN3w",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmcBBaWr7PNmairP2wkgTnxV1L4jk1iqBX7chFoF1mXN3w",
                 "https://gateway.pinata.cloud/ipfs/QmcBBaWr7PNmairP2wkgTnxV1L4jk1iqBX7chFoF1mXN3w",
@@ -826,6 +940,8 @@
           "novenyek_magyar_latin_nepies_s": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmcfbBYXmVf9sRFK65Ui1DSiPBYQ2k9SYKiPJiZJtKZwgE",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmcfbBYXmVf9sRFK65Ui1DSiPBYQ2k9SYKiPJiZJtKZwgE",
                 "https://gateway.pinata.cloud/ipfs/QmcfbBYXmVf9sRFK65Ui1DSiPBYQ2k9SYKiPJiZJtKZwgE",
@@ -837,6 +953,8 @@
           "novenyek_magyar_latin_nepies_sz": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmUuf6TdgRinEi3iNiEVjV7u8L7gmTVz35MtvovDVDuCZ3",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmUuf6TdgRinEi3iNiEVjV7u8L7gmTVz35MtvovDVDuCZ3",
                 "https://gateway.pinata.cloud/ipfs/QmUuf6TdgRinEi3iNiEVjV7u8L7gmTVz35MtvovDVDuCZ3",
@@ -848,6 +966,8 @@
           "novenyek_magyar_latin_nepies_t": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmdUo2hNtGZetRt11oZEWKvmJAz7qbb2smnkBDwH7h97m2",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmdUo2hNtGZetRt11oZEWKvmJAz7qbb2smnkBDwH7h97m2",
                 "https://gateway.pinata.cloud/ipfs/QmdUo2hNtGZetRt11oZEWKvmJAz7qbb2smnkBDwH7h97m2",
@@ -859,6 +979,8 @@
           "novenyek_magyar_latin_nepies_u": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmTxohXfZ2GBQZGjkG4Q4HxD4EbqAzd74hHVqcbjbN3SBK",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmTxohXfZ2GBQZGjkG4Q4HxD4EbqAzd74hHVqcbjbN3SBK",
                 "https://gateway.pinata.cloud/ipfs/QmTxohXfZ2GBQZGjkG4Q4HxD4EbqAzd74hHVqcbjbN3SBK",
@@ -870,6 +992,8 @@
           "novenyek_magyar_latin_nepies_ue": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmRZgGuRqTAa1ruvDCfUejjhkeuzuLaDEoM48wGtPzZsrM",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmRZgGuRqTAa1ruvDCfUejjhkeuzuLaDEoM48wGtPzZsrM",
                 "https://gateway.pinata.cloud/ipfs/QmRZgGuRqTAa1ruvDCfUejjhkeuzuLaDEoM48wGtPzZsrM",
@@ -881,6 +1005,8 @@
           "novenyek_magyar_latin_nepies_v": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmXEpqkWiEymAGWhyifS81okLZaimbFcPG9rzXRdaMFdNS",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmXEpqkWiEymAGWhyifS81okLZaimbFcPG9rzXRdaMFdNS",
                 "https://gateway.pinata.cloud/ipfs/QmXEpqkWiEymAGWhyifS81okLZaimbFcPG9rzXRdaMFdNS",
@@ -892,6 +1018,8 @@
           "novenyek_magyar_latin_nepies_w": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmXz7ny1rArtbjzHYRE21my1phzHUrBFyJPWiLkAASu27d",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmXz7ny1rArtbjzHYRE21my1phzHUrBFyJPWiLkAASu27d",
                 "https://gateway.pinata.cloud/ipfs/QmXz7ny1rArtbjzHYRE21my1phzHUrBFyJPWiLkAASu27d",
@@ -903,6 +1031,8 @@
           "novenyek_magyar_latin_nepies_x_y": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmWb3feotmfNGrfz9TcBj8XcPViSBj1kDqFL1cx1wrLywb",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmWb3feotmfNGrfz9TcBj8XcPViSBj1kDqFL1cx1wrLywb",
                 "https://gateway.pinata.cloud/ipfs/QmWb3feotmfNGrfz9TcBj8XcPViSBj1kDqFL1cx1wrLywb",
@@ -914,6 +1044,8 @@
           "novenyek_magyar_latin_nepies_z": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmWgLCBDfyWGfJ8eUasBnF61MRLx698ZJp7HHd92V9s9z6",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmWgLCBDfyWGfJ8eUasBnF61MRLx698ZJp7HHd92V9s9z6",
                 "https://gateway.pinata.cloud/ipfs/QmWgLCBDfyWGfJ8eUasBnF61MRLx698ZJp7HHd92V9s9z6",
@@ -925,6 +1057,8 @@
           "novenyek_magyar_latin_nepies_zs": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_xz_source_repo",
             "attributes": {
+              "archive_basename": "QmPUU52rT8qBG8e8Fk1ifo2EccZ3JQvXW7GVRTtmN4mRBE",
+              "extension": ".txt",
               "urls": [
                 "https://ipfs.io/ipfs/QmPUU52rT8qBG8e8Fk1ifo2EccZ3JQvXW7GVRTtmN4mRBE",
                 "https://gateway.pinata.cloud/ipfs/QmPUU52rT8qBG8e8Fk1ifo2EccZ3JQvXW7GVRTtmN4mRBE",

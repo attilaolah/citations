@@ -13,6 +13,7 @@ def _pptx_file_impl(ctx):
     )
 
     args = ctx.actions.args()
+    args.add("-env:UserInstallation=file:///tmp/libreoffice-profile-" + ctx.label.name)
     args.add("--headless")
     args.add("--nologo")
     args.add("--nolockcheck")
@@ -27,7 +28,7 @@ def _pptx_file_impl(ctx):
         arguments = [args],
         env = {
             "DBUS_SESSION_BUS_ADDRESS": "disabled:",
-            "HOME": "/tmp",
+            "HOME": "/tmp/libreoffice-" + ctx.label.name,
         },
         inputs = [local_input],
         outputs = [out],
