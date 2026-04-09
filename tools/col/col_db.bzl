@@ -42,15 +42,15 @@ col_name_db = rule(
         "_duckdb": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@duckdb//:bin/duckdb",
+            default = "@duckdb//:duckdb",
         ),
         "_import_sql_template": attr.label(
             allow_single_file = True,
-            default = "//tools/col:import.sql.tpl",
+            default = "//tools/col:import_sql_tpl",
         ),
         "_schema_sql": attr.label(
             allow_single_file = True,
-            default = "//tools/col:schema.sql",
+            default = "//tools/col:schema_sql",
         ),
     },
 )

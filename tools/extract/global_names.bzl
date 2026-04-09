@@ -34,7 +34,7 @@ global_names = rule(
         "gnfinder": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@gnfinder//:bin/gnfinder",
+            default = "@gnfinder//:gnfinder",
         ),
         "src": attr.label(
             allow_single_file = True,
@@ -48,7 +48,7 @@ global_names = rule(
         "_python": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@python//:bin/python3",
+            default = "@python//:python3",
         ),
     },
 )

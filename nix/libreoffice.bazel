@@ -2,8 +2,6 @@
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files(["bin/soffice"])
-
 filegroup(
     name = "soffice",
     srcs = ["bin/soffice"],

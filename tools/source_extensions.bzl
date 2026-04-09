@@ -11,8 +11,6 @@ filegroup(
 
 _URLS_BUILD = """\
 package(default_visibility = ["//:__subpackages__"])
-
-exports_files(["urls.txt"])
 """
 
 _IPFS_GATEWAYS = [

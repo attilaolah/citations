@@ -2,11 +2,20 @@
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files([
-    "bin/python",
-    "bin/python3",
-    "bin/pytest",
-])
+filegroup(
+    name = "python",
+    srcs = ["bin/python"],
+)
+
+filegroup(
+    name = "python3",
+    srcs = ["bin/python3"],
+)
+
+filegroup(
+    name = "pytest",
+    srcs = ["bin/pytest"],
+)
 
 filegroup(
     name = "site_packages_files",

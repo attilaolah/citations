@@ -26,8 +26,8 @@ def name_pairs_completeness_test(name, clean, global_names, ignore = None, **kwa
 
     py_test(
         name = name,
-        srcs = ["//tools/extract:name_pairs_completeness_test.py"],
-        main = "//tools/extract:name_pairs_completeness_test.py",
+        srcs = ["//tools/extract:name_pairs_completeness_test_py"],
+        main = "//tools/extract:name_pairs_completeness_test_py",
         data = data,
         env = env,
         **kwargs

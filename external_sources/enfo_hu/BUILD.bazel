@@ -15,10 +15,6 @@ IGNORES = {
     "fokozottan_vedett_izeltlabuak_1_pairs": "tests/fokozottan_vedett_izeltlabuak_1.ignore.txt",
 }
 
-exports_files(SAMPLES + list(IGNORES.values()) + [
-    "SRCS.MODULE.bazel",
-])
-
 [
     name_pairs(
         name = "%s_%d_pairs" % (name, page),

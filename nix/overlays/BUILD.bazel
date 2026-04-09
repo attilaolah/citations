@@ -1,1 +1,5 @@
-exports_files(["python.nix"])
+filegroup(
+    name = "python_overlay",
+    srcs = ["python.nix"],
+    visibility = ["//:__subpackages__"],
+)

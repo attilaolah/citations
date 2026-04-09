@@ -1,15 +1,15 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_test")
 
-exports_files(
-    [
-        "col_db.bzl",
-        "import.sql.tpl",
-        "lookup.py",
-        "lookup_test.py",
-        "pytest_runner.py",
-        "schema.sql",
-    ],
-    visibility = ["//external_sources/col:__pkg__"],
+filegroup(
+    name = "import_sql_tpl",
+    srcs = ["import.sql.tpl"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "schema_sql",
+    srcs = ["schema.sql"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_library(
@@ -30,12 +30,12 @@ py_test(
             "--cov",
             "--cov-branch",
             "--cov-report=term-missing",
-            "--cov-config=$(rootpath //tools/python:coverage.rc)",
+            "--cov-config=$(rootpath //tools/python:coverage_rc)",
         ],
         "//conditions:default": [],
     }),
     data = select({
-        "//tools/python:coverage_enabled": ["//tools/python:coverage.rc"],
+        "//tools/python:coverage_enabled": ["//tools/python:coverage_rc"],
         "//conditions:default": [],
     }),
     main = "pytest_runner.py",

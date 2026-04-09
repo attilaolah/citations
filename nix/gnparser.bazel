@@ -2,4 +2,7 @@
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files(["bin/gnparser"])
+filegroup(
+    name = "gnparser",
+    srcs = ["bin/gnparser"],
+)

@@ -2,11 +2,6 @@
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files([
-    "bin/docling",
-    "bin/docling-tools",
-])
-
 filegroup(
     name = "docling",
     srcs = ["bin/docling"],

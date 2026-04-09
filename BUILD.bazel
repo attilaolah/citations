@@ -1,4 +1,11 @@
-exports_files([
-    "flake.lock",
-    "pyproject.toml",
-])
+filegroup(
+    name = "flake_lock",
+    srcs = ["flake.lock"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "pyproject_toml",
+    srcs = ["pyproject.toml"],
+    visibility = ["//:__subpackages__"],
+)

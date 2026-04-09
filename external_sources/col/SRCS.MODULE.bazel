@@ -4,7 +4,7 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 # https://download.checklistbank.org/col/monthly/
 http_archive(
     name = "col_xr_coldp",
-    build_file = "//external_sources/col:col_xr_coldp.build",
+    build_file = "//external_sources/col:col_xr_coldp_build",
     sha256 = "2efcf557bb213a26c8035a783c076eb18acd809a90b64cdd278ae5ded0611c13",
     urls = ["https://download.checklistbank.org/col/monthly/2026-02-13_xr_coldp.zip"],
 )

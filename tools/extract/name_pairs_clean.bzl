@@ -36,7 +36,7 @@ name_pairs_clean = rule(
         "gnparser": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@gnparser//:bin/gnparser",
+            default = "@gnparser//:gnparser",
         ),
         "src": attr.label(
             allow_single_file = True,
@@ -50,7 +50,7 @@ name_pairs_clean = rule(
         "_python": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@python//:bin/python3",
+            default = "@python//:python3",
         ),
     },
 )

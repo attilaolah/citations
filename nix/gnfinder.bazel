@@ -2,4 +2,7 @@
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files(["bin/gnfinder"])
+filegroup(
+    name = "gnfinder",
+    srcs = ["bin/gnfinder"],
+)

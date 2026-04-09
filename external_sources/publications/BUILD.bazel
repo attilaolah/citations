@@ -8,10 +8,6 @@ load(
     "pptx_file",
 )
 
-exports_files([
-    "SRCS.MODULE.bazel",
-])
-
 _MODELS = "//tools/docling/models:default"
 
 _PDF_PUBLICATIONS = [
