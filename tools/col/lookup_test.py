@@ -5,21 +5,10 @@ from typing import TYPE_CHECKING
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-
 from tools.col.lookup import Base, ColNameUsage, create_duckdb_engine, lookup_name
 
 if TYPE_CHECKING:
     from collections.abc import Generator
-
-
-def _insert_name(session: Session, identifier: str, scientific_name: str, canonical_name: str) -> None:
-    session.add(
-        ColNameUsage(
-            id=identifier,
-            scientific_name=scientific_name,
-            canonical_scientific_name=canonical_name,
-        ),
-    )
 
 
 @pytest.fixture
@@ -33,6 +22,7 @@ def session() -> Generator[Session]:
     Base.metadata.create_all(engine)
     with Session(engine) as value:
         _insert_name(value, "exact-1", "Pinus sylvestris", "Pinus sylvestris")
+        _insert_name(value, "exact-2", "Esox", "Esox")
         _insert_name(value, "subgen-1", "Carabus (Pachystus) hungaricus", "Carabus (Pachystus) hungaricus")
         _insert_name(value, "last-1", "Mentha piperitum", "Mentha piperitum")
         _insert_name(value, "first-last-1", "Funga album", "Funga album")
@@ -46,7 +36,8 @@ def session() -> Generator[Session]:
     ("query", "expected_id"),
     [
         ("Pinus sylvestris", "exact-1"),
-        ("Pinus", "exact-1"),
+        ("Pinus", "exact-1"),  # need to verify whether this match is possible with current data
+        ("Esox", "exact-2"),
         ("Carabus hungaricus", "subgen-1"),
         ("Mentha piperita", "last-1"),
         ("Fungus alba", "first-last-1"),
@@ -74,3 +65,13 @@ def test_create_duckdb_engine() -> None:
         assert str(engine.url).endswith(db_path)
     finally:
         engine.dispose()
+
+
+def _insert_name(session: Session, identifier: str, scientific_name: str, canonical_name: str) -> None:
+    session.add(
+        ColNameUsage(
+            id=identifier,
+            scientific_name=scientific_name,
+            canonical_scientific_name=canonical_name,
+        ),
+    )

@@ -1,4 +1,19 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_runtime", "py_runtime_pair")
+load(":flags.bzl", "bool_flag")
+
+exports_files(["coverage.rc"])
+
+bool_flag(
+    name = "coverage",
+    build_setting_default = False,
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "coverage_enabled",
+    flag_values = {":coverage": "true"},
+    visibility = ["//visibility:public"],
+)
 
 py_runtime(
     name = "python_3_14_runtime",

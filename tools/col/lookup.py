@@ -5,8 +5,8 @@ from re import escape
 from typing import TYPE_CHECKING
 
 from Levenshtein import distance as levenshtein_distance
-from sqlalchemy import String, create_engine, func, or_, select
-from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
+from sqlalchemy import create_engine, func, or_, select, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 
 if TYPE_CHECKING:
     from sqlalchemy.engine import Engine
@@ -37,6 +37,45 @@ class LookupResult:
     id: str
     scientific_name: str
     canonical_scientific_name: str
+
+
+def lookup_name(session: Session, query: str) -> LookupResult | None:
+    """Resolve a scientific name using increasingly permissive strategies.
+
+    Args:
+        session: Active SQLAlchemy session on a DuckDB database.
+        query: Scientific name query to resolve.
+
+    Returns:
+        Matching record, or `None` if no strategy finds a result.
+    """
+    normalized_query = " ".join(query.split())
+    if not normalized_query:
+        return None
+    for strategy in (
+        _first_match,
+        _lookup_subgenus,
+        _lookup_gender_variants,
+        _lookup_genus_stem_pattern,
+        _lookup_by_levenshtein,
+    ):
+        result = strategy(session, normalized_query)
+        if result is not None:
+            return result
+    return None
+
+
+def create_duckdb_engine(db_path: str, *, read_only: bool = True) -> Engine:
+    """Create a DuckDB SQLAlchemy engine for a local database file.
+
+    Args:
+        db_path: Path to the DuckDB file.
+        read_only: Whether to open the database read-only.
+
+    Returns:
+        Configured SQLAlchemy engine.
+    """
+    return create_engine(f"duckdb:///{db_path}", connect_args={"read_only": read_only})
 
 
 def _token_gender_variants(token: str) -> tuple[str, ...]:
@@ -138,42 +177,3 @@ def _lookup_by_levenshtein(session: Session, query: str) -> LookupResult | None:
         return None
     best = min(rows, key=lambda row: (levenshtein_distance(row.scientific_name, query), row.scientific_name))
     return _to_result(best)
-
-
-def lookup_name(session: Session, query: str) -> LookupResult | None:
-    """Resolve a scientific name using increasingly permissive strategies.
-
-    Args:
-        session: Active SQLAlchemy session on a DuckDB database.
-        query: Scientific name query to resolve.
-
-    Returns:
-        Matching record, or `None` if no strategy finds a result.
-    """
-    normalized_query = " ".join(query.split())
-    if not normalized_query:
-        return None
-    for strategy in (
-        _first_match,
-        _lookup_subgenus,
-        _lookup_gender_variants,
-        _lookup_genus_stem_pattern,
-        _lookup_by_levenshtein,
-    ):
-        result = strategy(session, normalized_query)
-        if result is not None:
-            return result
-    return None
-
-
-def create_duckdb_engine(db_path: str, *, read_only: bool = True) -> Engine:
-    """Create a DuckDB SQLAlchemy engine for a local database file.
-
-    Args:
-        db_path: Path to the DuckDB file.
-        read_only: Whether to open the database read-only.
-
-    Returns:
-        Configured SQLAlchemy engine.
-    """
-    return create_engine(f"duckdb:///{db_path}", connect_args={"read_only": read_only})

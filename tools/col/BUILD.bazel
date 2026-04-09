@@ -3,7 +3,6 @@ load("@rules_python//python:defs.bzl", "py_library", "py_test")
 exports_files(
     [
         "col_db.bzl",
-        "coverage.rc",
         "import.sql.tpl",
         "lookup.py",
         "lookup_test.py",
@@ -26,14 +25,19 @@ py_test(
         "lookup_test.py",
         "pytest_runner.py",
     ],
-    args = [
-        "$(rootpath :lookup_test.py)",
-        "--cov",
-        "--cov-branch",
-        "--cov-report=term-missing",
-        "--cov-config=$(rootpath :coverage.rc)",
-    ],
-    data = [":coverage.rc"],
+    args = ["$(rootpath :lookup_test.py)"] + select({
+        "//tools/python:coverage_enabled": [
+            "--cov",
+            "--cov-branch",
+            "--cov-report=term-missing",
+            "--cov-config=$(rootpath //tools/python:coverage.rc)",
+        ],
+        "//conditions:default": [],
+    }),
+    data = select({
+        "//tools/python:coverage_enabled": ["//tools/python:coverage.rc"],
+        "//conditions:default": [],
+    }),
     main = "pytest_runner.py",
     deps = [
         ":lookup",
