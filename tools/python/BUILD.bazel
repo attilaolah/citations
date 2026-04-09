@@ -1,9 +1,8 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_runtime", "py_runtime_pair")
 load(":flags.bzl", "bool_flag")
 
-filegroup(
-    name = "coverage_rc",
-    srcs = ["coverage.rc"],
+exports_files(
+    ["coverage.rc"],
     visibility = ["//:__subpackages__"],
 )
 

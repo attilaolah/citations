@@ -1,41 +1,12 @@
-filegroup(
-    name = "docling_build_file",
-    srcs = ["docling.bazel"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "duckdb_build_file",
-    srcs = ["duckdb.bazel"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "gnfinder_build_file",
-    srcs = ["gnfinder.bazel"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "gnparser_build_file",
-    srcs = ["gnparser.bazel"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "libreoffice_build_file",
-    srcs = ["libreoffice.bazel"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "nixpkgs_file",
-    srcs = ["nixpkgs.nix"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "python_build_file",
-    srcs = ["python.bazel"],
+exports_files(
+    [
+        "docling.bazel",
+        "duckdb.bazel",
+        "gnfinder.bazel",
+        "gnparser.bazel",
+        "libreoffice.bazel",
+        "nixpkgs.nix",
+        "python.bazel",
+    ],
     visibility = ["//:__subpackages__"],
 )

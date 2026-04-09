@@ -1,26 +1,12 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
-filegroup(
-    name = "known_homonyms_test_py",
-    srcs = ["known_homonyms_test.py"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "known_typos_py",
-    srcs = ["known_typos.py"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "name_pairs_completeness_test_py",
-    srcs = ["name_pairs_completeness_test.py"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "name_pairs_test_py",
-    srcs = ["name_pairs_test.py"],
+exports_files(
+    [
+        "known_homonyms_test.py",
+        "known_typos.py",
+        "name_pairs_completeness_test.py",
+        "name_pairs_test.py",
+    ],
     visibility = ["//:__subpackages__"],
 )
 

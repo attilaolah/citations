@@ -1,6 +1,6 @@
 """Exposes Docling CLI binaries from the Nix-provisioned toolchain."""
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["@@//:__subpackages__"])
 
 filegroup(
     name = "docling",

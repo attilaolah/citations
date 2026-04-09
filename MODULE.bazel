@@ -8,11 +8,11 @@ bazel_dep(name = "rules_python", version = "1.7.0")
 nix_repo = use_extension("@rules_nixpkgs_core//extensions:repository.bzl", "nix_repo")
 nix_repo.file(
     name = "nixpkgs",
-    file = "//nix:nixpkgs_file",
+    file = "//nix:nixpkgs.nix",
     file_deps = [
-        "//:flake_lock",
-        "//:pyproject_toml",
-        "//nix/overlays:python_overlay",
+        "//:flake.lock",
+        "//:pyproject.toml",
+        "//nix/overlays:python.nix",
     ],
 )
 use_repo(nix_repo, "nixpkgs")
@@ -21,7 +21,7 @@ nix_pkg = use_extension("@rules_nixpkgs_core//extensions:package.bzl", "nix_pkg"
 nix_pkg.attr(
     name = "docling",
     attr = "python314Packages.docling",
-    build_file = "//nix:docling_build_file",
+    build_file = "//nix:docling.bazel",
     repo = "@nixpkgs",
 )
 nix_pkg.expr(
@@ -33,31 +33,31 @@ nix_pkg.expr(
 nix_pkg.attr(
     name = "duckdb",
     attr = "duckdb",
-    build_file = "//nix:duckdb_build_file",
+    build_file = "//nix:duckdb.bazel",
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
     name = "gnfinder",
     attr = "gnfinder",
-    build_file = "//nix:gnfinder_build_file",
+    build_file = "//nix:gnfinder.bazel",
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
     name = "gnparser",
     attr = "gnparser",
-    build_file = "//nix:gnparser_build_file",
+    build_file = "//nix:gnparser.bazel",
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
     name = "libreoffice",
     attr = "libreoffice-fresh",
-    build_file = "//nix:libreoffice_build_file",
+    build_file = "//nix:libreoffice.bazel",
     repo = "@nixpkgs",
 )
 nix_pkg.attr(
     name = "python",
     attr = "python",
-    build_file = "//nix:python_build_file",
+    build_file = "//nix:python.bazel",
     repo = "@nixpkgs",
 )
 use_repo(nix_pkg, "docling", "docling_parse", "duckdb", "gnfinder", "gnparser", "libreoffice", "python")

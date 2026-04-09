@@ -48,7 +48,7 @@ global_names = rule(
         "_python": attr.label(
             cfg = "exec",
             allow_single_file = True,
-            default = "@python//:python3",
+            default = "@python//:python",
         ),
     },
 )

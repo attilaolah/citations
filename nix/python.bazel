@@ -1,10 +1,10 @@
 """Exposes Python executables from the Nix-provisioned toolchain."""
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["@@//:__subpackages__"])
 
 filegroup(
     name = "python",
-    srcs = ["bin/python"],
+    srcs = ["bin/python3"],
 )
 
 filegroup(

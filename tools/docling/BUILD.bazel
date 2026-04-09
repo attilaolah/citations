@@ -1,5 +1,4 @@
-filegroup(
-    name = "markdown_cleanup_py",
-    srcs = ["markdown_cleanup.py"],
+exports_files(
+    ["markdown_cleanup.py"],
     visibility = ["//:__subpackages__"],
 )

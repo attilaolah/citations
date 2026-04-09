@@ -1,8 +1,7 @@
 load("//tools/col:col_db.bzl", "col_name_db")
 
-filegroup(
-    name = "col_xr_coldp_build",
-    srcs = ["col_xr_coldp.build"],
+exports_files(
+    ["col_xr_coldp.build"],
     visibility = ["//:__subpackages__"],
 )
 

@@ -110,7 +110,7 @@ markdown_file = rule(
         ),
         "_markdown_cleanup": attr.label(
             allow_single_file = True,
-            default = "//tools/docling:markdown_cleanup_py",
+            default = "//tools/docling:markdown_cleanup.py",
         ),
         "_python": attr.label(
             cfg = "exec",

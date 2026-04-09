@@ -3,11 +3,10 @@
 load("@rules_python//python:defs.bzl", "py_test")
 
 def name_pairs_test(name, src, samples, **kwargs):
-    main = "//tools/extract:name_pairs_test_py"
     py_test(
         name = name,
-        srcs = [main],
-        main = main,
+        srcs = ["//tools/extract:name_pairs_test.py"],
+        main = "name_pairs_test.py",
         data = [
             src,
             samples,

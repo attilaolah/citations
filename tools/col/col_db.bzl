@@ -46,11 +46,11 @@ col_name_db = rule(
         ),
         "_import_sql_template": attr.label(
             allow_single_file = True,
-            default = "//tools/col:import_sql_tpl",
+            default = "//tools/col:import.sql.tpl",
         ),
         "_schema_sql": attr.label(
             allow_single_file = True,
-            default = "//tools/col:schema_sql",
+            default = "//tools/col:schema.sql",
         ),
     },
 )

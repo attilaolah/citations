@@ -1,7 +1,7 @@
 """Bzlmod extension for external source repositories and URL manifests."""
 
 _BUILD = """\
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["@@//:__subpackages__"])
 
 filegroup(
     name = "file",
@@ -10,7 +10,7 @@ filegroup(
 """
 
 _URLS_BUILD = """\
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["@@//:__subpackages__"])
 """
 
 _IPFS_GATEWAYS = [
