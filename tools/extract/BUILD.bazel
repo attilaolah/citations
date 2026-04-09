@@ -15,7 +15,7 @@ exports_files(
         "name_pairs_test.py",
         "name_pairs_test.bzl",
     ],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_binary(

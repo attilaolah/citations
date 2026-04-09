@@ -69,7 +69,7 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
     name_pairs_clean(
         name = name + "_clean",
         src = ":" + name,
-        visibility = ["//visibility:public"],
+        visibility = ["//:__subpackages__"],
     )
 
     global_names(

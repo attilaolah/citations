@@ -1,6 +1,6 @@
 """Exposes LibreOffice binaries from the Nix-provisioned toolchain."""
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//:__subpackages__"])
 
 exports_files(["bin/soffice"])
 

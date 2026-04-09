@@ -6,13 +6,13 @@ exports_files(["coverage.rc"])
 bool_flag(
     name = "coverage",
     build_setting_default = False,
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 config_setting(
     name = "coverage_enabled",
     flag_values = {":coverage": "true"},
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_runtime(
@@ -29,12 +29,12 @@ toolchain(
     name = "python_3_14_toolchain",
     toolchain = ":python_3_14_runtime_pair",
     toolchain_type = "@rules_python//python:toolchain_type",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_library(
     name = "nix_site_packages",
     data = ["@python//:site_packages_files"],
     imports = ["rules_nixpkgs_core++nix_pkg+python/lib/python3.14/site-packages"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
