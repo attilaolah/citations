@@ -5,8 +5,8 @@ from re import escape
 from typing import TYPE_CHECKING
 
 from Levenshtein import distance as levenshtein_distance
-from sqlalchemy import create_engine, func, or_, select, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
+from sqlalchemy import String, create_engine, func, or_, select
+from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 if TYPE_CHECKING:
     from sqlalchemy.engine import Engine

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+
 from tools.col.lookup import Base, ColNameUsage, create_duckdb_engine, lookup_name
 
 if TYPE_CHECKING:
