@@ -18,11 +18,12 @@
 ## Python
 
 - Use Python `3.14`.
-- **Do not add** `noqa` pragmas.
+- **Do not add** `NOQA` pragmas, except `TC002` and `TC003` for pydantic annotation types.
 - Dynamic imports are not allowed.
 - Lint with `ruff check --target-version py314`; apply `--fix --unsafe-fixes` when needed.
 - Run `pyright` on changed Python code.
 - Run `pyupgrade` to adopt the newest syntax it supports.
+- Use `pydantic-settings` for loading settings from args or environment variables.
 - Keep definition order as: public first, then private helpers; start with the main entry point (for example `main()`).
 
 ## Environment

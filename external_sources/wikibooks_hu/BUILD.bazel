@@ -1,47 +1,63 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
+load("//tools/wiki:wiki_page.bzl", "wiki_page")
+
+wiki_page(
+    name = "latin_magyarorszagon_vedett_allatok_txt",
+    src = "@huwikibooks_xml//file",
+    title = "Latin/Magyarországon_védett_állatok",
+)
 
 name_pairs(
     name = "latin_magyarorszagon_vedett_allatok_pairs",
-    src = "@latin_magyarorszagon_vedett_allatok//file",
+    src = ":latin_magyarorszagon_vedett_allatok_txt",
     samples = ":tests/latin_magyarorszagon_vedett_allatok.samples.json",
     tool = "//tools/extract/wikibooks_hu:latin_magyarorszagon_vedett_allatok",
 )
 
-_NOVENYEK_LETTER_SUFFIXES = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "oe",
-    "p",
-    "r",
-    "s",
-    "sz",
-    "t",
-    "u",
-    "ue",
-    "v",
-    "w",
-    "x_y",
-    "z",
-    "zs",
+_NOVENYEK_SUFFIXES_AND_TITLES = [
+    ("a", "A"),
+    ("b", "B"),
+    ("c", "C"),
+    ("d", "D"),
+    ("e", "E"),
+    ("f", "F"),
+    ("g", "G"),
+    ("h", "H"),
+    ("i", "I"),
+    ("j", "J"),
+    ("k", "K"),
+    ("l", "L"),
+    ("m", "M"),
+    ("n", "N"),
+    ("o", "O"),
+    ("oe", "Ö"),
+    ("p", "P"),
+    ("r", "R"),
+    ("s", "S"),
+    ("sz", "Sz"),
+    ("t", "T"),
+    ("u", "U"),
+    ("ue", "Ü"),
+    ("v", "V"),
+    ("w", "W"),
+    ("x_y", "X,Y"),
+    ("z", "Z"),
+    ("zs", "Zs"),
+]
+
+[
+    wiki_page(
+        name = "novenyek_magyar_latin_nepies_" + suffix + "_txt",
+        src = "@huwikibooks_xml//file",
+        title = "Növények/Magyar-Latin-Népies/" + title,
+    )
+    for suffix, title in _NOVENYEK_SUFFIXES_AND_TITLES
 ]
 
 [
     name_pairs(
         name = "novenyek_magyar_latin_nepies_" + suffix + "_pairs",
-        src = "@novenyek_magyar_latin_nepies_" + suffix + "//file",
+        src = ":novenyek_magyar_latin_nepies_" + suffix + "_txt",
         ignore = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".ignore.txt" if suffix in [
             "a",
             "b",
@@ -76,5 +92,5 @@ _NOVENYEK_LETTER_SUFFIXES = [
         ] else None,
         tool = "//tools/extract/wikibooks_hu:novenyek_magyar_latin_nepies",
     )
-    for suffix in _NOVENYEK_LETTER_SUFFIXES
+    for suffix, _ in _NOVENYEK_SUFFIXES_AND_TITLES
 ]

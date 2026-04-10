@@ -1,0 +1,159 @@
+"""CLI wrapper for selecting one wiki page from a MediaWiki dump."""
+
+import argparse
+import html
+from contextlib import suppress
+from enum import StrEnum, auto
+from pathlib import Path  # NOQA: TC003
+from typing import TYPE_CHECKING, override
+from xml.sax.handler import ContentHandler
+
+from defusedxml import sax
+from pydantic import FilePath  # NOQA: TC002
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+_REVISION_PATH_DEPTH = 2
+
+if TYPE_CHECKING:
+    from xml.sax.xmlreader import AttributesImpl
+
+
+class WikiPageSettings(BaseSettings):
+    """Settings for extracting one wiki page from a dump."""
+
+    input: FilePath
+    output: Path
+    title: str
+
+    model_config = SettingsConfigDict(env_prefix="WIKI_PAGE_")
+
+
+def main() -> None:
+    """Run the extraction CLI."""
+    args = _parse_args()
+    provided = {key: value for key, value in vars(args).items() if value is not None}
+    settings = WikiPageSettings(**provided)
+    content = _extract_wiki_page_text(input_path=settings.input, title=settings.title)
+    settings.output.write_text(content, encoding="utf-8")
+
+
+class PageNotFoundError(IndexError):
+    """Raised when the requested page title does not exist in the XML dump."""
+
+    def __init__(self, title: str) -> None:
+        """Initialize the exception with the missing title."""
+        super().__init__(f"page not found: {title!r}")
+
+
+class _FoundPageError(Exception):
+    """Raised internally to stop parsing once the requested page is found."""
+
+
+class _WikiNode(StrEnum):
+    PAGE = auto()
+    REVISION = auto()
+    TEXT = auto()
+    TITLE = auto()
+
+
+class _WikiPageHandler(ContentHandler):
+    def __init__(self, title: str) -> None:
+        super().__init__()
+        self._target_title = title
+        self._path: list[_WikiNode | None] = []
+        self._current_title_parts: list[str] | None = None
+        self._current_text_parts: list[str] | None = None
+        self._page_title = ""
+        self.page_text = ""
+
+    @staticmethod
+    def _node(name: str) -> _WikiNode | None:
+        local_name = name.rpartition(":")[2]
+        with suppress(ValueError):
+            return _WikiNode(local_name)
+        return None
+
+    @staticmethod
+    def _title_matches(actual: str, expected: str) -> bool:
+        if actual == expected:
+            return True
+        return actual.replace("_", " ") == expected.replace("_", " ")
+
+    @override
+    def startElement(self, name: str, attrs: AttributesImpl) -> None:
+        del attrs
+        node = self._node(name)
+        self._path.append(node)
+
+        if node is _WikiNode.PAGE:
+            self._current_title_parts = None
+            self._current_text_parts = None
+            self._page_title = ""
+            self.page_text = ""
+            return
+
+        if node is _WikiNode.TITLE and self._path[-2:] == [_WikiNode.PAGE, _WikiNode.TITLE]:
+            self._current_title_parts = []
+            return
+
+        if (
+            node is _WikiNode.TEXT
+            and len(self._path) >= _REVISION_PATH_DEPTH
+            and self._path[-_REVISION_PATH_DEPTH] is _WikiNode.REVISION
+        ):
+            self._current_text_parts = []
+
+    @override
+    def characters(self, content: str) -> None:
+        if self._current_title_parts is not None:
+            self._current_title_parts.append(content)
+        if self._current_text_parts is not None:
+            self._current_text_parts.append(content)
+
+    @override
+    def endElement(self, name: str) -> None:
+        node = self._node(name)
+
+        if node is _WikiNode.TITLE and self._current_title_parts is not None:
+            self._page_title = "".join(self._current_title_parts)
+            self._current_title_parts = None
+        elif node is _WikiNode.TEXT and self._current_text_parts is not None:
+            self.page_text = "".join(self._current_text_parts)
+            self._current_text_parts = None
+        elif node is _WikiNode.PAGE and self._title_matches(self._page_title, self._target_title):
+            raise _FoundPageError
+
+        self._path.pop()
+
+
+def _extract_wiki_page_text(*, input_path: Path, title: str) -> str:
+    """Extract one page body by title and decode XML entity escapes.
+
+    Returns:
+        Page text for the requested title.
+
+    Raises:
+        PageNotFoundError: The input XML does not contain the requested page title.
+    """
+    handler = _WikiPageHandler(title=title)
+
+    try:
+        sax.parse(str(input_path), handler)
+    except _FoundPageError:
+        return html.unescape(handler.page_text)
+
+    raise PageNotFoundError(title)
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Extract one wiki page from a MediaWiki XML dump.",
+    )
+    parser.add_argument("--input", help="Input MediaWiki XML file")
+    parser.add_argument("--title", help="Exact page title to extract")
+    parser.add_argument("--output", help="Output text file")
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main()

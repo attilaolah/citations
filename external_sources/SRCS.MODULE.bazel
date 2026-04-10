@@ -22,5 +22,5 @@ use_repo(
     sources,
     "magyar_novenynevek",
     "plant_names_in_hungarian",
-    "source_urls",
+    "cached_urls",
 )
