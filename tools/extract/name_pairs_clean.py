@@ -3,6 +3,7 @@
 import json
 import subprocess
 from collections.abc import Callable
+from os import EX_OK
 from pathlib import Path  # NOQA: TC003
 
 from pydantic import BaseModel, FilePath, TypeAdapter
@@ -119,7 +120,7 @@ def _main() -> int:
         json.dumps(cleaned_entries, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    return 0
+    return EX_OK
 
 
 if __name__ == "__main__":

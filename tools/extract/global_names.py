@@ -5,6 +5,7 @@ import re
 import subprocess
 import tempfile
 import unicodedata
+from os import EX_OK
 from pathlib import Path
 
 from pydantic import BaseModel, FilePath, TypeAdapter
@@ -112,7 +113,7 @@ def _main() -> int:
         json.dumps(names, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    return 0
+    return EX_OK
 
 
 if __name__ == "__main__":

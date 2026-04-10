@@ -1,6 +1,7 @@
 """Extract Latin/Hungarian name pairs from one specific Wikibooks raw page."""
 
 import re
+from os import EX_OK
 
 from tools.extract.json_io import write_json_file
 from tools.extract.vernacular import sorted_vernacular_entries
@@ -273,7 +274,7 @@ def _main() -> int:
 
     sorted_mapping = {latin: sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
     write_json_file(settings.output, sorted_mapping, sort_keys=True)
-    return 0
+    return EX_OK
 
 
 if __name__ == "__main__":

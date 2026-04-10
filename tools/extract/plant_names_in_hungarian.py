@@ -1,6 +1,7 @@
 """Extract Latin/Hungarian name pairs from plant_names_in_hungarian HTML tables."""
 
 import re
+from os import EX_OK
 
 from lxml import html
 
@@ -95,7 +96,7 @@ def _main() -> int:
     mapping = _extract_pairs(settings.input.read_bytes())
     sorted_mapping = sorted_text_set_mapping(mapping)
     write_json_file(settings.output, sorted_mapping, sort_keys=True)
-    return 0
+    return EX_OK
 
 
 if __name__ == "__main__":

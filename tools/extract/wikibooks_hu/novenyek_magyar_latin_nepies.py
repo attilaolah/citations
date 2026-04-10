@@ -4,6 +4,7 @@ import operator
 import re
 import unicodedata
 from itertools import starmap
+from os import EX_OK
 
 from Levenshtein import distance as levenshtein_distance
 
@@ -865,7 +866,7 @@ def _main() -> int:
     }
 
     write_json_file(settings.output, sorted_mapping, sort_keys=True)
-    return 0
+    return EX_OK
 
 
 if __name__ == "__main__":

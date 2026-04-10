@@ -2,6 +2,7 @@
 
 import re
 from enum import Enum
+from os import EX_OK
 
 from tools.settings import IOSettings
 
@@ -33,7 +34,7 @@ def main() -> int:
         _clean_markdown(settings.input.read_text(encoding="utf-8")),
         encoding="utf-8",
     )
-    return 0
+    return EX_OK
 
 
 def _clean_line(line: str) -> str | None:
