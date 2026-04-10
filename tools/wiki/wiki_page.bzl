@@ -1,5 +1,12 @@
 """Rule for extracting one page text from a MediaWiki XML dump."""
 
+# The Hungarian "shorc" alphabet.
+# Keys are as they appear in titles and text, values are used for build targets.
+ABC_SHORT = {
+    letter: letter.replace("Ö", "OE").replace("Ü", "UE").replace(",", "").lower()
+    for letter in "A B C D E F G H I J K L M N O Ö P R S Sz T U Ü V W X,Y Z Zs".split(" ")
+}
+
 def _wiki_page_impl(ctx):
     src = ctx.file.src
     python_bin = ctx.file._python

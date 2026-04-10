@@ -1,12 +1,7 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
-load("//tools/wiki:wiki_page.bzl", "wiki_page")
+load("//tools/wiki:wiki_page.bzl", "ABC_SHORT", "wiki_page")
 
-PAGES = {
-    title: title.lower().replace("/", "_").replace("á", "a").replace("é", "e")
-    for title in [
-        "Latin/Magyarországon_védett_állatok",
-    ]
-}
+SRC = "@huwikibooks_xml//file"
 
 EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
 
@@ -14,7 +9,7 @@ EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
     [
         wiki_page(
             name = name,
-            src = "@huwikibooks_xml//file",
+            src = SRC,
             title = title,
         ),
         name_pairs(
@@ -24,44 +19,20 @@ EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
             tool = "%s:%s" % (EXTRACTORS, name),
         ),
     ]
-    for title, name in PAGES.items()
+    for title, name in {
+        title: title.lower().replace("/", "_").replace("á", "a").replace("é", "e")
+        for title in [
+            "Latin/Magyarországon_védett_állatok",
+        ]
+    }.items()
 ]
 
-_NOVENYEK_SUFFIXES_AND_TITLES = [
-    ("a", "A"),
-    ("b", "B"),
-    ("c", "C"),
-    ("d", "D"),
-    ("e", "E"),
-    ("f", "F"),
-    ("g", "G"),
-    ("h", "H"),
-    ("i", "I"),
-    ("j", "J"),
-    ("k", "K"),
-    ("l", "L"),
-    ("m", "M"),
-    ("n", "N"),
-    ("o", "O"),
-    ("oe", "Ö"),
-    ("p", "P"),
-    ("r", "R"),
-    ("s", "S"),
-    ("sz", "Sz"),
-    ("t", "T"),
-    ("u", "U"),
-    ("ue", "Ü"),
-    ("v", "V"),
-    ("w", "W"),
-    ("x_y", "X,Y"),
-    ("z", "Z"),
-    ("zs", "Zs"),
-]
+_NOVENYEK_SUFFIXES_AND_TITLES = [(y, x) for x, y in ABC_SHORT.items()]
 
 [
     wiki_page(
         name = "novenyek_magyar_latin_nepies_" + suffix,
-        src = "@huwikibooks_xml//file",
+        src = SRC,
         title = "Növények/Magyar-Latin-Népies/" + title,
     )
     for suffix, title in _NOVENYEK_SUFFIXES_AND_TITLES
@@ -101,7 +72,7 @@ _NOVENYEK_SUFFIXES_AND_TITLES = [
             "s",
             "r",
             "t",
-            "x_y",
+            "xy",
         ] else None,
         tool = "%s:novenyek_magyar_latin_nepies" % EXTRACTORS,
     )

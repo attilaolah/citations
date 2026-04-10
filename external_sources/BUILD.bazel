@@ -40,7 +40,7 @@ _ALL_CLEAN_JSONS = [
         "ue",
         "v",
         "w",
-        "x_y",
+        "xy",
         "z",
         "zs",
     ]
