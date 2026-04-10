@@ -31,7 +31,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "**/*_test.py" = ["S101"]  # asserts allowed in tests
-"tools/extract/process.py" = ["S404", "S603"]  # centralised subprocess runner
+"tools/extract/process.py" = ["S404", "S603"]  # centralized subprocess runner
 
 [tool.ruff.lint.pycodestyle]
 max-line-length = 119
