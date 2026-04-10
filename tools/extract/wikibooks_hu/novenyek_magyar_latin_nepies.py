@@ -1,6 +1,5 @@
 """Extract Latin/Hungarian name pairs from Wikibooks Novenyek letter pages."""
 
-import json
 import operator
 import re
 import unicodedata
@@ -8,6 +7,7 @@ from itertools import starmap
 
 from Levenshtein import distance as levenshtein_distance
 
+from tools.extract.json_io import write_json_file
 from tools.extract.known_typos import normalize_hungarian_canonical
 from tools.settings import IOSettings
 
@@ -864,10 +864,7 @@ def _main() -> int:
         for latin, values in sorted(mapping.items(), key=lambda kv: kv[0].casefold())
     }
 
-    settings.output.write_text(
-        json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    write_json_file(settings.output, sorted_mapping, sort_keys=True)
     return 0
 
 

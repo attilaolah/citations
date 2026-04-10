@@ -1,10 +1,10 @@
 """Extract Latin/Hungarian name pairs from ENFO arthropod gallery pages via XPath."""
 
-import json
 import re
 
 from lxml import html
 
+from tools.extract.json_io import sorted_text_set_mapping, write_json_file
 from tools.settings import IOSettings
 
 ANCHOR_XPATH = "//a[@hreflang='hu' and starts-with(@href, '/node/')]"
@@ -48,15 +48,8 @@ def _main() -> int:
     settings = IOSettings.from_args()
 
     mapping = _extract_pairs(settings.input.read_bytes())
-    sorted_mapping = {
-        latin: sorted(values, key=lambda value: value.casefold())
-        for latin, values in sorted(mapping.items(), key=lambda item: item[0].casefold())
-    }
-
-    settings.output.write_text(
-        json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    sorted_mapping = sorted_text_set_mapping(mapping)
+    write_json_file(settings.output, sorted_mapping, sort_keys=True)
     return 0
 
 

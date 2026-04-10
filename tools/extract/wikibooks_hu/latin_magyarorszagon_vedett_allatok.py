@@ -1,8 +1,8 @@
 """Extract Latin/Hungarian name pairs from one specific Wikibooks raw page."""
 
-import json
 import re
 
+from tools.extract.json_io import write_json_file
 from tools.extract.known_typos import normalize_hungarian_canonical
 from tools.settings import IOSettings
 
@@ -272,10 +272,7 @@ def _main() -> int:
         mapping.setdefault(latin, set()).add(hungarian)
 
     sorted_mapping = {latin: _sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
-    settings.output.write_text(
-        json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    write_json_file(settings.output, sorted_mapping, sort_keys=True)
     return 0
 
 

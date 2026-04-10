@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 exports_files(
     [
@@ -8,6 +8,12 @@ exports_files(
         "name_pairs_test.py",
     ],
     visibility = ["//:__subpackages__"],
+)
+
+py_library(
+    name = "json_io",
+    srcs = ["json_io.py"],
+    visibility = [":__subpackages__"],
 )
 
 py_binary(
@@ -34,7 +40,10 @@ py_binary(
     srcs = ["enfo_hu.py"],
     main = "enfo_hu.py",
     visibility = ["//external_sources/enfo_hu:__pkg__"],
-    deps = ["//tools:settings"],
+    deps = [
+        ":json_io",
+        "//tools:settings",
+    ],
 )
 
 py_binary(
@@ -45,5 +54,8 @@ py_binary(
     ],
     main = "plant_names_in_hungarian.py",
     visibility = ["//external_sources:__pkg__"],
-    deps = ["//tools:settings"],
+    deps = [
+        ":json_io",
+        "//tools:settings",
+    ],
 )
