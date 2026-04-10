@@ -41,3 +41,6 @@ convention = "google"
 
 [tool.pyright]
 strict = ["."]
+
+[tool.codespell]
+skip = "*.lock,*/known_homonyms.*.txt"
