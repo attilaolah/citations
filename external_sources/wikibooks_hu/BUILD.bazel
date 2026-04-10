@@ -1,18 +1,28 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
 load("//tools/wiki:wiki_page.bzl", "wiki_page")
 
-wiki_page(
-    name = "latin_magyarorszagon_vedett_allatok",
-    src = "@huwikibooks_xml//file",
-    title = "Latin/Magyarországon_védett_állatok",
-)
+PAGES = {
+    "Latin/Magyarországon_védett_állatok": "latin_magyarorszagon_vedett_allatok",
+}
 
-name_pairs(
-    name = "latin_magyarorszagon_vedett_allatok_pairs",
-    src = ":latin_magyarorszagon_vedett_allatok",
-    samples = ":tests/latin_magyarorszagon_vedett_allatok.samples.json",
-    tool = "//tools/extract/wikibooks_hu:latin_magyarorszagon_vedett_allatok",
-)
+EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
+
+[
+    [
+        wiki_page(
+            name = name,
+            src = "@huwikibooks_xml//file",
+            title = title,
+        ),
+        name_pairs(
+            name = "%s_pairs" % name,
+            src = ":%s" % name,
+            samples = ":tests/%s.samples.json" % name,
+            tool = "%s:%s" % (EXTRACTORS, name),
+        ),
+    ]
+    for title, name in PAGES.items()
+]
 
 _NOVENYEK_SUFFIXES_AND_TITLES = [
     ("a", "A"),
@@ -90,7 +100,7 @@ _NOVENYEK_SUFFIXES_AND_TITLES = [
             "t",
             "x_y",
         ] else None,
-        tool = "//tools/extract/wikibooks_hu:novenyek_magyar_latin_nepies",
+        tool = "%s:novenyek_magyar_latin_nepies" % EXTRACTORS,
     )
     for suffix, _ in _NOVENYEK_SUFFIXES_AND_TITLES
 ]
