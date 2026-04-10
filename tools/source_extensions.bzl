@@ -1,7 +1,7 @@
 """Bzlmod extension for external source repositories and URL manifests."""
 
 _BUILD = """\
-package(default_visibility = ["@@//external_sources:__subpackages__"])
+package(default_visibility = ["@//external_sources:__subpackages__"])
 
 filegroup(
     name = "file",

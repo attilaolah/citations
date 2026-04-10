@@ -1,7 +1,7 @@
 """Bzlmod extension for Wikimedia XML dump sources."""
 
 _BUILD = """\
-package(default_visibility = ["@@//external_sources/wikibooks_hu:__subpackages__"])
+package(default_visibility = ["@//external_sources/wikibooks_hu:__subpackages__"])
 
 filegroup(
     name = "file",
