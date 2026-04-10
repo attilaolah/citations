@@ -36,6 +36,7 @@
             alejandra
             black
             buildifier
+            codespell
             prettier
             pyright
             pyupgrade

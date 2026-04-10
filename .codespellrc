@@ -1,0 +1,2 @@
+[codespell]
+skip = *.lock,*/known_homonyms.*.txt

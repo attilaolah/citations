@@ -86,7 +86,7 @@ sources.external_source(
     ipfs_cid = "QmNNrG22ycZHZe5XE2kMLxeLEgzYtWJYBvPrGNZBePYFvX",
     sha256 = "f1071b2ab893b70cb5858fd25b97babc2c2f662135f1d46785dbe345e89eb55a",
     updated_on = "2026-04-07",
-    url = "https://stud.mater.uni-mate.hu/9633/2/835493664_szdmelleklet.pdf",
+    url = "https://stud.mater.uni-mate.hu/9633/2/835493664_szdmelleklet.pdf",  # codespell:ignore mater
 )
 sources.external_source(
     name = "nagy_szikibagoly",

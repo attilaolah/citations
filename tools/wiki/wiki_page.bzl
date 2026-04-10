@@ -3,7 +3,7 @@
 # The Hungarian "shorc" alphabet.
 # Keys are as they appear in titles and text, values are used for build targets.
 ABC_SHORT = {
-    letter: letter.replace("Ö", "OE").replace("Ü", "UE").replace(",", "").lower()
+    letter: letter.replace("Ö", "OE").replace("Ü", "UE").replace(",", "").lower()  # codespell:ignore ue
     for letter in "A B C D E F G H I J K L M N O Ö P R S Sz T U Ü V W X,Y Z Zs".split(" ")
 }
 
