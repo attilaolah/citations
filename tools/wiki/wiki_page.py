@@ -1,6 +1,5 @@
 """CLI wrapper for selecting one wiki page from a MediaWiki dump."""
 
-import argparse
 import html
 from contextlib import suppress
 from enum import StrEnum, auto
@@ -18,35 +17,33 @@ if TYPE_CHECKING:
 _REVISION_PATH_DEPTH = 2
 
 
-class WikiPageSettings(BaseSettings):
+def main() -> None:
+    """Run the extraction CLI."""
+    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    content = _extract_wiki_page_text(input_path=settings.input, title=settings.title)
+    settings.output.write_text(content, encoding="utf-8")
+
+
+class _Settings(BaseSettings):
     """Settings for extracting one wiki page from a dump."""
 
     input: FilePath
     output: Path
     title: str
 
-    model_config = SettingsConfigDict(env_prefix="WIKI_PAGE_")
+    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
-def main() -> None:
-    """Run the extraction CLI."""
-    args = _parse_args()
-    provided = {key: value for key, value in vars(args).items() if value is not None}
-    settings = WikiPageSettings(**provided)
-    content = _extract_wiki_page_text(input_path=settings.input, title=settings.title)
-    settings.output.write_text(content, encoding="utf-8")
+class _PageFoundError(Exception):
+    """Raised internally to stop parsing once the requested page is found."""
 
 
-class PageNotFoundError(IndexError):
+class _PageNotFoundError(IndexError):
     """Raised when the requested page title does not exist in the XML dump."""
 
     def __init__(self, title: str) -> None:
         """Initialize the exception with the missing title."""
         super().__init__(f"page not found: {title!r}")
-
-
-class _FoundPageError(Exception):
-    """Raised internally to stop parsing once the requested page is found."""
 
 
 class _WikiNode(StrEnum):
@@ -121,7 +118,7 @@ class _WikiPageHandler(ContentHandler):
             self.page_text = "".join(self._current_text_parts)
             self._current_text_parts = None
         elif node is _WikiNode.PAGE and self._title_matches(self._page_title, self._target_title):
-            raise _FoundPageError
+            raise _PageFoundError
 
         self._path.pop()
 
@@ -133,26 +130,16 @@ def _extract_wiki_page_text(*, input_path: Path, title: str) -> str:
         Page text for the requested title.
 
     Raises:
-        PageNotFoundError: The input XML does not contain the requested page title.
+        _PageNotFoundError: The input XML does not contain the requested page title.
     """
     handler = _WikiPageHandler(title=title)
 
     try:
         sax.parse(str(input_path), handler)
-    except _FoundPageError:
+    except _PageFoundError:
         return html.unescape(handler.page_text)
 
-    raise PageNotFoundError(title)
-
-
-def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Extract one wiki page from a MediaWiki XML dump.",
-    )
-    parser.add_argument("--input", help="Input MediaWiki XML file")
-    parser.add_argument("--title", help="Exact page title to extract")
-    parser.add_argument("--output", help="Output text file")
-    return parser.parse_args()
+    raise _PageNotFoundError(title)
 
 
 if __name__ == "__main__":

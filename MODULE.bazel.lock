@@ -740,7 +740,7 @@
     },
     "//tools/wiki:source_extensions.bzl%wiki_sources": {
       "general": {
-        "bzlTransitiveDigest": "TYmlGmWIXyMuNFKTGqnx3jJYLxxFmDpqwxBUEC4gWLg=",
+        "bzlTransitiveDigest": "zzHliX6OHJzzW+8tHulwNBBC1rW+cqG5HS9S8h32+AQ=",
         "usagesDigest": "fiG1reAvrM/MwIqjkrXCgZqr7euuwwC8CHwMluFf2qA=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
