@@ -2,7 +2,10 @@ load("//tools/extract:extract_pairs.bzl", "name_pairs")
 load("//tools/wiki:wiki_page.bzl", "wiki_page")
 
 PAGES = {
-    "Latin/Magyarországon_védett_állatok": "latin_magyarorszagon_vedett_allatok",
+    title: title.lower().replace("/", "_").replace("á", "a").replace("é", "e")
+    for title in [
+        "Latin/Magyarországon_védett_állatok",
+    ]
 }
 
 EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
