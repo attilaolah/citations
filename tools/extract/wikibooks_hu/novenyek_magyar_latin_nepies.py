@@ -15,6 +15,7 @@ from tools.extract.known_typos import normalize_hungarian_canonical
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
 LATIN_PAREN_LINK_BROKEN_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*''")
+LATIN_PAREN_LINK_UNCLOSED_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_TEXT_RE = re.compile(r"''\s*\(\s*([^()\[\]]+)\s*\)\s*''")
 LATIN_PHRASE_RE = re.compile(r"\b[A-Z][A-Za-z-]+(?: [A-Za-z][A-Za-z-]+){1,3}\b")
 RANKED_LATIN_PHRASE_RE = re.compile(
@@ -261,6 +262,7 @@ def _dedupe(values: list[str]) -> list[str]:
 def _latin_candidates_in_line(line: str) -> list[str]:
     link_values = list(starmap(_link_value, LATIN_PAREN_LINK_RE.findall(line)))
     link_values.extend(starmap(_link_value, LATIN_PAREN_LINK_BROKEN_RE.findall(line)))
+    link_values.extend(starmap(_link_value, LATIN_PAREN_LINK_UNCLOSED_RE.findall(line)))
     link_values += _expand_parenthetical_genus_synonyms(link_values)
     text_values = LATIN_PAREN_TEXT_RE.findall(line)
     generic_values = GENERIC_PAREN_RE.findall(line)
@@ -685,10 +687,6 @@ def _is_non_organism_latin_phrase(value: str) -> bool:
     return last_ascii in NON_ORGANISM_SUFFIXES
 
 
-def _contains_non_organism_parenthetical(line: str) -> bool:
-    return any(_is_non_organism_latin_phrase(value) for value in GENERIC_PAREN_RE.findall(line))
-
-
 def _strip_non_organism_parenthetical_segments(text: str) -> str:
     cleaned = NON_ORGANISM_SEGMENT_RE.sub(
         lambda match: " " if _is_non_organism_latin_phrase(match.group(2)) else match.group(0),
@@ -735,6 +733,7 @@ def _latin_parenthetical_matches(line: str) -> list[tuple[int, int, str]]:
     matches: list[tuple[int, int, str]] = []
     _append_link_matches(line, LATIN_PAREN_LINK_RE, matches)
     _append_link_matches(line, LATIN_PAREN_LINK_BROKEN_RE, matches)
+    _append_link_matches(line, LATIN_PAREN_LINK_UNCLOSED_RE, matches)
     for match in LATIN_PAREN_TEXT_RE.finditer(line):
         latin = _normalize_latin_candidate(match.group(1))
         if latin:
