@@ -1,7 +1,6 @@
 """Create cleaned name-pairs output using gnparser."""
 
 import json
-import subprocess
 from collections.abc import Callable
 from os import EX_OK
 from pathlib import Path  # NOQA: TC003
@@ -9,6 +8,7 @@ from pathlib import Path  # NOQA: TC003
 from pydantic import BaseModel, FilePath, TypeAdapter
 
 from tools.extract.known_typos import normalize_hungarian_light_canonical
+from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
 
 
@@ -42,19 +42,13 @@ def _normalize_gnparser_candidate(name: str) -> str:
 
 def _run_gnparser(gnparser_bin: Path, key: str) -> dict[str, object]:
     candidate = _normalize_gnparser_candidate(key)
-    proc = subprocess.run(
-        [str(gnparser_bin), candidate, "--format", "compact"],
-        check=False,
-        capture_output=True,
-        text=True,
+    parsed = run_json_tool(
+        argv=[str(gnparser_bin), candidate, "--format", "compact"],
+        context=f"gnparser failed for key={key!r} candidate={candidate!r}",
+        adapter=GNPARSER_OUTPUT_ADAPTER,
     )
-    if proc.returncode != 0:
-        msg = f"gnparser failed for key={key!r} candidate={candidate!r}: {proc.stderr.strip()}"
-        raise RuntimeError(msg)
-
-    parsed = GNPARSER_OUTPUT_ADAPTER.validate_json(proc.stdout)
     if parsed.get("parsed") is not True:
-        msg = f"gnparser did not parse key={key!r} candidate={candidate!r}: {proc.stdout.strip()}"
+        msg = f"gnparser did not parse key={key!r} candidate={candidate!r}: {parsed!r}"
         raise RuntimeError(msg)
     return parsed
 

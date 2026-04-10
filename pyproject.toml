@@ -31,8 +31,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "**/*_test.py" = ["S101"]  # asserts allowed in tests
-"tools/extract/global_names.py" = ["S404", "S603"]  # invokes gnfinder binary directly
-"tools/extract/name_pairs_clean.py" = ["S404", "S603"]  # invokes gnparser binary directly
+"tools/extract/process.py" = ["S404", "S603"]  # centralised subprocess runner
 
 [tool.ruff.lint.pycodestyle]
 max-line-length = 119

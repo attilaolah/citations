@@ -2,7 +2,6 @@
 
 import json
 import re
-import subprocess
 import tempfile
 import unicodedata
 from os import EX_OK
@@ -10,6 +9,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, FilePath, TypeAdapter
 
+from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
 
 
@@ -94,19 +94,14 @@ def _main() -> int:
         normalized_input_path = temp_file.name
 
     try:
-        proc = subprocess.run(
-            [str(settings.gnfinder), "--format", "compact", "--utf8-input", normalized_input_path],
-            check=False,
-            capture_output=True,
-            text=True,
+        parsed = run_json_tool(
+            argv=[str(settings.gnfinder), "--format", "compact", "--utf8-input", normalized_input_path],
+            context=f"gnfinder failed for input {settings.input}",
+            adapter=GNPFINDER_COMPACT_ADAPTER,
         )
     finally:
         Path(normalized_input_path).unlink(missing_ok=True)
-    if proc.returncode != 0:
-        msg = f"gnfinder failed for input {settings.input}: {proc.stderr.strip()}"
-        raise RuntimeError(msg)
 
-    parsed = GNPFINDER_COMPACT_ADAPTER.validate_json(proc.stdout)
     filtered_names = [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))]
     names = GLOBAL_NAMES_ADAPTER.validate_python(filtered_names)
     settings.output.write_text(

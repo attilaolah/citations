@@ -25,12 +25,21 @@ py_library(
     visibility = [":__subpackages__"],
 )
 
+py_library(
+    name = "process",
+    srcs = ["process.py"],
+    visibility = [":__subpackages__"],
+)
+
 py_binary(
     name = "global_names_tool",
     srcs = ["global_names.py"],
     main = "global_names.py",
     visibility = ["//external_sources:__subpackages__"],
-    deps = ["//tools:settings"],
+    deps = [
+        ":process",
+        "//tools:settings",
+    ],
 )
 
 py_binary(
@@ -41,7 +50,10 @@ py_binary(
     ],
     main = "name_pairs_clean.py",
     visibility = ["//external_sources:__subpackages__"],
-    deps = ["//tools:settings"],
+    deps = [
+        ":process",
+        "//tools:settings",
+    ],
 )
 
 py_binary(
