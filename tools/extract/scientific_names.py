@@ -13,9 +13,10 @@ from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
 
 _SCIENTIFIC_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
-_GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,", " "))
+_GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,|", " "))
 _REF_RE = re.compile(r"<ref[^>]*>.*?</ref>", flags=re.IGNORECASE | re.DOTALL)
 _DOUBLE_SINGLE_QUOTES_RE = re.compile(r"''")
+_MULTISPACE_RE = re.compile(r"\s+")
 _ASCII_UPPER_WORD_RE = re.compile(r"[A-Z][A-Za-z-]+")
 _ASCII_LOWER_WORD_RE = re.compile(r"[a-z][a-z-]*")
 _LATIN_RANK_MARKERS = {"subsp", "subsp.", "ssp", "ssp.", "var", "var.", "f", "f.", "cf", "cf."}
@@ -70,7 +71,8 @@ class _GNFinderCompactResult(BaseModel):
 def _normalize_gnfinder_input(text: str) -> str:
     text = _REF_RE.sub(" ", text)
     text = _DOUBLE_SINGLE_QUOTES_RE.sub(" ", text)
-    return text.translate(_GNFINDER_BOUNDARY_PUNCTUATION)
+    text = text.translate(_GNFINDER_BOUNDARY_PUNCTUATION)
+    return _MULTISPACE_RE.sub(" ", text).strip()
 
 
 def _strip_diacritics(value: str) -> str:
