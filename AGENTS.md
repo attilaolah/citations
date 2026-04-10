@@ -18,8 +18,14 @@
 ## Python
 
 - Use Python `3.14`.
+- **Do not add** `noqa` pragmas.
 - Dynamic imports are not allowed.
 - Lint with `ruff check --target-version py314`; apply `--fix --unsafe-fixes` when needed.
 - Run `pyright` on changed Python code.
 - Run `pyupgrade` to adopt the newest syntax it supports.
-- Do not add `noqa` pragmas.
+- Keep definition order as: public first, then private helpers; start with the main entry point (for example `main()`).
+
+## Environment
+
+- You might be running inside a `nix develop` shell, try using the tools directly.
+- If that fails, e.g. if Python modules or other tools are not visible, wrap the command with `nix develop -c ...`.
