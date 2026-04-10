@@ -3,7 +3,6 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 exports_files(
     [
         "known_homonyms_test.py",
-        "known_typos.py",
         "name_pairs_completeness_test.py",
         "name_pairs_test.py",
     ],
@@ -17,12 +16,16 @@ py_library(
 )
 
 py_library(
+    name = "known_typos",
+    srcs = ["known_typos.py"],
+    visibility = ["//external_sources:__subpackages__"],
+)
+
+py_library(
     name = "vernacular",
-    srcs = [
-        "known_typos.py",
-        "vernacular.py",
-    ],
+    srcs = ["vernacular.py"],
     visibility = [":__subpackages__"],
+    deps = [":known_typos"],
 )
 
 py_library(
@@ -50,13 +53,11 @@ py_binary(
 
 py_binary(
     name = "name_pairs_clean_tool",
-    srcs = [
-        "known_typos.py",
-        "name_pairs_clean.py",
-    ],
+    srcs = ["name_pairs_clean.py"],
     main = "name_pairs_clean.py",
     visibility = ["//external_sources:__subpackages__"],
     deps = [
+        ":known_typos",
         ":models",
         ":process",
         "//tools:settings",
@@ -76,14 +77,12 @@ py_binary(
 
 py_binary(
     name = "plant_names_in_hungarian",
-    srcs = [
-        "known_typos.py",
-        "plant_names_in_hungarian.py",
-    ],
+    srcs = ["plant_names_in_hungarian.py"],
     main = "plant_names_in_hungarian.py",
     visibility = ["//external_sources:__pkg__"],
     deps = [
         ":json_io",
+        ":known_typos",
         "//tools:settings",
     ],
 )
