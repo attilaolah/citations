@@ -27,54 +27,50 @@ EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
     }.items()
 ]
 
-_NOVENYEK_SUFFIXES_AND_TITLES = [(y, x) for x, y in ABC_SHORT.items()]
-
 [
-    wiki_page(
-        name = "novenyek_magyar_latin_nepies_" + suffix,
-        src = SRC,
-        title = "Növények/Magyar-Latin-Népies/" + title,
-    )
-    for suffix, title in _NOVENYEK_SUFFIXES_AND_TITLES
-]
-
-[
-    name_pairs(
-        name = "novenyek_magyar_latin_nepies_" + suffix + "_pairs",
-        src = ":novenyek_magyar_latin_nepies_" + suffix,
-        ignore = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".ignore.txt" if suffix in [
-            "a",
-            "b",
-            "c",
-            "f",
-            "g",
-            "h",
-            "k",
-            "m",
-            "o",
-            "r",
-            "s",
-            "sz",
-            "v",
-        ] else None,
-        samples = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".samples.json" if suffix in [
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "o",
-            "oe",
-            "p",
-            "s",
-            "r",
-            "t",
-            "xy",
-        ] else None,
-        tool = "%s:novenyek_magyar_latin_nepies" % EXTRACTORS,
-    )
-    for suffix, _ in _NOVENYEK_SUFFIXES_AND_TITLES
+    [
+        wiki_page(
+            name = "novenyek_magyar_latin_nepies_%s" % slug,
+            src = SRC,
+            title = "Növények/Magyar-Latin-Népies/%s" % letter,
+        ),
+        name_pairs(
+            name = "novenyek_magyar_latin_nepies_%s_pairs" % slug,
+            src = ":novenyek_magyar_latin_nepies_%s" % slug,
+            ignore = ":tests/novenyek_magyar_latin_nepies_%s.ignore.txt" % slug if slug in [
+                "a",
+                "b",
+                "c",
+                "f",
+                "g",
+                "h",
+                "k",
+                "m",
+                "o",
+                "r",
+                "s",
+                "sz",
+                "v",
+            ] else None,
+            samples = ":tests/novenyek_magyar_latin_nepies_%s.samples.json" % slug if slug in [
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f",
+                "g",
+                "h",
+                "o",
+                "oe",
+                "p",
+                "s",
+                "r",
+                "t",
+                "xy",
+            ] else None,
+            tool = "%s:novenyek_magyar_latin_nepies" % EXTRACTORS,
+        ),
+    ]
+    for letter, slug in ABC_SHORT.items()
 ]

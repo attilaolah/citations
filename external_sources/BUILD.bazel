@@ -1,53 +1,29 @@
 load("//tools/extract:extract_pairs.bzl", "name_pairs")
 load("//tools/extract:known_homonyms_test.bzl", "known_homonyms_test")
+load("//tools/wiki:wiki_page.bzl", "ABC_SHORT")
 
-name_pairs(
-    name = "plant_names_in_hungarian_pairs",
-    src = "@plant_names_in_hungarian//file",
-    tool = "//tools/extract:plant_names_in_hungarian",
-)
-
-_ALL_CLEAN_JSONS = [
-    ":plant_names_in_hungarian_pairs_clean",
-    "//external_sources/enfo_hu:fokozottan_vedett_izeltlabuak_0_pairs_clean",
-    "//external_sources/enfo_hu:fokozottan_vedett_izeltlabuak_1_pairs_clean",
-    "//external_sources/wikibooks_hu:latin_magyarorszagon_vedett_allatok_pairs_clean",
-] + [
-    "//external_sources/wikibooks_hu:novenyek_magyar_latin_nepies_%s_pairs_clean" % suffix
-    for suffix in [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "oe",
-        "p",
-        "r",
-        "s",
-        "sz",
-        "t",
-        "u",
-        "ue",
-        "v",
-        "w",
-        "xy",
-        "z",
-        "zs",
+[
+    name_pairs(
+        name = "%s_pairs" % name,
+        src = "@%s//file" % name,
+        tool = "//tools/extract:%s" % name,
+    )
+    for name in [
+        "plant_names_in_hungarian",
     ]
 ]
 
 known_homonyms_test(
     name = "known_homonyms_test",
-    clean_jsons = _ALL_CLEAN_JSONS,
+    clean_jsons = [
+        ":plant_names_in_hungarian_pairs_clean",
+        "//external_sources/wikibooks_hu:latin_magyarorszagon_vedett_allatok_pairs_clean",
+    ] + [
+        "//external_sources/enfo_hu:fokozottan_vedett_izeltlabuak_%d_pairs_clean" % page
+        for page in range(2)
+    ] + [
+        "//external_sources/wikibooks_hu:novenyek_magyar_latin_nepies_%s_pairs_clean" % slug
+        for slug in ABC_SHORT.values()
+    ],
     known_homonyms = ":tests/known_homonyms.hu.txt",
 )
