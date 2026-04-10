@@ -3,7 +3,7 @@
 import json
 from collections.abc import Callable
 from os import EX_OK
-from pathlib import Path  # NOQA: TC003
+from typing import TYPE_CHECKING
 
 from pydantic import FilePath, TypeAdapter
 
@@ -11,6 +11,9 @@ from tools.extract.known_typos import normalize_hungarian_light_canonical
 from tools.extract.models import PAIRS_ADAPTER, VernacularName
 from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 class _Settings(IOSettings):

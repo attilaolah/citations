@@ -3,7 +3,6 @@
 import html
 from contextlib import suppress
 from enum import StrEnum, auto
-from pathlib import Path  # NOQA: TC003
 from typing import TYPE_CHECKING, override
 from xml.sax.handler import ContentHandler
 
@@ -12,6 +11,7 @@ from defusedxml import sax
 from tools.settings import IOSettings
 
 if TYPE_CHECKING:
+    from pathlib import Path
     from xml.sax.xmlreader import AttributesImpl
 
 _REVISION_PATH_DEPTH = 2
