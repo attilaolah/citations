@@ -3,7 +3,6 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 exports_files(
     [
         "name_pairs_completeness_test.py",
-        "name_pairs_test.py",
     ],
     visibility = ["//:__subpackages__"],
 )
@@ -90,4 +89,11 @@ py_library(
     testonly = True,
     srcs = ["known_homonyms_test.py"],
     visibility = ["//external_sources:__pkg__"],
+)
+
+py_library(
+    name = "name_pairs_test",
+    testonly = True,
+    srcs = ["name_pairs_test.py"],
+    visibility = ["//external_sources:__subpackages__"],
 )
