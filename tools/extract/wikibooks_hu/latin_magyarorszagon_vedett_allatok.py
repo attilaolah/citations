@@ -3,7 +3,7 @@
 import re
 
 from tools.extract.json_io import write_json_file
-from tools.extract.known_typos import normalize_hungarian_canonical
+from tools.extract.vernacular import sorted_vernacular_entries
 from tools.settings import IOSettings
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
@@ -271,20 +271,9 @@ def _main() -> int:
     for latin, hungarian in pairs:
         mapping.setdefault(latin, set()).add(hungarian)
 
-    sorted_mapping = {latin: _sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
+    sorted_mapping = {latin: sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
     write_json_file(settings.output, sorted_mapping, sort_keys=True)
     return 0
-
-
-def _sorted_vernacular_entries(values: set[str]) -> list[dict[str, str]]:
-    unique: dict[tuple[str, str], dict[str, str]] = {}
-    for verbatim in values:
-        canonical = normalize_hungarian_canonical(verbatim)
-        unique[canonical, verbatim] = {
-            "canonical": canonical,
-            "verbatim": verbatim,
-        }
-    return [unique[key] for key in sorted(unique, key=lambda item: (item[0], item[1].casefold()))]
 
 
 if __name__ == "__main__":

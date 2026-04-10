@@ -8,7 +8,7 @@ from itertools import starmap
 from Levenshtein import distance as levenshtein_distance
 
 from tools.extract.json_io import write_json_file
-from tools.extract.known_typos import normalize_hungarian_canonical
+from tools.extract.vernacular import sorted_vernacular_entries
 from tools.settings import IOSettings
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
@@ -860,23 +860,12 @@ def _main() -> int:
     mapping = _extract_pairs(lines)
 
     sorted_mapping = {
-        latin: _sorted_vernacular_entries(values)
+        latin: sorted_vernacular_entries(values)
         for latin, values in sorted(mapping.items(), key=lambda kv: kv[0].casefold())
     }
 
     write_json_file(settings.output, sorted_mapping, sort_keys=True)
     return 0
-
-
-def _sorted_vernacular_entries(values: set[str]) -> list[dict[str, str]]:
-    unique: dict[tuple[str, str], dict[str, str]] = {}
-    for verbatim in values:
-        canonical = normalize_hungarian_canonical(verbatim)
-        unique[canonical, verbatim] = {
-            "canonical": canonical,
-            "verbatim": verbatim,
-        }
-    return [unique[key] for key in sorted(unique, key=lambda item: (item[0], item[1].casefold()))]
 
 
 if __name__ == "__main__":

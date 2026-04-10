@@ -16,6 +16,15 @@ py_library(
     visibility = [":__subpackages__"],
 )
 
+py_library(
+    name = "vernacular",
+    srcs = [
+        "known_typos.py",
+        "vernacular.py",
+    ],
+    visibility = [":__subpackages__"],
+)
+
 py_binary(
     name = "global_names_tool",
     srcs = ["global_names.py"],
