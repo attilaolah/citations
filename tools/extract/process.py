@@ -1,10 +1,8 @@
 """Shared subprocess helpers for JSON-emitting extraction tools."""
 
 import subprocess
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from pydantic import TypeAdapter
+from pydantic import BaseModel
 
 
 class JsonToolError(RuntimeError):
@@ -16,11 +14,11 @@ class JsonToolError(RuntimeError):
         super().__init__(message)
 
 
-def run_json_tool[T](*, argv: list[str], context: str, adapter: TypeAdapter[T]) -> T:
-    """Run a subprocess and validate JSON output with a provided adapter.
+def run_json_tool[T: BaseModel](*, argv: list[str], context: str, model: type[T]) -> T:
+    """Run a subprocess and validate JSON output with a provided model.
 
     Returns:
-        Parsed JSON payload validated by `adapter`.
+        Parsed JSON payload validated by `model`.
 
     Raises:
         JsonToolError: The subprocess exits non-zero.
@@ -35,4 +33,4 @@ def run_json_tool[T](*, argv: list[str], context: str, adapter: TypeAdapter[T]) 
         detail = proc.stderr.strip() or f"exit code {proc.returncode}"
         raise JsonToolError(context=context, detail=detail)
 
-    return adapter.validate_json(proc.stdout)
+    return model.model_validate_json(proc.stdout)

@@ -1,19 +1,19 @@
 """Extract scientific names from source documents using gnfinder."""
 
-import json
 import re
 import tempfile
 import unicodedata
 from os import EX_OK
 from pathlib import Path
 
-from pydantic import BaseModel, FilePath, TypeAdapter
+from pydantic import BaseModel, FilePath
 
+from tools.extract.json_io import write_json_file
 from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
 
-_SCIENTIFIC_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
-_GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,|", " "))
+_GNFINDER_PIPE_BOUNDARY_RE = re.compile(r"\|+")
+_GNFINDER_OTHER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,", " "))
 _REF_RE = re.compile(r"<ref[^>]*>.*?</ref>", flags=re.IGNORECASE | re.DOTALL)
 _DOUBLE_SINGLE_QUOTES_RE = re.compile(r"''")
 _MULTISPACE_RE = re.compile(r"\s+")
@@ -44,16 +44,14 @@ def _main() -> int:
         parsed = run_json_tool(
             argv=[str(settings.gnfinder), "--format", "compact", "--utf8-input", normalized_input_path],
             context=f"gnfinder failed for input {settings.input}",
-            adapter=TypeAdapter(_GNFinderCompactResult),
+            model=_GNFinderCompactResult,
         )
     finally:
         Path(normalized_input_path).unlink(missing_ok=True)
 
-    filtered_names = [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))]
-    names = _SCIENTIFIC_NAMES_ADAPTER.validate_python(filtered_names)
-    settings.output.write_text(
-        json.dumps(names, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
+    write_json_file(
+        settings.output,
+        [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))],
     )
     return EX_OK
 
@@ -71,7 +69,8 @@ class _GNFinderCompactResult(BaseModel):
 def _normalize_gnfinder_input(text: str) -> str:
     text = _REF_RE.sub(" ", text)
     text = _DOUBLE_SINGLE_QUOTES_RE.sub(" ", text)
-    text = text.translate(_GNFINDER_BOUNDARY_PUNCTUATION)
+    text = _GNFINDER_PIPE_BOUNDARY_RE.sub(" || ", text)
+    text = text.translate(_GNFINDER_OTHER_BOUNDARY_PUNCTUATION)
     return _MULTISPACE_RE.sub(" ", text).strip()
 
 

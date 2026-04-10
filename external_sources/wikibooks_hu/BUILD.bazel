@@ -61,6 +61,7 @@ EXTRACTORS = "//tools/extract/%s" % package_name().split("/")[-1]
                 "f",
                 "g",
                 "h",
+                "k",
                 "o",
                 "oe",
                 "p",

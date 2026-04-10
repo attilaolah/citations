@@ -35,6 +35,7 @@ py_binary(
     name = "scientific_names",
     visibility = ["//external_sources:__subpackages__"],
     deps = [
+        ":json_io",
         ":process",
         "//tools:settings",
     ],

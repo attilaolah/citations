@@ -5,7 +5,7 @@ from collections.abc import Callable
 from os import EX_OK
 from typing import TYPE_CHECKING
 
-from pydantic import FilePath, TypeAdapter
+from pydantic import FilePath, RootModel
 
 from tools.extract.known_typos import normalize_hungarian_light_canonical
 from tools.extract.models import PAIRS_ADAPTER, VernacularName
@@ -20,7 +20,9 @@ class _Settings(IOSettings):
     gnparser: FilePath
 
 
-GNPARSER_OUTPUT_ADAPTER = TypeAdapter(dict[str, object])
+class _GNParserOutput(RootModel[dict[str, object]]):
+    """Compact gnparser output payload."""
+
 
 _DROP_FIELDS = {
     "id",
@@ -41,12 +43,13 @@ def _run_gnparser(gnparser_bin: Path, key: str) -> dict[str, object]:
     parsed = run_json_tool(
         argv=[str(gnparser_bin), candidate, "--format", "compact"],
         context=f"gnparser failed for key={key!r} candidate={candidate!r}",
-        adapter=GNPARSER_OUTPUT_ADAPTER,
+        model=_GNParserOutput,
     )
-    if parsed.get("parsed") is not True:
-        msg = f"gnparser did not parse key={key!r} candidate={candidate!r}: {parsed!r}"
+    output = parsed.root
+    if output.get("parsed") is not True:
+        msg = f"gnparser did not parse key={key!r} candidate={candidate!r}: {output!r}"
         raise RuntimeError(msg)
-    return parsed
+    return output
 
 
 def _drop_gnparser_fields(entry: dict[str, object], _: list[str | VernacularName]) -> dict[str, object]:
