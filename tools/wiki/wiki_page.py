@@ -12,10 +12,10 @@ from defusedxml import sax
 from pydantic import FilePath  # NOQA: TC002
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-_REVISION_PATH_DEPTH = 2
-
 if TYPE_CHECKING:
     from xml.sax.xmlreader import AttributesImpl
+
+_REVISION_PATH_DEPTH = 2
 
 
 class WikiPageSettings(BaseSettings):
