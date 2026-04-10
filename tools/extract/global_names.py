@@ -1,21 +1,28 @@
 """Extract global names from source documents using gnfinder."""
 
-import argparse
 import json
 import re
 import subprocess
-import sys
 import tempfile
 import unicodedata
 from pathlib import Path
 
-from pydantic import BaseModel, TypeAdapter
+from pydantic import BaseModel, FilePath, TypeAdapter
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class GNFinderCompactResult(BaseModel):
     """Subset of compact gnfinder output needed by the repository."""
 
     names: list[dict[str, object]]
+
+
+class _Settings(BaseSettings):
+    input: FilePath
+    output: Path
+    gnfinder: FilePath
+
+    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 GLOBAL_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
@@ -72,17 +79,9 @@ def _is_scientific_name(value: str) -> bool:
     return valid
 
 
-def _parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True)
-    parser.add_argument("--output", required=True)
-    parser.add_argument("--gnfinder", required=True)
-    return parser.parse_args(argv)
-
-
-def _main(argv: list[str]) -> int:
-    args = _parse_args(argv)
-    src_text = Path(args.input).read_text(encoding="utf-8", errors="replace")
+def _main() -> int:
+    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    src_text = settings.input.read_text(encoding="utf-8", errors="replace")
     src_text = REF_RE.sub(" ", src_text)
     normalized_text = src_text.translate(GNFINDER_BOUNDARY_PUNCTUATION)
 
@@ -98,7 +97,7 @@ def _main(argv: list[str]) -> int:
 
     try:
         proc = subprocess.run(
-            [args.gnfinder, "--format", "compact", "--utf8-input", normalized_input_path],
+            [str(settings.gnfinder), "--format", "compact", "--utf8-input", normalized_input_path],
             check=False,
             capture_output=True,
             text=True,
@@ -106,13 +105,13 @@ def _main(argv: list[str]) -> int:
     finally:
         Path(normalized_input_path).unlink(missing_ok=True)
     if proc.returncode != 0:
-        msg = f"gnfinder failed for input {args.input}: {proc.stderr.strip()}"
+        msg = f"gnfinder failed for input {settings.input}: {proc.stderr.strip()}"
         raise RuntimeError(msg)
 
     parsed = GNPFINDER_COMPACT_ADAPTER.validate_json(proc.stdout)
     filtered_names = [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))]
     names = GLOBAL_NAMES_ADAPTER.validate_python(filtered_names)
-    Path(args.output).write_text(
+    settings.output.write_text(
         json.dumps(names, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -120,4 +119,4 @@ def _main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(_main(sys.argv[1:]))
+    raise SystemExit(_main())

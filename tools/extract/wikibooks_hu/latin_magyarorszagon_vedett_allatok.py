@@ -1,9 +1,11 @@
 """Extract Latin/Hungarian name pairs from one specific Wikibooks raw page."""
 
-import argparse
 import json
 import re
-from pathlib import Path
+from pathlib import Path  # NOQA: TC003
+
+from pydantic import FilePath  # NOQA: TC002
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_hungarian_canonical
 
@@ -17,6 +19,13 @@ MIN_TABLE_CELLS = 2
 MULTI_LINK_CELL = 2
 THREE_CELL_ROW = 3
 MIN_GENUS_LENGTH = 3
+
+
+class _Settings(BaseSettings):
+    input: FilePath
+    output: Path
+
+    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _strip_markup(text: str) -> str:
@@ -263,12 +272,9 @@ def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
 
 
 def _main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, type=Path)
-    parser.add_argument("--output", required=True, type=Path)
-    args = parser.parse_args()
+    settings = _Settings()  # pyright: ignore[reportCallIssue]
 
-    lines = args.input.read_text(encoding="utf-8", errors="replace").splitlines()
+    lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     pairs = _extract_pairs(lines)
 
     mapping: dict[str, set[str]] = {}
@@ -276,7 +282,7 @@ def _main() -> int:
         mapping.setdefault(latin, set()).add(hungarian)
 
     sorted_mapping = {latin: _sorted_vernacular_entries(mapping[latin]) for latin in sorted(mapping)}
-    args.output.write_text(
+    settings.output.write_text(
         json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )

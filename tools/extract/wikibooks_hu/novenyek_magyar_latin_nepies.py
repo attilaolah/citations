@@ -1,14 +1,15 @@
 """Extract Latin/Hungarian name pairs from Wikibooks Novenyek letter pages."""
 
-import argparse
 import json
 import operator
 import re
 import unicodedata
 from itertools import starmap
-from pathlib import Path
+from pathlib import Path  # NOQA: TC003
 
 from Levenshtein import distance as levenshtein_distance
+from pydantic import FilePath  # NOQA: TC002
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_hungarian_canonical
 
@@ -111,6 +112,13 @@ OR_SPLIT_TWO_NAMES = 2
 COMPOUND_PREFIX_ADJECTIVES = ("édes",)
 LEVENSHTEIN_MAX_DISTANCE = 2
 REPEATED_HEAD_PARTS = 4
+
+
+class _Settings(BaseSettings):
+    input: FilePath
+    output: Path
+
+    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _strip_markup(text: str) -> str:
@@ -855,12 +863,9 @@ def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, type=Path)
-    parser.add_argument("--output", required=True, type=Path)
-    args = parser.parse_args()
+    settings = _Settings()  # pyright: ignore[reportCallIssue]
 
-    lines = args.input.read_text(encoding="utf-8", errors="replace").splitlines()
+    lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     mapping = _extract_pairs(lines)
 
     sorted_mapping = {
@@ -868,7 +873,7 @@ def _main() -> int:
         for latin, values in sorted(mapping.items(), key=lambda kv: kv[0].casefold())
     }
 
-    args.output.write_text(
+    settings.output.write_text(
         json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )

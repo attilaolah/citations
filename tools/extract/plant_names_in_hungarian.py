@@ -1,11 +1,12 @@
 """Extract Latin/Hungarian name pairs from plant_names_in_hungarian HTML tables."""
 
-import argparse
 import json
 import re
-from pathlib import Path
+from pathlib import Path  # NOQA: TC003
 
 from lxml import html
+from pydantic import FilePath  # NOQA: TC002
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_known_hungarian_typo
 
@@ -18,6 +19,13 @@ MIN_COLUMN_COUNT = 3
 SINGLE_TOKEN_COUNT = 1
 PAIR_TOKEN_COUNT = 2
 RANKED_REST_TOKEN_COUNT = 2
+
+
+class _Settings(BaseSettings):
+    input: FilePath
+    output: Path
+
+    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _normalized_text(value: str) -> str:
@@ -91,18 +99,15 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, type=Path)
-    parser.add_argument("--output", required=True, type=Path)
-    args = parser.parse_args()
+    settings = _Settings()  # pyright: ignore[reportCallIssue]
 
-    mapping = _extract_pairs(args.input.read_bytes())
+    mapping = _extract_pairs(settings.input.read_bytes())
     sorted_mapping = {
         latin: sorted(values, key=lambda value: value.casefold())
         for latin, values in sorted(mapping.items(), key=lambda item: item[0].casefold())
     }
 
-    args.output.write_text(
+    settings.output.write_text(
         json.dumps(sorted_mapping, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
