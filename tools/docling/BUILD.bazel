@@ -2,6 +2,6 @@ load("//tools/python:py_binary.bzl", "py_binary")
 
 py_binary(
     name = "markdown_cleanup",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//external_sources:__subpackages__"],
     deps = ["//tools:settings"],
 )
