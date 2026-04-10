@@ -1,9 +1,7 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("//tools/python:py_binary.bzl", "py_binary")
 
 py_binary(
     name = "wiki_page",
-    srcs = ["wiki_page.py"],
-    main = "wiki_page.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
     deps = ["//tools:settings"],
 )

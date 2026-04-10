@@ -1,9 +1,7 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("//tools/python:py_binary.bzl", "py_binary")
 
 py_binary(
     name = "latin_magyarorszagon_vedett_allatok",
-    srcs = ["latin_magyarorszagon_vedett_allatok.py"],
-    main = "latin_magyarorszagon_vedett_allatok.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
     deps = [
         "//tools:settings",
@@ -14,8 +12,6 @@ py_binary(
 
 py_binary(
     name = "novenyek_magyar_latin_nepies",
-    srcs = ["novenyek_magyar_latin_nepies.py"],
-    main = "novenyek_magyar_latin_nepies.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
     deps = [
         "//tools:settings",
