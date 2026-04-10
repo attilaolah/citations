@@ -66,28 +66,30 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
         **kwargs
     )
 
+    clean = "%s_clean" % name
     name_pairs_clean(
-        name = name + "_clean",
-        src = ":" + name,
+        name = clean,
+        src = ":%s" % name,
         visibility = ["//:__subpackages__"],
     )
 
+    names = "%s_names" % name
     global_names(
-        name = name + "_gn",
+        name = names,
         basename = name,
         src = src,
     )
 
     name_pairs_completeness_test(
-        name = name + "_completeness_test",
-        clean = ":" + name + "_clean",
-        global_names = ":" + name + "_gn",
+        name = "%s_completeness_test" % name,
+        clean = ":%s" % clean,
+        global_names = ":%s" % names,
         ignore = ignore,
     )
 
     if samples != None:
         name_pairs_test(
-            name = name + "_test",
+            name = "%s_test" % names,
             src = ":" + name,
             samples = samples,
         )
