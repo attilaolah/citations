@@ -6,26 +6,9 @@ from collections import defaultdict
 from pathlib import Path
 
 import pytest
-from pydantic import BaseModel, TypeAdapter
 
 from tools.extract.known_typos import normalize_hungarian_light_canonical
-
-
-class VernacularName(BaseModel):
-    """Vernacular value emitted by the clean pairs pipeline."""
-
-    canonical: str | None = None
-    verbatim: str
-
-
-class CleanEntry(BaseModel):
-    """Subset of cleaned entry data required by this test."""
-
-    normalized: str
-    vernacular: dict[str, list[VernacularName]] | None = None
-
-
-CLEAN_ENTRIES_ADAPTER = TypeAdapter(list[CleanEntry])
+from tools.extract.models import CLEAN_ENTRIES_ADAPTER, CleanEntry, VernacularName
 
 
 def _load_known_homonyms(path: Path) -> set[str]:

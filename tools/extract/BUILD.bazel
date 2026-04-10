@@ -4,6 +4,7 @@ exports_files(
     [
         "known_homonyms_test.py",
         "known_typos.py",
+        "models.py",
         "name_pairs_completeness_test.py",
         "name_pairs_test.py",
     ],
@@ -31,6 +32,12 @@ py_library(
     visibility = [":__subpackages__"],
 )
 
+py_library(
+    name = "models",
+    srcs = ["models.py"],
+    visibility = [":__subpackages__"],
+)
+
 py_binary(
     name = "global_names_tool",
     srcs = ["global_names.py"],
@@ -46,6 +53,7 @@ py_binary(
     name = "name_pairs_clean_tool",
     srcs = [
         "known_typos.py",
+        "models.py",
         "name_pairs_clean.py",
     ],
     main = "name_pairs_clean.py",

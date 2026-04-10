@@ -5,25 +5,18 @@ from collections.abc import Callable
 from os import EX_OK
 from pathlib import Path  # NOQA: TC003
 
-from pydantic import BaseModel, FilePath, TypeAdapter
+from pydantic import FilePath, TypeAdapter
 
 from tools.extract.known_typos import normalize_hungarian_light_canonical
+from tools.extract.models import PAIRS_ADAPTER, VernacularName
 from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
-
-
-class VernacularName(BaseModel):
-    """Vernacular entry from extractor output."""
-
-    verbatim: str
-    canonical: str | None = None
 
 
 class _Settings(IOSettings):
     gnparser: FilePath
 
 
-PAIRS_ADAPTER = TypeAdapter(dict[str, list[str | VernacularName]])
 GNPARSER_OUTPUT_ADAPTER = TypeAdapter(dict[str, object])
 
 _DROP_FIELDS = {

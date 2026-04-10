@@ -8,6 +8,7 @@ def known_homonyms_test(name, clean_jsons, known_homonyms, **kwargs):
         srcs = [
             "//tools/extract:known_homonyms_test.py",
             "//tools/extract:known_typos.py",
+            "//tools/extract:models.py",
         ],
         main = "known_homonyms_test.py",
         data = clean_jsons + [known_homonyms],

@@ -8,12 +8,7 @@ from pathlib import Path
 import pytest
 from pydantic import BaseModel, TypeAdapter
 
-
-class CleanName(BaseModel):
-    """Subset of cleaned entries required for completeness checks."""
-
-    normalized: str
-    vernacular: dict[str, list[dict[str, str]]] | None = None
+from tools.extract.models import CLEAN_ENTRIES_ADAPTER, CleanEntry
 
 
 class GlobalName(BaseModel):
@@ -22,19 +17,18 @@ class GlobalName(BaseModel):
     name: str
 
 
-CLEAN_ADAPTER = TypeAdapter(list[CleanName])
 GLOBAL_NAMES_ADAPTER = TypeAdapter(list[GlobalName])
 
 
 @pytest.fixture(scope="session")
-def clean_entries() -> list[CleanName]:
+def clean_entries() -> list[CleanEntry]:
     """Provide cleaned entries from environment-provided JSON path.
 
     Returns:
         Parsed cleaned entries.
     """
     clean_path = Path(os.environ["CLEAN"])
-    return CLEAN_ADAPTER.validate_json(clean_path.read_bytes())
+    return CLEAN_ENTRIES_ADAPTER.validate_json(clean_path.read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -106,7 +100,7 @@ def _fold(value: str) -> str:
 
 
 def test_names_are_covered(
-    clean_entries: list[CleanName],
+    clean_entries: list[CleanEntry],
     global_name_entries: list[GlobalName],
     ignored_names: set[str],
 ) -> None:
@@ -120,7 +114,7 @@ def test_names_are_covered(
             continue
         for values in entry.vernacular.values():
             for value in values:
-                verbatim = value.get("verbatim")
+                verbatim = value.verbatim
                 if verbatim:
                     vernacular_name_list.append(verbatim)
     vernacular = {_fold(value) for value in vernacular_name_list}

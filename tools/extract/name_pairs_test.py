@@ -5,17 +5,10 @@ import sys
 from pathlib import Path
 
 import pytest
-from pydantic import BaseModel, TypeAdapter
+from pydantic import TypeAdapter
 
+from tools.extract.models import PAIRS_ADAPTER, VernacularName
 
-class VernacularName(BaseModel):
-    """Vernacular entry from extractor output."""
-
-    verbatim: str
-    canonical: str | None = None
-
-
-PAIRS_ADAPTER = TypeAdapter(dict[str, list[str | VernacularName]])
 SAMPLES_ADAPTER = TypeAdapter(dict[str, list[str]])
 
 
