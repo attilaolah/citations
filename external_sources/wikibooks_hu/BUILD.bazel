@@ -2,14 +2,14 @@ load("//tools/extract:extract_pairs.bzl", "name_pairs")
 load("//tools/wiki:wiki_page.bzl", "wiki_page")
 
 wiki_page(
-    name = "latin_magyarorszagon_vedett_allatok_txt",
+    name = "latin_magyarorszagon_vedett_allatok",
     src = "@huwikibooks_xml//file",
     title = "Latin/Magyarországon_védett_állatok",
 )
 
 name_pairs(
     name = "latin_magyarorszagon_vedett_allatok_pairs",
-    src = ":latin_magyarorszagon_vedett_allatok_txt",
+    src = ":latin_magyarorszagon_vedett_allatok",
     samples = ":tests/latin_magyarorszagon_vedett_allatok.samples.json",
     tool = "//tools/extract/wikibooks_hu:latin_magyarorszagon_vedett_allatok",
 )
@@ -47,7 +47,7 @@ _NOVENYEK_SUFFIXES_AND_TITLES = [
 
 [
     wiki_page(
-        name = "novenyek_magyar_latin_nepies_" + suffix + "_txt",
+        name = "novenyek_magyar_latin_nepies_" + suffix,
         src = "@huwikibooks_xml//file",
         title = "Növények/Magyar-Latin-Népies/" + title,
     )
@@ -57,7 +57,7 @@ _NOVENYEK_SUFFIXES_AND_TITLES = [
 [
     name_pairs(
         name = "novenyek_magyar_latin_nepies_" + suffix + "_pairs",
-        src = ":novenyek_magyar_latin_nepies_" + suffix + "_txt",
+        src = ":novenyek_magyar_latin_nepies_" + suffix,
         ignore = ":tests/novenyek_magyar_latin_nepies_" + suffix + ".ignore.txt" if suffix in [
             "a",
             "b",

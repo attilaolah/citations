@@ -20,7 +20,7 @@ sources.external_source(
 )
 use_repo(
     sources,
+    "cached_urls",
     "magyar_novenynevek",
     "plant_names_in_hungarian",
-    "cached_urls",
 )
