@@ -11,13 +11,13 @@ from pydantic import BaseModel, TypeAdapter
 from tools.extract.models import CLEAN_ENTRIES_ADAPTER, CleanEntry
 
 
-class GlobalName(BaseModel):
+class ScientificName(BaseModel):
     """Subset of gnfinder output required for completeness checks."""
 
     name: str
 
 
-GLOBAL_NAMES_ADAPTER = TypeAdapter(list[GlobalName])
+SCIENTIFIC_NAMES_ADAPTER = TypeAdapter(list[ScientificName])
 
 
 @pytest.fixture(scope="session")
@@ -32,14 +32,14 @@ def clean_entries() -> list[CleanEntry]:
 
 
 @pytest.fixture(scope="session")
-def global_name_entries() -> list[GlobalName]:
+def scientific_name_entries() -> list[ScientificName]:
     """Provide gnfinder entries from environment-provided JSON path.
 
     Returns:
         Parsed gnfinder entries.
     """
-    global_names_path = Path(os.environ["GLOBAL_NAMES"])
-    return GLOBAL_NAMES_ADAPTER.validate_json(global_names_path.read_bytes())
+    scientific_names_path = Path(os.environ["SCIENTIFIC_NAMES"])
+    return SCIENTIFIC_NAMES_ADAPTER.validate_json(scientific_names_path.read_bytes())
 
 
 @pytest.fixture(scope="session")
@@ -101,7 +101,7 @@ def _fold(value: str) -> str:
 
 def test_names_are_covered(
     clean_entries: list[CleanEntry],
-    global_name_entries: list[GlobalName],
+    scientific_name_entries: list[ScientificName],
     ignored_names: set[str],
 ) -> None:
     """Ensure every gnfinder name is represented in cleaned normalized names."""
@@ -119,11 +119,11 @@ def test_names_are_covered(
                     vernacular_name_list.append(verbatim)
     vernacular = {_fold(value) for value in vernacular_name_list}
 
-    global_names = sorted({entry.name for entry in global_name_entries})
+    scientific_names = sorted({entry.name for entry in scientific_name_entries})
     missing = sorted(
         {
             name
-            for name in global_names
+            for name in scientific_names
             if (
                 _exemption_reason(
                     name,
@@ -139,13 +139,13 @@ def test_names_are_covered(
     )
     assert not missing, "Names found by gnfinder but missing from cleaned output:\n" + "\n".join(missing)
 
-    global_names_folded = {_fold(name) for name in global_names}
+    scientific_names_folded = {_fold(name) for name in scientific_names}
     unnecessary_ignores = sorted(
         {
             ignored
             for ignored in ignored_names
             if (
-                _fold(ignored) not in global_names_folded
+                _fold(ignored) not in scientific_names_folded
                 or _exemption_reason(
                     ignored,
                     normalized,

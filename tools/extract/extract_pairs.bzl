@@ -1,9 +1,9 @@
 """Macros and rules for extracting, cleaning, and testing name-pair datasets."""
 
-load("//tools/extract:global_names.bzl", "global_names")
 load("//tools/extract:name_pairs_clean.bzl", "name_pairs_clean")
 load("//tools/extract:name_pairs_completeness_test.bzl", "name_pairs_completeness_test")
 load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
+load("//tools/extract:scientific_names.bzl", "scientific_names")
 
 def _extract_pairs_impl(ctx):
     src = ctx.file.src
@@ -73,9 +73,9 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
         visibility = ["//:__subpackages__"],
     )
 
-    names = "%s_names" % name
-    global_names(
-        name = names,
+    scientific = "%s_scientific_names" % name
+    scientific_names(
+        name = scientific,
         basename = name,
         src = src,
     )
@@ -83,13 +83,13 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
     name_pairs_completeness_test(
         name = "%s_completeness_test" % name,
         clean = ":%s" % clean,
-        global_names = ":%s" % names,
+        scientific_names = ":%s" % scientific,
         ignore = ignore,
     )
 
     if samples != None:
         name_pairs_test(
-            name = "%s_test" % names,
+            name = "%s_test" % scientific,
             src = ":" + name,
             samples = samples,
         )

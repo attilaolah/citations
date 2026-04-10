@@ -1,6 +1,6 @@
 """Rule for extracting global scientific names from source publication content."""
 
-def _global_names_impl(ctx):
+def _scientific_names_impl(ctx):
     src = ctx.file.src
     gnfinder = ctx.file.gnfinder
     python_bin = ctx.file._python
@@ -21,14 +21,14 @@ def _global_names_impl(ctx):
         inputs = [src, gnfinder, python_bin],
         outputs = [out],
         tools = [extractor],
-        mnemonic = "GlobalNames",
-        progress_message = "Extracting global names from %s" % src.short_path,
+        mnemonic = "ScientificNames",
+        progress_message = "Extracting scientific names from %s" % src.short_path,
     )
 
     return DefaultInfo(files = depset([out]))
 
-global_names = rule(
-    implementation = _global_names_impl,
+scientific_names = rule(
+    implementation = _scientific_names_impl,
     attrs = {
         "basename": attr.string(mandatory = True),
         "gnfinder": attr.label(
@@ -43,7 +43,7 @@ global_names = rule(
         "_extractor": attr.label(
             cfg = "exec",
             executable = True,
-            default = "//tools/extract:global_names",
+            default = "//tools/extract:scientific_names",
         ),
         "_python": attr.label(
             cfg = "exec",

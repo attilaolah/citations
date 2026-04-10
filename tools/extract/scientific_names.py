@@ -1,4 +1,4 @@
-"""Extract global names from source documents using gnfinder."""
+"""Extract scientific names from source documents using gnfinder."""
 
 import json
 import re
@@ -7,13 +7,12 @@ import unicodedata
 from os import EX_OK
 from pathlib import Path
 
-from pydantic import FilePath, TypeAdapter
+from pydantic import BaseModel, FilePath, TypeAdapter
 
 from tools.extract.process import run_json_tool
 from tools.settings import IOSettings
 
-_GLOBAL_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
-_GNPFINDER_COMPACT_ADAPTER = TypeAdapter(dict[str, list[dict[str, object]]])
+_SCIENTIFIC_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
 _GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,", " "))
 _REF_RE = re.compile(r"<ref[^>]*>.*?</ref>", flags=re.IGNORECASE | re.DOTALL)
 _ASCII_UPPER_WORD_RE = re.compile(r"[A-Z][A-Za-z-]+")
@@ -44,13 +43,13 @@ def _main() -> int:
         parsed = run_json_tool(
             argv=[str(settings.gnfinder), "--format", "compact", "--utf8-input", normalized_input_path],
             context=f"gnfinder failed for input {settings.input}",
-            adapter=_GNPFINDER_COMPACT_ADAPTER,
+            adapter=TypeAdapter(_GNFinderCompactResult),
         )
     finally:
         Path(normalized_input_path).unlink(missing_ok=True)
 
-    filtered_names = [entry for entry in parsed["names"] if _is_scientific_name(str(entry.get("name", "")))]
-    names = _GLOBAL_NAMES_ADAPTER.validate_python(filtered_names)
+    filtered_names = [entry for entry in parsed.names if _is_scientific_name(str(entry.get("name", "")))]
+    names = _SCIENTIFIC_NAMES_ADAPTER.validate_python(filtered_names)
     settings.output.write_text(
         json.dumps(names, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -60,6 +59,12 @@ def _main() -> int:
 
 class _Settings(IOSettings):
     gnfinder: FilePath
+
+
+class _GNFinderCompactResult(BaseModel):
+    """Subset of compact gnfinder output needed by this extractor."""
+
+    names: list[dict[str, object]]
 
 
 def _strip_diacritics(value: str) -> str:
