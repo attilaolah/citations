@@ -854,7 +854,7 @@ def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    settings = IOSettings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings.from_args()
 
     lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     mapping = _extract_pairs(lines)

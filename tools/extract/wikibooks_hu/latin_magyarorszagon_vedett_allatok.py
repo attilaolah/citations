@@ -262,7 +262,7 @@ def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
 
 
 def _main() -> int:
-    settings = IOSettings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings.from_args()
 
     lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     pairs = _extract_pairs(lines)

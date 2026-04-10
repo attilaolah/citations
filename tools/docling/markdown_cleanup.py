@@ -28,7 +28,7 @@ def main() -> int:
     Returns:
         Process exit code.
     """
-    settings = IOSettings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings.from_args()
     settings.output.write_text(
         _clean_markdown(settings.input.read_text(encoding="utf-8")),
         encoding="utf-8",

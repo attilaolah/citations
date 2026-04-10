@@ -19,7 +19,7 @@ _REVISION_PATH_DEPTH = 2
 
 def main() -> None:
     """Run the extraction CLI."""
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = _Settings.from_args()
     content = _extract_wiki_page_text(input_path=settings.input, title=settings.title)
     settings.output.write_text(content, encoding="utf-8")
 

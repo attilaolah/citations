@@ -77,7 +77,7 @@ def _is_scientific_name(value: str) -> bool:
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = _Settings.from_args()
     src_text = settings.input.read_text(encoding="utf-8", errors="replace")
     src_text = REF_RE.sub(" ", src_text)
     normalized_text = src_text.translate(GNFINDER_BOUNDARY_PUNCTUATION)

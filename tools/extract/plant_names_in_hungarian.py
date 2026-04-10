@@ -90,7 +90,7 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    settings = IOSettings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings.from_args()
 
     mapping = _extract_pairs(settings.input.read_bytes())
     sorted_mapping = {

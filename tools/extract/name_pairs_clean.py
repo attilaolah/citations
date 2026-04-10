@@ -108,7 +108,7 @@ def _clean_entry(raw: dict[str, object], vernaculars: list[str | VernacularName]
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = _Settings.from_args()
     pairs = PAIRS_ADAPTER.validate_json(settings.input.read_bytes())
 
     cleaned_entries: list[dict[str, object]] = [
