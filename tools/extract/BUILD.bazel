@@ -2,7 +2,6 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 exports_files(
     [
-        "known_homonyms_test.py",
         "name_pairs_completeness_test.py",
         "name_pairs_test.py",
     ],
@@ -84,4 +83,11 @@ py_binary(
         ":known_typos",
         "//tools:settings",
     ],
+)
+
+py_library(
+    name = "known_homonyms_test",
+    testonly = True,
+    srcs = ["known_homonyms_test.py"],
+    visibility = ["//external_sources:__pkg__"],
 )
