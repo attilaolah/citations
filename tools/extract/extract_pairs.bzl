@@ -46,7 +46,14 @@ _name_pairs = rule(
     },
 )
 
-def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
+def name_pairs(
+        name,
+        src,
+        tool,
+        samples = None,
+        ignore = None,
+        completeness_tests = True,
+        **kwargs):
     """Build extraction output and companion validation targets for one source file.
 
     Args:
@@ -55,6 +62,8 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
       tool: Executable label used to extract raw name pairs.
       samples: Optional sample fixture label for `name_pairs_test`.
       ignore: Optional ignore-list label for completeness checks.
+      completeness_tests: When true, generate scientific-name extraction and
+          completeness test targets.
       **kwargs: Extra attributes forwarded to the underlying extraction rule.
     """
     _name_pairs(
@@ -72,18 +81,19 @@ def name_pairs(name, src, tool, samples = None, ignore = None, **kwargs):
     )
 
     scientific = "%s_scientific_names" % name
-    scientific_names(
-        name = scientific,
-        basename = name,
-        src = src,
-    )
+    if completeness_tests:
+        scientific_names(
+            name = scientific,
+            basename = name,
+            src = src,
+        )
 
-    name_pairs_completeness_test(
-        name = "%s_completeness_test" % name,
-        clean = ":%s" % clean,
-        scientific_names = ":%s" % scientific,
-        ignore = ignore,
-    )
+        name_pairs_completeness_test(
+            name = "%s_completeness_test" % name,
+            clean = ":%s" % clean,
+            scientific_names = ":%s" % scientific,
+            ignore = ignore,
+        )
 
     if samples != None:
         name_pairs_test(

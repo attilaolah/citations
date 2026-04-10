@@ -34,12 +34,8 @@ _DROP_FIELDS = {
 CleanStep = Callable[[dict[str, object], list[str | VernacularName]], dict[str, object]]
 
 
-def _normalize_gnparser_candidate(name: str) -> str:
-    return name.title() if name.isupper() else name
-
-
 def _run_gnparser(gnparser_bin: Path, key: str) -> dict[str, object]:
-    candidate = _normalize_gnparser_candidate(key)
+    candidate = key.capitalize()
     parsed = run_json_tool(
         argv=[str(gnparser_bin), candidate, "--format", "compact"],
         context=f"gnparser failed for key={key!r} candidate={candidate!r}",

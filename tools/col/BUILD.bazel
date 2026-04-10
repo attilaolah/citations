@@ -11,7 +11,10 @@ exports_files(
 py_library(
     name = "lookup",
     srcs = ["lookup.py"],
-    visibility = ["//tools/col:__pkg__"],
+    visibility = [
+        "//tools/col:__pkg__",
+        "//tools/extract:__pkg__",
+    ],
     deps = ["//tools/python:nix_site_packages"],
 )
 

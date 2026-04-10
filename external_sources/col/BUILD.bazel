@@ -8,4 +8,5 @@ exports_files(
 col_name_db(
     name = "name_index",
     name_usage = "@col_xr_coldp//:name_usage",
+    visibility = ["//external_sources:__subpackages__"],
 )

@@ -6,6 +6,7 @@ load("//tools/wiki:wiki_page.bzl", "ABC_SHORT")
     name_pairs(
         name = "%s_pairs" % name,
         src = "@%s//file" % name,
+        completeness_tests = False,
         tool = "//tools/extract:%s" % name,
     )
     for name in [
