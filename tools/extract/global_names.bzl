@@ -43,7 +43,7 @@ global_names = rule(
         "_extractor": attr.label(
             cfg = "exec",
             executable = True,
-            default = "//tools/extract:global_names_tool",
+            default = "//tools/extract:global_names",
         ),
         "_python": attr.label(
             cfg = "exec",

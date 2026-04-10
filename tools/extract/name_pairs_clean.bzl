@@ -45,7 +45,7 @@ name_pairs_clean = rule(
         "_cleaner": attr.label(
             cfg = "exec",
             executable = True,
-            default = "//tools/extract:name_pairs_clean_tool",
+            default = "//tools/extract:name_pairs_clean",
         ),
         "_python": attr.label(
             cfg = "exec",
