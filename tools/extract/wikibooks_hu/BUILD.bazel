@@ -8,6 +8,7 @@ py_binary(
     ],
     main = "latin_magyarorszagon_vedett_allatok.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
+    deps = ["//tools:settings"],
 )
 
 py_binary(
@@ -18,4 +19,5 @@ py_binary(
     ],
     main = "novenyek_magyar_latin_nepies.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
+    deps = ["//tools:settings"],
 )

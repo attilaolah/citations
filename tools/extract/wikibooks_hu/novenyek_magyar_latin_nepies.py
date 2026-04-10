@@ -5,13 +5,11 @@ import operator
 import re
 import unicodedata
 from itertools import starmap
-from pathlib import Path  # NOQA: TC003
 
 from Levenshtein import distance as levenshtein_distance
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_hungarian_canonical
+from tools.settings import IOSettings
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 LATIN_PAREN_LINK_RE = re.compile(r"''\s*\(\s*\[\[([^\]|]+)(?:\|([^\]]*))?\]\]\s*\)\s*''")
@@ -112,13 +110,6 @@ OR_SPLIT_TWO_NAMES = 2
 COMPOUND_PREFIX_ADJECTIVES = ("édes",)
 LEVENSHTEIN_MAX_DISTANCE = 2
 REPEATED_HEAD_PARTS = 4
-
-
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _strip_markup(text: str) -> str:
@@ -863,7 +854,7 @@ def _extract_pairs(lines: list[str]) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings()  # pyright: ignore[reportCallIssue]
 
     lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     mapping = _extract_pairs(lines)

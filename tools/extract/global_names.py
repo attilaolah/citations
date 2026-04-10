@@ -8,7 +8,8 @@ import unicodedata
 from pathlib import Path
 
 from pydantic import BaseModel, FilePath, TypeAdapter
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from tools.settings import IOSettings
 
 
 class GNFinderCompactResult(BaseModel):
@@ -17,12 +18,8 @@ class GNFinderCompactResult(BaseModel):
     names: list[dict[str, object]]
 
 
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
+class _Settings(IOSettings):
     gnfinder: FilePath
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 GLOBAL_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])

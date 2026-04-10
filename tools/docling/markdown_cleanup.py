@@ -2,10 +2,8 @@
 
 import re
 from enum import Enum
-from pathlib import Path  # NOQA: TC003
 
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from tools.settings import IOSettings
 
 
 class _Re(Enum):
@@ -24,20 +22,13 @@ class _Re(Enum):
     three_plus_newlines = re.compile(r"\n{3,}")
 
 
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
-
-
 def main() -> int:
     """Run the Markdown cleanup CLI.
 
     Returns:
         Process exit code.
     """
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings()  # pyright: ignore[reportCallIssue]
     settings.output.write_text(
         _clean_markdown(settings.input.read_text(encoding="utf-8")),
         encoding="utf-8",

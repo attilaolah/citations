@@ -15,6 +15,7 @@ py_binary(
     srcs = ["global_names.py"],
     main = "global_names.py",
     visibility = ["//external_sources:__subpackages__"],
+    deps = ["//tools:settings"],
 )
 
 py_binary(
@@ -25,6 +26,7 @@ py_binary(
     ],
     main = "name_pairs_clean.py",
     visibility = ["//external_sources:__subpackages__"],
+    deps = ["//tools:settings"],
 )
 
 py_binary(
@@ -32,6 +34,7 @@ py_binary(
     srcs = ["enfo_hu.py"],
     main = "enfo_hu.py",
     visibility = ["//external_sources/enfo_hu:__pkg__"],
+    deps = ["//tools:settings"],
 )
 
 py_binary(
@@ -42,4 +45,5 @@ py_binary(
     ],
     main = "plant_names_in_hungarian.py",
     visibility = ["//external_sources:__pkg__"],
+    deps = ["//tools:settings"],
 )

@@ -2,13 +2,11 @@
 
 import json
 import re
-from pathlib import Path  # NOQA: TC003
 
 from lxml import html
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_known_hungarian_typo
+from tools.settings import IOSettings
 
 LATIN_ALLOWED_RE = re.compile(r"^[A-Za-z .-]+$")
 LATIN_WORD_RE = re.compile(r"^[a-z][a-z-]*$")
@@ -19,13 +17,6 @@ MIN_COLUMN_COUNT = 3
 SINGLE_TOKEN_COUNT = 1
 PAIR_TOKEN_COUNT = 2
 RANKED_REST_TOKEN_COUNT = 2
-
-
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _normalized_text(value: str) -> str:
@@ -99,7 +90,7 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings()  # pyright: ignore[reportCallIssue]
 
     mapping = _extract_pairs(settings.input.read_bytes())
     sorted_mapping = {

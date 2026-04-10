@@ -5,4 +5,5 @@ py_binary(
     srcs = ["wiki_page.py"],
     main = "wiki_page.py",
     visibility = ["//external_sources/wikibooks_hu:__pkg__"],
+    deps = ["//tools:settings"],
 )

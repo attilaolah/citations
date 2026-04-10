@@ -2,23 +2,15 @@
 
 import json
 import re
-from pathlib import Path  # NOQA: TC003
 
 from lxml import html
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from tools.settings import IOSettings
 
 ANCHOR_XPATH = "//a[@hreflang='hu' and starts-with(@href, '/node/')]"
 PAIR_RE = re.compile(r"^(?P<hungarian>.+?)\s*\((?P<latin>.+)\)\s*$")
 LATIN_RE = re.compile(r"(?P<latin>[A-Z][a-z-]+(?: [a-z][a-z-]+){1,3})")
 PARENS_RE = re.compile(r"\([^)]*\)")
-
-
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _extract_latin_name(raw_latin: str) -> str | None:
@@ -53,7 +45,7 @@ def _extract_pairs(content: bytes) -> dict[str, set[str]]:
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings()  # pyright: ignore[reportCallIssue]
 
     mapping = _extract_pairs(settings.input.read_bytes())
     sorted_mapping = {

@@ -6,9 +6,9 @@ from collections.abc import Callable
 from pathlib import Path  # NOQA: TC003
 
 from pydantic import BaseModel, FilePath, TypeAdapter
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_hungarian_light_canonical
+from tools.settings import IOSettings
 
 
 class VernacularName(BaseModel):
@@ -18,12 +18,8 @@ class VernacularName(BaseModel):
     canonical: str | None = None
 
 
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
+class _Settings(IOSettings):
     gnparser: FilePath
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 PAIRS_ADAPTER = TypeAdapter(dict[str, list[str | VernacularName]])

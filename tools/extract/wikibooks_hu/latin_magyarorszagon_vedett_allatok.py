@@ -2,12 +2,9 @@
 
 import json
 import re
-from pathlib import Path  # NOQA: TC003
-
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from tools.extract.known_typos import normalize_hungarian_canonical
+from tools.settings import IOSettings
 
 LINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]*))?\]\]")
 PAREN_RE = re.compile(r"\(([^)]*)\)")
@@ -19,13 +16,6 @@ MIN_TABLE_CELLS = 2
 MULTI_LINK_CELL = 2
 THREE_CELL_ROW = 3
 MIN_GENUS_LENGTH = 3
-
-
-class _Settings(BaseSettings):
-    input: FilePath
-    output: Path
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 def _strip_markup(text: str) -> str:
@@ -272,7 +262,7 @@ def _extract_pairs(lines: list[str]) -> list[tuple[str, str]]:
 
 
 def _main() -> int:
-    settings = _Settings()  # pyright: ignore[reportCallIssue]
+    settings = IOSettings()  # pyright: ignore[reportCallIssue]
 
     lines = settings.input.read_text(encoding="utf-8", errors="replace").splitlines()
     pairs = _extract_pairs(lines)

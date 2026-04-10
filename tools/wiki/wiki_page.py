@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING, override
 from xml.sax.handler import ContentHandler
 
 from defusedxml import sax
-from pydantic import FilePath  # NOQA: TC002
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from tools.settings import IOSettings
 
 if TYPE_CHECKING:
     from xml.sax.xmlreader import AttributesImpl
@@ -24,14 +24,10 @@ def main() -> None:
     settings.output.write_text(content, encoding="utf-8")
 
 
-class _Settings(BaseSettings):
+class _Settings(IOSettings):
     """Settings for extracting one wiki page from a dump."""
 
-    input: FilePath
-    output: Path
     title: str
-
-    model_config = SettingsConfigDict(cli_parse_args=True)
 
 
 class _PageFoundError(Exception):
