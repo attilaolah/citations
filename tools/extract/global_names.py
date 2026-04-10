@@ -25,18 +25,7 @@ class _Settings(IOSettings):
 
 GLOBAL_NAMES_ADAPTER = TypeAdapter(list[dict[str, object]])
 GNPFINDER_COMPACT_ADAPTER = TypeAdapter(GNFinderCompactResult)
-GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(
-    {
-        "{": " ",
-        "}": " ",
-        "[": " ",
-        "]": " ",
-        "(": " ",
-        ")": " ",
-        "/": " ",
-        ",": " ",
-    },
-)
+GNFINDER_BOUNDARY_PUNCTUATION = str.maketrans(dict.fromkeys("{}[]()/,", " "))
 REF_RE = re.compile(r"<ref[^>]*>.*?</ref>", flags=re.IGNORECASE | re.DOTALL)
 ASCII_UPPER_WORD_RE = re.compile(r"[A-Z][A-Za-z-]+")
 ASCII_LOWER_WORD_RE = re.compile(r"[a-z][a-z-]*")
