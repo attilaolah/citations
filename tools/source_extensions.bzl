@@ -1,7 +1,7 @@
 """Bzlmod extension for external source repositories and URL manifests."""
 
 _BUILD = """\
-package(default_visibility = ["@@//:__subpackages__"])
+package(default_visibility = ["@@//external_sources:__subpackages__"])
 
 filegroup(
     name = "file",
@@ -9,8 +9,8 @@ filegroup(
 )
 """
 
-_URLS_BUILD = """\
-package(default_visibility = ["@@//:__subpackages__"])
+_BUILD_URLS = """\
+package()
 """
 
 _IPFS_GATEWAYS = [
@@ -18,8 +18,6 @@ _IPFS_GATEWAYS = [
     "gateway.pinata.cloud",
     "dweb.link",
 ]
-
-_WIKIMEDIA_BASE = "https://dumps.wikimedia.org/other/mediawiki_content_current"
 
 def _ipfs_mirror_urls(ipfs_cid):
     return ["https://%s/ipfs/%s" % (gateway, ipfs_cid) for gateway in _IPFS_GATEWAYS]
@@ -30,12 +28,6 @@ def _url_extension(url):
     if "." not in filename:
         return ".txt"
     return "." + filename.rsplit(".", 1)[-1].lower()
-
-def _wikimedia_dump_base_url(site, timestamp):
-    return "%s/%s/%s/xml/bzip2" % (_WIKIMEDIA_BASE, site, timestamp)
-
-def _wikimedia_dump_archive_filename(site, timestamp, pages):
-    return "%s-%s-p1p%d.xml.bz2" % (site, timestamp, pages)
 
 def _xz_source_repo_impl(repository_ctx):
     output_file = "source" + repository_ctx.attr.extension
@@ -64,42 +56,10 @@ _xz_source_repo = repository_rule(
     },
 )
 
-def _wikimedia_dump_repo_impl(repository_ctx):
-    dump_filename = _wikimedia_dump_archive_filename(
-        repository_ctx.attr.site,
-        repository_ctx.attr.timestamp,
-        repository_ctx.attr.pages,
-    )
-    repository_ctx.download_and_extract(
-        url = _wikimedia_dump_base_url(repository_ctx.attr.site, repository_ctx.attr.timestamp) + "/" + dump_filename,
-        sha256 = repository_ctx.attr.sha256,
-        type = "bz2",
-        output = "file/raw",
-    )
-
-    repository_ctx.symlink(
-        "file/raw/" + dump_filename[:-4],
-        "file/source.xml",
-    )
-    repository_ctx.file(
-        "file/BUILD.bazel",
-        content = _BUILD % "source.xml",
-    )
-
-_wikimedia_dump_repo = repository_rule(
-    implementation = _wikimedia_dump_repo_impl,
-    attrs = {
-        "pages": attr.int(mandatory = True),
-        "sha256": attr.string(mandatory = True),
-        "site": attr.string(mandatory = True),
-        "timestamp": attr.string(mandatory = True),
-    },
-)
-
 def _cached_urls_repo_impl(repository_ctx):
     repository_ctx.file(
         "BUILD.bazel",
-        content = _URLS_BUILD,
+        content = _BUILD_URLS,
     )
     repository_ctx.file(
         "urls.txt",
@@ -128,15 +88,6 @@ def _sources_impl(module_ctx):
             )
             cached_urls[external_source.url] = None
 
-        for wikimedia_dump in module.tags.wikimedia_dump:
-            _wikimedia_dump_repo(
-                name = wikimedia_dump.site + "_xml",
-                pages = wikimedia_dump.pages,
-                sha256 = wikimedia_dump.sha256,
-                site = wikimedia_dump.site,
-                timestamp = wikimedia_dump.timestamp,
-            )
-
     _cached_urls_repo(
         name = "cached_urls",
         urls = sorted(cached_urls.keys()),
@@ -153,19 +104,9 @@ _external_source_tag = tag_class(
     },
 )
 
-_wikimedia_dump_tag = tag_class(
-    attrs = {
-        "pages": attr.int(mandatory = True),
-        "sha256": attr.string(mandatory = True),
-        "site": attr.string(mandatory = True),
-        "timestamp": attr.string(mandatory = True),
-    },
-)
-
 sources = module_extension(
     implementation = _sources_impl,
     tag_classes = {
         "external_source": _external_source_tag,
-        "wikimedia_dump": _wikimedia_dump_tag,
     },
 )

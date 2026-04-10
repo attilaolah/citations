@@ -192,8 +192,8 @@
   "moduleExtensions": {
     "//tools:source_extensions.bzl%sources": {
       "general": {
-        "bzlTransitiveDigest": "bj5OkKCNhB73GfDQOLS6xUnLvSBfmP1sqsxQT+ms+M4=",
-        "usagesDigest": "qRu5cenakH6+qzjbgsQuKzmCSD7RROiaWJPAaarAA9k=",
+        "bzlTransitiveDigest": "q4dxodBHYq21UO1zYV3wyWaAMYcioVajvnwFRoa/siU=",
+        "usagesDigest": "SqrVv8tfvcv7R1VEY6s29Lgyd3Z8U9xGHuCSUktXvKg=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "magyar_novenynevek": {
@@ -690,15 +690,6 @@
               "sha256": "401b94081569c6d1aa225ff90a1f22cc718f622f06a85f512a8b06bd55183160"
             }
           },
-          "huwikibooks_xml": {
-            "repoRuleId": "@@//tools:source_extensions.bzl%_wikimedia_dump_repo",
-            "attributes": {
-              "pages": 134162,
-              "sha256": "6cdcd35c3cf46a6c6d920e93d54b162a14e7724dfb29d1d64ca0bd1321a7248b",
-              "site": "huwikibooks",
-              "timestamp": "2026-04-01"
-            }
-          },
           "cached_urls": {
             "repoRuleId": "@@//tools:source_extensions.bzl%_cached_urls_repo",
             "attributes": {
@@ -742,6 +733,24 @@
                 "https://stud.mater.uni-mate.hu/9633/2/835493664_szdmelleklet.pdf",
                 "https://www.tuja.hu/magyar_novenynevek.htm"
               ]
+            }
+          }
+        }
+      }
+    },
+    "//tools/wiki:source_extensions.bzl%wiki_sources": {
+      "general": {
+        "bzlTransitiveDigest": "TYmlGmWIXyMuNFKTGqnx3jJYLxxFmDpqwxBUEC4gWLg=",
+        "usagesDigest": "fiG1reAvrM/MwIqjkrXCgZqr7euuwwC8CHwMluFf2qA=",
+        "recordedInputs": [],
+        "generatedRepoSpecs": {
+          "huwikibooks_xml": {
+            "repoRuleId": "@@//tools/wiki:source_extensions.bzl%_wikimedia_dump_repo",
+            "attributes": {
+              "pages": 134162,
+              "sha256": "6cdcd35c3cf46a6c6d920e93d54b162a14e7724dfb29d1d64ca0bd1321a7248b",
+              "site": "huwikibooks",
+              "timestamp": "2026-04-01"
             }
           }
         }

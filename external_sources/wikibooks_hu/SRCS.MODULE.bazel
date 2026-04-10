@@ -1,13 +1,10 @@
-
-sources = use_extension("//tools:source_extensions.bzl", "sources")
-
+sources = use_extension("//tools/wiki:source_extensions.bzl", "wiki_sources")
 sources.wikimedia_dump(
     pages = 134162,
     sha256 = "6cdcd35c3cf46a6c6d920e93d54b162a14e7724dfb29d1d64ca0bd1321a7248b",
     site = "huwikibooks",
-    timestamp = "2026-04-01"
+    timestamp = "2026-04-01",
 )
-
 use_repo(
     sources,
     "huwikibooks_xml",
