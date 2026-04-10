@@ -7,6 +7,7 @@ def name_pairs_test(name, src, samples, **kwargs):
         name = name,
         srcs = ["//tools/extract:name_pairs_test"],
         main = "name_pairs_test.py",
+        size = "small",
         deps = ["//tools/extract:models"],
         data = [
             src,

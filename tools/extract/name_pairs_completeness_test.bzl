@@ -28,6 +28,7 @@ def name_pairs_completeness_test(name, clean, scientific_names, ignore = None, *
         name = name,
         srcs = ["//tools/extract:name_pairs_completeness_test"],
         main = "name_pairs_completeness_test.py",
+        size = "small",
         deps = ["//tools/extract:models"],
         data = data,
         env = env,
