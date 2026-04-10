@@ -1,8 +1,9 @@
 """Rule for cleaning extracted name pairs with gnparser-backed normalization."""
 
+load("//tools/python:actions.bzl", "run_py")
+
 def _name_pairs_clean_impl(ctx):
     src = ctx.file.src
-    python_bin = ctx.file._python
     cleaner = ctx.executable._cleaner
     gnparser = ctx.file.gnparser
     basename = ctx.label.name
@@ -15,13 +16,11 @@ def _name_pairs_clean_impl(ctx):
     args.add("--output", out.path)
     args.add("--gnparser", gnparser.path)
 
-    ctx.actions.run(
+    run_py(
+        ctx,
         executable = cleaner,
         arguments = [args],
-        env = {
-            "PATH": python_bin.path.rsplit("/", 1)[0],
-        },
-        inputs = [src, gnparser, python_bin],
+        inputs = [src, gnparser],
         outputs = [out],
         tools = [cleaner],
         mnemonic = "CleanNamePairs",

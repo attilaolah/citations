@@ -1,9 +1,10 @@
 """Rule for extracting global scientific names from source publication content."""
 
+load("//tools/python:actions.bzl", "run_py")
+
 def _scientific_names_impl(ctx):
     src = ctx.file.src
     gnfinder = ctx.file.gnfinder
-    python_bin = ctx.file._python
     extractor = ctx.executable._extractor
     out = ctx.actions.declare_file(ctx.attr.basename + ".names.json")
 
@@ -12,13 +13,11 @@ def _scientific_names_impl(ctx):
     args.add("--output", out.path)
     args.add("--gnfinder", gnfinder.path)
 
-    ctx.actions.run(
+    run_py(
+        ctx,
         executable = extractor,
         arguments = [args],
-        env = {
-            "PATH": python_bin.path.rsplit("/", 1)[0],
-        },
-        inputs = [src, gnfinder, python_bin],
+        inputs = [src, gnfinder],
         outputs = [out],
         tools = [extractor],
         mnemonic = "ScientificNames",

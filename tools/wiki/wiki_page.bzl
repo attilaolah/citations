@@ -1,5 +1,7 @@
 """Rule for extracting one page text from a MediaWiki XML dump."""
 
+load("//tools/python:actions.bzl", "run_py")
+
 # The Hungarian "shorc" alphabet.
 # Keys are as they appear in titles and text, values are used for build targets.
 ABC_SHORT = {
@@ -9,7 +11,6 @@ ABC_SHORT = {
 
 def _wiki_page_impl(ctx):
     src = ctx.file.src
-    python_bin = ctx.file._python
     out = ctx.actions.declare_file(ctx.label.name + ".txt")
 
     args = ctx.actions.args()
@@ -17,13 +18,11 @@ def _wiki_page_impl(ctx):
     args.add("--title", ctx.attr.title)
     args.add("--output", out.path)
 
-    ctx.actions.run(
+    run_py(
+        ctx,
         executable = ctx.executable._tool,
         arguments = [args],
-        env = {
-            "PATH": python_bin.path.rsplit("/", 1)[0],
-        },
-        inputs = [src, python_bin],
+        inputs = [src],
         outputs = [out],
         tools = [ctx.executable._tool],
         mnemonic = "WikiPage",

@@ -4,23 +4,21 @@ load("//tools/extract:name_pairs_clean.bzl", "name_pairs_clean")
 load("//tools/extract:name_pairs_completeness_test.bzl", "name_pairs_completeness_test")
 load("//tools/extract:name_pairs_test.bzl", "name_pairs_test")
 load("//tools/extract:scientific_names.bzl", "scientific_names")
+load("//tools/python:actions.bzl", "run_py")
 
 def _extract_pairs_impl(ctx):
     src = ctx.file.src
-    python_bin = ctx.file._python
     out = ctx.actions.declare_file(ctx.label.name + ".json")
 
     args = ctx.actions.args()
     args.add("--input", src.path)
     args.add("--output", out.path)
 
-    ctx.actions.run(
+    run_py(
+        ctx,
         executable = ctx.executable.tool,
         arguments = [args],
-        env = {
-            "PATH": python_bin.path.rsplit("/", 1)[0],
-        },
-        inputs = [src, python_bin],
+        inputs = [src],
         outputs = [out],
         mnemonic = "ExtractPairs",
         progress_message = "Extracting name pairs from %s" % src.short_path,

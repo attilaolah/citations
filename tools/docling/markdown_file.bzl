@@ -1,6 +1,7 @@
 """Rule for extracting normalized Markdown from document files via Docling."""
 
 load("//tools/docling/models:models.bzl", "ModelsInfo")
+load("//tools/python:actions.bzl", "run_py")
 
 _SOFFICE_WRAPPER_TEMPLATE = """#!/usr/bin/env bash
 exec "{soffice}" \
@@ -77,15 +78,13 @@ def _markdown_file_impl(ctx):
     clean_args = ctx.actions.args()
     clean_args.add("--input", raw_out.path)
     clean_args.add("--output", out.path)
-    ctx.actions.run(
+    run_py(
+        ctx,
         executable = ctx.executable._markdown_cleanup,
         arguments = [clean_args],
         inputs = [raw_out],
         outputs = [out],
-        tools = [ctx.executable._markdown_cleanup, ctx.file._python],
-        env = {
-            "PATH": ctx.file._python.path.rsplit("/", 1)[0],
-        },
+        tools = [ctx.executable._markdown_cleanup],
         mnemonic = "CleanMarkdown",
         progress_message = "Cleaning extracted Markdown for %s" % src.short_path,
     )
